@@ -1,2 +1,2 @@
-# microblog
-experience, learn, experiment
+# life
+enterprise, explore, experiment, expand, exploit, experience, evolve, eternity
