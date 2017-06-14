@@ -12,6 +12,7 @@
     <jdk.version>1.8</jdk.version>
     <spring.version>4.3.9.RELEASE</spring.version>
     <testng.version>6.8</testng.version>
+    <mysql.connector.version>5.1.42</mysql.connector.version>
   </properties>
 
   <build>
@@ -74,7 +75,7 @@
     <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
-      <version>6.0.6</version>
+      <version>${mysql.connector.version}</version>
     </dependency>
     <dependency>
       <groupId>javax.servlet</groupId>

@@ -23,7 +23,7 @@ public class JDBCTester {
 
         try {
             connection = DriverManager
-            .getConnection("jdbc:mysql://localhost:3306/life_user","root", "admin");
+            .getConnection("jdbc:mysql://localhost:3306/life_common","root", "admin");
 
         } catch (SQLException e) {
             System.out.println("Connection Failed! Check output console");

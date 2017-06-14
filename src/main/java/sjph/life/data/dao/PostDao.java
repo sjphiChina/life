@@ -1,5 +1,7 @@
 package sjph.life.data.dao;
 
+import java.util.List;
+
 import sjph.life.data.model.Post;
 
 /**
@@ -10,9 +12,9 @@ public interface PostDao {
 
     /**
      * @param post
-     * @return
+     * @return the ID of {@link Post} table record created
      */
-    int createPost(Post post);
+    Long createPost(Post post);
 
     /**
      * @param id
@@ -21,10 +23,16 @@ public interface PostDao {
     int deletePost(Long id);
 
     /**
-     * @param id
+     * @param postId post id
      * @return
      */
-    Post findPost(Long id);
+    Post findPost(Long postId);
+
+    /**
+     * @param userId user id
+     * @return
+     */
+    List<Post> findPosts(Long userId);
 
     /**
      * @param post
