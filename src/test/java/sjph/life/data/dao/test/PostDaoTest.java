@@ -4,6 +4,7 @@ import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -31,22 +32,21 @@ public class PostDaoTest extends AbstractTestNGSpringContextTests {
      */
     @Test
     public void testCreatePost() {
-        Instant instant = Instant.now();
-
-        System.out.println("Instant : " + instant);
-
-        ZonedDateTime time = instant.atZone(ZoneId.of("America/Los_Angeles"));
-
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd, HHmmss");
-
-        System.out.println("LocalDateTime : " + format.format(time));
-        Post post = new Post(1l, "Hello World", 1l, time, time);
-        Assert.assertEquals(postDao.createPost(post), 1l);
+//        Instant instant = Instant.now();
+//        System.out.println("Instant : " + instant);
+//        ZonedDateTime time = instant.atZone(ZoneId.of("America/Los_Angeles"));
+//        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd, HHmmss");
+//        System.out.println("LocalDateTime : " + format.format(time));
+        Date date = new Date();
+        Post post = new Post("Hello World!", 1l, date, date);
+        long id = postDao.createPost(post);
+        Assert.assertEquals(id, 8l);
     }
 
     @Test
     public void testFindPost() {
-        Post post = new Post(1l, "Hello World", 1l, new ZonedDateTime(), new ZonedDateTime());
-        Assert.assertEquals(postDao.findPost(1l), 1);
+        Post post = postDao.findPost(4l);
+        
+        Assert.assertEquals(post.getContent(), "Hello World!");
     }
 }

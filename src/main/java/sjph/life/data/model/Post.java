@@ -1,7 +1,7 @@
 package sjph.life.data.model;
 
-// import java.util.Date;
-import java.time.ZonedDateTime;
+import java.util.Date;
+//import java.time.ZonedDateTime;
 /**
  * @author shaoguo
  *
@@ -13,11 +13,11 @@ public class Post {
     private final Long          id;
     private String              content;
     private final Long          userId;
-    private final ZonedDateTime createdDate;
-    private ZonedDateTime       modifiedDate;
+    private final Date createdDate;
+    private Date       modifiedDate;
 
-    public Post(String content, Long userId, ZonedDateTime createdDate,
-            ZonedDateTime modifiedDate) {
+    public Post(String content, Long userId, Date createdDate,
+            Date modifiedDate) {
         super();
         this.id = null;
         this.content = content;
@@ -26,8 +26,8 @@ public class Post {
         this.modifiedDate = modifiedDate;
     }
 
-    public Post(Long id, String content, Long userId, ZonedDateTime createdDate,
-            ZonedDateTime modifiedDate) {
+    public Post(Long id, String content, Long userId, Date createdDate,
+            Date modifiedDate) {
         super();
         this.id = id;
         this.content = content;
@@ -44,11 +44,11 @@ public class Post {
         return content;
     }
 
-    public ZonedDateTime getCreatedDate() {
+    public Date getCreatedDate() {
         return createdDate;
     }
 
-    public ZonedDateTime getModifiedDate() {
+    public Date getModifiedDate() {
         return modifiedDate;
     }
 
@@ -60,7 +60,7 @@ public class Post {
         this.content = content;
     }
 
-    public void setModifiedDate(ZonedDateTime modifiedDate) {
+    public void setModifiedDate(Date modifiedDate) {
         this.modifiedDate = modifiedDate;
     }
 

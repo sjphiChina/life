@@ -9,13 +9,13 @@
   <display-name>life</display-name>
 
   <servlet>
-    <servlet-name>life</servlet-name>
+    <servlet-name>serviceDispatcher</servlet-name>
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
     <load-on-startup>1</load-on-startup>
   </servlet>
 
   <servlet-mapping>
-    <servlet-name>life</servlet-name>
+    <servlet-name>serviceDispatcher</servlet-name>
     <url-pattern>/</url-pattern>
   </servlet-mapping>
 
@@ -27,4 +27,8 @@
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
+
+  <welcome-file-list>
+    <welcome-file>greeting.html</welcome-file>
+  </welcome-file-list>
 </web-app>

@@ -1,5 +1,7 @@
 package sjph.life.data.dao.impl;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -8,7 +10,11 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
+
 
 import sjph.life.data.dao.PostDao;
 import sjph.life.data.dao.PostSchema;
@@ -34,7 +40,7 @@ public class PostDaoImpl implements PostDao {
             "FROM " +
             PostSchema.tableName + " " +
             "WHERE " + 
-            PostSchema.USER_ID + " = ?";
+            PostSchema.ID + " = ?";
     
     private static final String CREATE_POST_SQL = 
             "INSERT INTO " +
@@ -64,9 +70,26 @@ public class PostDaoImpl implements PostDao {
     }
 
     @Override
-    public int createPost(Post post) {
-        return jdbcTemplate.update(CREATE_POST_SQL, post.getContent(), post.getCreatedDate(),
-                post.getModifiedDate(), post.getUserId());
+    public Long createPost(Post post) {
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+            new PreparedStatementCreator() {
+                public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+                    PreparedStatement ps =
+                        connection.prepareStatement(CREATE_POST_SQL, new String[] {PostSchema.ID.name()});
+                    ps.setString(1, post.getContent());
+                    ps.setLong(2, post.getUserId());
+                    ps.setObject(3, post.getCreatedDate());
+                    ps.setObject(4, post.getModifiedDate());
+                    return ps;
+                }
+            },
+            keyHolder);
+        return keyHolder.getKey().longValue();
+        
+        
+//        return jdbcTemplate.update(CREATE_POST_SQL, post.getContent(), post.getCreatedDate(),
+//                post.getModifiedDate(), post.getUserId());
     }
 
     @Override
