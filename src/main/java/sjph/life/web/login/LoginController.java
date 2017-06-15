@@ -1,10 +1,12 @@
 package sjph.life.web.login;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * @author shaohuiguo
@@ -13,17 +15,27 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class LoginController {
 
-    /**
-     * @param name name
-     * @param model ?
-     * @return page
-     */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String greeting(
-            @RequestParam(value = "name", required = false, defaultValue = "World") String name,
-            ModelMap model) {
+    public String login(HttpServletRequest request, HttpServletResponse res) {
+        return "Login";
+    }
+
+    /**
+     * @param request
+     * @param res
+     * @return
+     */
+    @RequestMapping(value = "/loginSubmit", method = RequestMethod.GET)
+    public ModelAndView loginSubmit(HttpServletRequest request, HttpServletResponse res) {
         System.out.println("Work hard, Good luck!");
-        model.addAttribute("name", name);
-        return "Greeting";
+        String name = request.getParameter("name");
+        String password = request.getParameter("password");
+        if (password.equals("admin")) {
+            String message = name;
+            return new ModelAndView("greeting", "name", message);
+        }
+        else {
+            return new ModelAndView("errorpage", "message", "Sorry, username or password error");
+        }
     }
 }

@@ -21,7 +21,7 @@
 
   <context-param>
     <param-name>contextConfigLocation</param-name>
-    <param-value>/WEB-INF/life-servlet.xml</param-value>
+    <param-value>/WEB-INF/serviceDispatcher-servlet.xml</param-value>
   </context-param>
 
   <listener>
@@ -29,6 +29,6 @@
   </listener>
 
   <welcome-file-list>
-    <welcome-file>greeting.html</welcome-file>
+    <welcome-file>greeting.jsp</welcome-file>
   </welcome-file-list>
 </web-app>
