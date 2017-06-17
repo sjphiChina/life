@@ -17,6 +17,7 @@ public class LoginController {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(HttpServletRequest request, HttpServletResponse res) {
+        System.out.println("/login-------Work hard, Good luck!");
         return "Login";
     }
 
@@ -25,14 +26,15 @@ public class LoginController {
      * @param res
      * @return
      */
-    @RequestMapping(value = "/loginSubmit", method = RequestMethod.GET)
+    @RequestMapping(value = "/loginSubmit", method = RequestMethod.POST)
     public ModelAndView loginSubmit(HttpServletRequest request, HttpServletResponse res) {
         System.out.println("Work hard, Good luck!");
         String name = request.getParameter("name");
         String password = request.getParameter("password");
+        System.out.println("password: " + password);
         if (password.equals("admin")) {
             String message = name;
-            return new ModelAndView("greeting", "name", message);
+            return new ModelAndView("Greeting", "name", message);
         }
         else {
             return new ModelAndView("errorpage", "message", "Sorry, username or password error");

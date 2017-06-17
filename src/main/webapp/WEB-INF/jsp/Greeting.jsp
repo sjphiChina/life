@@ -9,4 +9,7 @@
    <body>
       <h2>Welcome, ${name}!</h2>
    </body>
+   
+   <p><a href="addPost">Add Post</a>  
+   <p><a href="PostsView">View Posts</a>  
 </html>

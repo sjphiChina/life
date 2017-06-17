@@ -11,10 +11,10 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
-
 
 import sjph.life.data.dao.PostDao;
 import sjph.life.data.dao.PostSchema;
@@ -28,37 +28,72 @@ import sjph.life.data.model.Post;
 public class PostDaoImpl implements PostDao {
 
     //@formatter:off
-    private static final String FULL_TABLE_COLUMNS_SQL = 
-            PostSchema.ID + ", " +
+    private static final String FULL_TABLE_COLUMNS_SQL =
+                    PostSchema.ID + ", " +
                     PostSchema.CONTENT + ", " +
-                    PostSchema.USER_ID + ", " + 
+                    PostSchema.USER_ID + ", " +
                     PostSchema.CREATED_DT + ", " +
                     PostSchema.MODIFIED_DT;
-    
-    private static final String SELECT_FULL_TABLE_COLUMNS_SQL = 
-            "SELECT " + FULL_TABLE_COLUMNS_SQL + " " +
-            "FROM " +
-            PostSchema.tableName + " " +
-            "WHERE " + 
-            PostSchema.ID + " = ?";
-    
-    private static final String CREATE_POST_SQL = 
+
+/**create section    */
+    private static final String CREATE_POST =
             "INSERT INTO " +
                     PostSchema.tableName +
                     "( " +
                     PostSchema.CONTENT + ", " +
-                    PostSchema.USER_ID + ", " + 
+                    PostSchema.USER_ID + ", " +
                     PostSchema.CREATED_DT + ", " +
-                    PostSchema.MODIFIED_DT + " " + 
+                    PostSchema.MODIFIED_DT + " " +
                     ") " +
             "VALUES " +
                     "( ?, ?, ?, ?)";
+
+/**select section    */
+    private static final String SELECT_FULL_TABLE_COLUMNS_SQL =
+            "SELECT " +
+                    FULL_TABLE_COLUMNS_SQL + " " +
+            "FROM " +
+                    PostSchema.tableName;
+
+    private static final String FIND = SELECT_FULL_TABLE_COLUMNS_SQL;
+
+    private static final String FIND_BY_ID =
+            SELECT_FULL_TABLE_COLUMNS_SQL + " " +
+            "WHERE " +
+                    PostSchema.ID + " = ?";
+
+    private static final String FIND_BY_USER_ID =
+            SELECT_FULL_TABLE_COLUMNS_SQL +
+            "WHERE " +
+                    PostSchema.USER_ID + " = ?";
+
+/**update section    */
+    private static final String UPDATE_TABLE_SQL =
+            "UPDATE " +
+                    PostSchema.tableName;
     
-    private static final String DELETE_POST_SQL = 
+    private static final String UPDATE_CONTENT =
+            UPDATE_TABLE_SQL + " " +
+            "SET " +
+                    PostSchema.CONTENT + " = ?, " +
+                    PostSchema.MODIFIED_DT + "= ? " +
+            "WHERE " +
+                    PostSchema.ID + " = ?";
+
+/**delete section    */
+    private static final String DELETE_POST_SQL =
             "DELETE FROM " +
-                    PostSchema.tableName + " " +
+                    PostSchema.tableName;
+
+    private static final String DELETE_POST_BY_ID =
+            DELETE_POST_SQL + " " +
             "WHERE " +
                     PostSchema.ID + " = ? ";
+
+    private static final String DELETE_POST_BY_USER_ID =
+            DELETE_POST_SQL + " " +
+            "WHERE " +
+                    PostSchema.USER_ID + " = ? ";
     //@formatter:on
 
     private final PostRowMapper postRowMapper                 = new PostRowMapper();
@@ -72,48 +107,60 @@ public class PostDaoImpl implements PostDao {
     @Override
     public Long createPost(Post post) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        jdbcTemplate.update(
-            new PreparedStatementCreator() {
-                public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-                    PreparedStatement ps =
-                        connection.prepareStatement(CREATE_POST_SQL, new String[] {PostSchema.ID.name()});
-                    ps.setString(1, post.getContent());
-                    ps.setLong(2, post.getUserId());
-                    ps.setObject(3, post.getCreatedDate());
-                    ps.setObject(4, post.getModifiedDate());
-                    return ps;
-                }
-            },
-            keyHolder);
+        jdbcTemplate.update(new PreparedStatementCreator() {
+            public PreparedStatement createPreparedStatement(Connection connection)
+                    throws SQLException {
+                PreparedStatement ps = connection.prepareStatement(CREATE_POST,
+                        new String[] { PostSchema.ID.name() });
+                ps.setString(1, post.getContent());
+                ps.setLong(2, post.getUserId());
+                ps.setObject(3, post.getCreatedDate());
+                ps.setObject(4, post.getModifiedDate());
+                return ps;
+            }
+        }, keyHolder);
         return keyHolder.getKey().longValue();
-        
-        
-//        return jdbcTemplate.update(CREATE_POST_SQL, post.getContent(), post.getCreatedDate(),
-//                post.getModifiedDate(), post.getUserId());
+        // return jdbcTemplate.update(CREATE_POST_SQL, post.getContent(), post.getCreatedDate(),
+        // post.getModifiedDate(), post.getUserId());
     }
 
     @Override
-    public int deletePost(Long id) {
-        return jdbcTemplate.update(DELETE_POST_SQL, id);
+    public List<Post> findPosts() {
+        return jdbcTemplate.query(FIND, postRowMapper);
     }
 
     @Override
-    public Post findPost(Long postId) {
-        final Object[] sqlParameters = new Object[] { postId };
-        return jdbcTemplate.queryForObject(SELECT_FULL_TABLE_COLUMNS_SQL, sqlParameters,
-                postRowMapper);
+    public Post findPost(Long id) {
+        final Object[] sqlParameters = new Object[] { id };
+        return jdbcTemplate.queryForObject(FIND_BY_ID, sqlParameters, postRowMapper);
     }
 
     @Override
     public List<Post> findPosts(Long userId) {
-        // TODO Auto-generated method stub
-        return null;
+        final Object[] sqlParameters = new Object[] { userId };
+        return jdbcTemplate.query(FIND_BY_USER_ID, sqlParameters, postRowMapper);
     }
 
     @Override
-    public Post updatePost(Post post) {
-        // TODO Auto-generated method stub
-        return null;
+    public int updatePost(Post post) {
+        return jdbcTemplate.update(UPDATE_CONTENT, new PreparedStatementSetter() {
+            @Override
+            public void setValues(final PreparedStatement stmt) throws SQLException {
+                stmt.setString(1, post.getContent());
+                stmt.setObject(2, post.getModifiedDate());
+                stmt.setLong(3, post.getId());
+            }
+        });
+    }
+
+    @Override
+    public int deletePost(Long id) {
+        return jdbcTemplate.update(DELETE_POST_BY_ID, id);
+    }
+
+    @Override
+    public int deletePostByUserId(Long userId) {
+        return jdbcTemplate.update(DELETE_POST_BY_USER_ID, userId);
     }
 
     private static final class PostRowMapper implements RowMapper<Post> {

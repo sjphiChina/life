@@ -8,6 +8,7 @@ import sjph.life.data.model.Post;
  * @author shaoguo
  *
  */
+@SuppressWarnings("javadoc")
 public interface PostDao {
 
     /**
@@ -17,10 +18,9 @@ public interface PostDao {
     Long createPost(Post post);
 
     /**
-     * @param id
      * @return
      */
-    int deletePost(Long id);
+    List<Post> findPosts();
 
     /**
      * @param postId post id
@@ -38,5 +38,17 @@ public interface PostDao {
      * @param post
      * @return
      */
-    Post updatePost(Post post);
+    int updatePost(Post post);
+
+    /**
+     * @param id postId
+     * @return
+     */
+    int deletePost(Long id);
+
+    /**
+     * @param userId
+     * @return
+     */
+    int deletePostByUserId(Long userId);
 }
