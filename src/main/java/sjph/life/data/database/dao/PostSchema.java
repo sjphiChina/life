@@ -1,7 +1,7 @@
 /**
  * 
  */
-package sjph.life.data.dao;
+package sjph.life.data.database.dao;
 
 /**
  * @author shaoguo
