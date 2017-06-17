@@ -16,8 +16,8 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
-import sjph.life.data.dao.PostDao;
-import sjph.life.data.dao.PostSchema;
+import sjph.life.data.database.dao.PostDao;
+import sjph.life.data.database.dao.PostSchema;
 import sjph.life.data.model.Post;
 
 /**
@@ -100,8 +100,8 @@ public class PostDaoImpl implements PostDao {
     private JdbcTemplate        jdbcTemplate;
 
     @Required
-    public void setSystemDataSource(final DataSource systemDataSource) {
-        this.jdbcTemplate = new JdbcTemplate(systemDataSource);
+    public void setDataSource(final DataSource dataSource) {
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
     @Override
