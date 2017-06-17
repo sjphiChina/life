@@ -1,4 +1,4 @@
-package sjph.life.data.dao.impl;
+package sjph.life.data.database.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

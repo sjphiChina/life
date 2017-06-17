@@ -1,7 +1,7 @@
 /**
  * 
  */
-package sjph.life.data.dao.impl;
+package sjph.life.data.database.dao.impl;
 
 import sjph.life.data.dao.UserDao;
 import sjph.life.data.dao.UserSchema;
