@@ -10,7 +10,6 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
   <context:component-scan base-package="sjph.life.web" />
-
   <!-- JSR-303 support will be detected on classpath and enabled automatically -->
   <!-- <mvc:annotation-driven /> -->
   <!-- <mvc:resources mapping="/static/**" location="/static/" /> -->

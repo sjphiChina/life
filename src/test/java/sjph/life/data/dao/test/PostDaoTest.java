@@ -1,9 +1,5 @@
 package sjph.life.data.dao.test;
 
-import java.time.Instant;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +9,7 @@ import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import sjph.life.data.dao.PostDao;
+import sjph.life.data.database.dao.PostDao;
 import sjph.life.data.model.Post;
 
 /**
