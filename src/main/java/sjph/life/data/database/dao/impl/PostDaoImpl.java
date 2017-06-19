@@ -15,6 +15,7 @@ import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Service;
 
 import sjph.life.data.database.dao.PostDao;
 import sjph.life.data.database.dao.PostSchema;
@@ -105,7 +106,7 @@ public class PostDaoImpl implements PostDao {
     }
 
     @Override
-    public Long createPost(Post post) {
+    public Long createPost(final Post post) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(new PreparedStatementCreator() {
             public PreparedStatement createPreparedStatement(Connection connection)
@@ -142,7 +143,7 @@ public class PostDaoImpl implements PostDao {
     }
 
     @Override
-    public int updatePost(Post post) {
+    public int updatePost(final Post post) {
         return jdbcTemplate.update(UPDATE_CONTENT, new PreparedStatementSetter() {
             @Override
             public void setValues(final PreparedStatement stmt) throws SQLException {

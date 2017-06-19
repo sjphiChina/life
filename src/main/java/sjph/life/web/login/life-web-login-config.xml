@@ -5,4 +5,9 @@
 
   <!-- Initialization for login config-->
 
+  <bean id="sjph.life.web.login.GreetingController" class="sjph.life.web.login.GreetingController">
+  </bean>
+
+  <bean id="sjph.life.web.login.LoginController" class="sjph.life.web.login.LoginController">
+  </bean>
 </beans>

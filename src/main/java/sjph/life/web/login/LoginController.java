@@ -16,9 +16,11 @@ import org.springframework.web.servlet.ModelAndView;
 public class LoginController {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login(HttpServletRequest request, HttpServletResponse res) {
+    public ModelAndView login(HttpServletRequest request, HttpServletResponse res) {
         System.out.println("/login-------Work hard, Good luck!");
-        return "Login";
+        //return "Login";
+        String message = "luck";
+        return new ModelAndView("Login", "name", message);
     }
 
     /**

@@ -3,7 +3,9 @@
   xsi:schemaLocation="http://www.springframework.org/schema/beans
    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd ">
 
-  <!-- Definition for DAOs -->
-  <import resource="classpath:sjph/life/data/database/dao/impl/impl-life-data-database-dao-config.xml" />
+  <!-- Initialization for post config -->
+
+  <import resource="classpath:sjph/life/web/login/life-web-login-config.xml" />
+  <import resource="classpath:sjph/life/web/post/life-web-post-config.xml" />
 
 </beans>

@@ -27,6 +27,6 @@ public class GreetingController {
             ModelMap model) {
         System.out.println("Work hard, Good luck!");
         model.addAttribute("name", name);
-        return "Greeting";
+        return "greetingview";
     }
 }

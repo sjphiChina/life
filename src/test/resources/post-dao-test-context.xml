@@ -20,10 +20,10 @@
       <property name = "password" value = "customer"/>
    </bean> -->
    
-     <import resource="classpath:life-data-database-mysql-connection-config.xml" />
+<!--      <import resource="classpath:life-data-database-mysql-connection-config.xml" />
 
 <bean id="no.transactional.annotation.PostDao"
     class="sjph.life.data.database.dao.impl.PostDaoImpl"
-    p:dataSource-ref="dataSource" />
+    p:dataSource-ref="dataSource" /> -->
 
 </beans>

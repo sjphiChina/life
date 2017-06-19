@@ -5,7 +5,7 @@
 
   <!-- Initialization for post config -->
 
-  <import resource="classpath:life-data-database-dao-config.xml" />
+  <import resource="classpath:sjph/life/data/database/config/life-data-database-dao-config.xml" />
 
   <bean id="sjph.life.web.post.PostHandler" class="sjph.life.web.post.PostHandler">
     <property name="postDao" ref="sjph.life.data.database.dao.PostDao" />
