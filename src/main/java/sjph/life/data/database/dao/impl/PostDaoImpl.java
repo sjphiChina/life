@@ -105,7 +105,6 @@ public class PostDaoImpl implements PostDao {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    @Override
     public Long createPost(final Post post) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(new PreparedStatementCreator() {
@@ -125,27 +124,22 @@ public class PostDaoImpl implements PostDao {
         // post.getModifiedDate(), post.getUserId());
     }
 
-    @Override
     public List<Post> findPosts() {
         return jdbcTemplate.query(FIND, postRowMapper);
     }
 
-    @Override
     public Post findPost(Long id) {
         final Object[] sqlParameters = new Object[] { id };
         return jdbcTemplate.queryForObject(FIND_BY_ID, sqlParameters, postRowMapper);
     }
 
-    @Override
     public List<Post> findPosts(Long userId) {
         final Object[] sqlParameters = new Object[] { userId };
         return jdbcTemplate.query(FIND_BY_USER_ID, sqlParameters, postRowMapper);
     }
 
-    @Override
     public int updatePost(final Post post) {
         return jdbcTemplate.update(UPDATE_CONTENT, new PreparedStatementSetter() {
-            @Override
             public void setValues(final PreparedStatement stmt) throws SQLException {
                 stmt.setString(1, post.getContent());
                 stmt.setObject(2, post.getModifiedDate());
@@ -154,18 +148,15 @@ public class PostDaoImpl implements PostDao {
         });
     }
 
-    @Override
     public int deletePost(Long id) {
         return jdbcTemplate.update(DELETE_POST_BY_ID, id);
     }
 
-    @Override
     public int deletePostByUserId(Long userId) {
         return jdbcTemplate.update(DELETE_POST_BY_USER_ID, userId);
     }
 
     private static final class PostRowMapper implements RowMapper<Post> {
-        @Override
         public Post mapRow(ResultSet arg0, int arg1) throws SQLException {
             return populatePostRecord(arg0);
         }
