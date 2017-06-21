@@ -10,7 +10,7 @@ import java.util.Date;
 @SuppressWarnings("javadoc")
 public class Post {
 
-    private final Long          id;
+    private Long          id;
     private String              content;
     private final Long          userId;
     private final Date createdDate;
@@ -62,6 +62,10 @@ public class Post {
 
     public void setModifiedDate(Date modifiedDate) {
         this.modifiedDate = modifiedDate;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Override

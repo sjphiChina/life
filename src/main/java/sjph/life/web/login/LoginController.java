@@ -19,7 +19,7 @@ public class LoginController {
     @RequestMapping("/login")
     public String login(Model model) {
         System.out.println("/login-------Work hard, Good luck!");
-        return "Login";
+        return "login";
         //String message = "luck";
         //return new ModelAndView("Login", "name", message);
     }

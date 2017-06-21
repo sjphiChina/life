@@ -3,12 +3,15 @@ package sjph.life.web.post;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
 
 /**
  * @author shaohuiguo
@@ -17,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class PostController {
 
+    private static final Logger log = LogManager.getLogger(PostController.class);
     
     private PostHandler postHandler;
 
@@ -36,7 +40,7 @@ public class PostController {
         // write code to save emp object
         // here, we are displaying emp object to prove emp has data
         System.out.println(postBean.getContent());
-
+        postHandler.createPost(postBean);
         // return new ModelAndView("empform","command",emp);//will display object data
         return new ModelAndView("redirect:/postsView");// will redirect to viewemp request mapping
     }
