@@ -3,9 +3,9 @@
   xsi:schemaLocation="http://www.springframework.org/schema/beans
    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd ">
 
-  <!-- Initialization for post config -->
+  <!-- Initialization for login config-->
 
-  <import resource="classpath:sjph/life/web/login/life-web-login-config.xml" />
-  <import resource="classpath:sjph/life/web/post/life-web-post-config.xml" />
-  <import resource="classpath:sjph/life/web/controller/life-web-controller-config.xml" />
+  <bean id="sjph.life.web.controller.HomeController" class="sjph.life.web.controller.HomeController">
+  </bean>
+
 </beans>

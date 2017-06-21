@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -15,12 +16,12 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class LoginController {
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public ModelAndView login(HttpServletRequest request, HttpServletResponse res) {
+    @RequestMapping("/login")
+    public String login(Model model) {
         System.out.println("/login-------Work hard, Good luck!");
-        //return "Login";
-        String message = "luck";
-        return new ModelAndView("Login", "name", message);
+        return "Login";
+        //String message = "luck";
+        //return new ModelAndView("Login", "name", message);
     }
 
     /**
@@ -36,7 +37,7 @@ public class LoginController {
         System.out.println("password: " + password);
         if (password.equals("admin")) {
             String message = name;
-            return new ModelAndView("Greeting", "name", message);
+            return new ModelAndView("greetingview", "name", message);
         }
         else {
             return new ModelAndView("errorpage", "message", "Sorry, username or password error");

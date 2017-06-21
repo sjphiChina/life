@@ -12,4 +12,8 @@
    
    <p><a href="addPost">Add Post</a>  
    <p><a href="PostsView">View Posts</a>  
+   <div class="jumbotron">
+                  <h1> ${greeting} </h1>
+                  <p> ${tagline} </p>
+          </div>
 </html>
