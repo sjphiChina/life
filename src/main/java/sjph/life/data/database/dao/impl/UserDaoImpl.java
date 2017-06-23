@@ -32,7 +32,7 @@ public class UserDaoImpl implements UserDao {
             UserSchema.MODIFIED_DT;
     //@formatter:on
 
-    @Autowired
+    @Autowired(required=true)
     private JdbcTemplate        jdbcTemplate;
 
     @Override

@@ -6,7 +6,6 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 import sjph.life.web.service.PostBean;
 import sjph.life.web.service.PostHandler;
 
-
 /**
  * @author shaohuiguo
  *
@@ -25,14 +23,9 @@ import sjph.life.web.service.PostHandler;
 public class PostController {
 
     private static final Logger log = LogManager.getLogger(PostController.class);
-    
-    @Autowired
-    private PostHandler postHandler;
 
-    @Required
-    public void setPostHandler(PostHandler postHandler) {
-        this.postHandler = postHandler;
-    }
+    @Autowired(required=true)
+    private PostHandler         postHandler;
 
     @RequestMapping("/addPost")
     public ModelAndView showform() {

@@ -101,7 +101,7 @@ public class PostDaoImpl implements PostDao {
     //@formatter:on
 
     private final PostRowMapper postRowMapper                 = new PostRowMapper();
-    @Autowired
+    @Autowired(required=true)
     private JdbcTemplate        jdbcTemplate;
 
     @Override
