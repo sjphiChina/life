@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -15,6 +16,7 @@ import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import sjph.life.data.database.dao.PostDao;
@@ -25,6 +27,7 @@ import sjph.life.data.model.Post;
  * @author shaoguo
  *
  */
+@Repository
 @SuppressWarnings("javadoc")
 public class PostDaoImpl implements PostDao {
 
@@ -98,13 +101,10 @@ public class PostDaoImpl implements PostDao {
     //@formatter:on
 
     private final PostRowMapper postRowMapper                 = new PostRowMapper();
+    @Autowired
     private JdbcTemplate        jdbcTemplate;
 
-    @Required
-    public void setDataSource(final DataSource dataSource) {
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
-    }
-
+    @Override
     public Long createPost(final Post post) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(new PreparedStatementCreator() {
@@ -124,20 +124,24 @@ public class PostDaoImpl implements PostDao {
         // post.getModifiedDate(), post.getUserId());
     }
 
+    @Override
     public List<Post> findPosts() {
         return jdbcTemplate.query(FIND, postRowMapper);
     }
 
+    @Override
     public Post findPost(Long id) {
         final Object[] sqlParameters = new Object[] { id };
         return jdbcTemplate.queryForObject(FIND_BY_ID, sqlParameters, postRowMapper);
     }
 
+    @Override
     public List<Post> findPosts(Long userId) {
         final Object[] sqlParameters = new Object[] { userId };
         return jdbcTemplate.query(FIND_BY_USER_ID, sqlParameters, postRowMapper);
     }
 
+    @Override
     public int updatePost(final Post post) {
         return jdbcTemplate.update(UPDATE_CONTENT, new PreparedStatementSetter() {
             public void setValues(final PreparedStatement stmt) throws SQLException {
@@ -148,10 +152,12 @@ public class PostDaoImpl implements PostDao {
         });
     }
 
+    @Override
     public int deletePost(Long id) {
         return jdbcTemplate.update(DELETE_POST_BY_ID, id);
     }
 
+    @Override
     public int deletePostByUserId(Long userId) {
         return jdbcTemplate.update(DELETE_POST_BY_USER_ID, userId);
     }

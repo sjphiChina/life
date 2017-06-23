@@ -1,4 +1,4 @@
-package sjph.life.web.post;
+package sjph.life.web.service;
 
 import java.util.Date;
 
