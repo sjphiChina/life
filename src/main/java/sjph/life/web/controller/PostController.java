@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import sjph.life.data.model.Post;
+import sjph.life.web.exception.PostNotFoundException;
 import sjph.life.web.service.PostHandler;
 
 /**
@@ -69,17 +70,17 @@ public class PostController {
 
     @RequestMapping("/post")
     public String getPost(@RequestParam("id") String postId, Model model) {
-       model.addAttribute("post", postHandler.getPost(Long.valueOf(postId)));
-       return "post";
+        model.addAttribute("post", postHandler.getPost(Long.valueOf(postId)));
+        return "post";
     }
 
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public ModelAndView save(@ModelAttribute("emp") Post post) {
-        // write code to save emp object
-        // here, we are displaying emp object to prove emp has data
-        System.out.println(post.getContent());
-        postHandler.createPost(post.getContent(), userId, userName);
-        // return new ModelAndView("empform","command",emp);//will display object data
-        return new ModelAndView("redirect:/postsView");// will redirect to viewemp request mapping
+    @ExceptionHandler(PostNotFoundException.class)
+    public ModelAndView handleError(HttpServletRequest req, PostNotFoundException exception) {
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("invalidProductId", exception.getPostId());
+        mav.addObject("exception", exception);
+        mav.addObject("url", req.getRequestURL() + "?" + req.getQueryString());
+        mav.setViewName("postNotFound");
+        return mav;
     }
 }

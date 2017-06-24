@@ -3,12 +3,14 @@ package sjph.life.web.service;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import sjph.life.data.database.dao.PostDao;
 import sjph.life.data.model.Post;
-import org.apache.log4j.Logger;
+import sjph.life.web.exception.PostNotFoundException;
 
 /**
  * @author shaohuiguo
@@ -34,8 +36,13 @@ public class PostHandler {
         List<Post> list = postDao.findPosts(true);
         return list;
     }
-    
+
     public Post getPost(long postId) {
-        return postDao.findPost(postId);
+        try {
+            return postDao.findPost(postId);
+        }
+        catch (EmptyResultDataAccessException e) {
+            throw new PostNotFoundException(postId, "No post found.", e);
+        }
     }
 }
