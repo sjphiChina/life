@@ -2,6 +2,8 @@ package sjph.life.data.model;
 
 import java.util.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 /**
  * @author shaoguo
  *
@@ -10,12 +12,14 @@ import java.util.Date;
 @SuppressWarnings("javadoc")
 public class Post {
 
-    private Long   id;
-    private String content;
-    private Long   userId;
-    private Date   createdDate;
-    private Date   modifiedDate;
-    private String userName;
+    private Long          id;
+    private String        content;
+    private Long          userId;
+    private Date          createdDate;
+    private Date          modifiedDate;
+    private String        userName;
+
+    private MultipartFile contentImage;
 
     public Post() {
     }
@@ -84,6 +88,14 @@ public class Post {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public MultipartFile getContentImage() {
+        return contentImage;
+    }
+
+    public void setContentImage(MultipartFile contentImage) {
+        this.contentImage = contentImage;
     }
 
     @Override

@@ -14,6 +14,8 @@
          <c:forEach items="${posts}" var="post">
             <div class="col-sm-6 col-md-3">
                <div class="thumbnail">
+               <img src="<c:url value="/img/${post.id}.png"></c:url>"
+                        alt="image" style="width: 100%" />
                   <div class="caption">
                      <h5>UserName: </h5>${post.userName}
                      <p>${post.content}</p>

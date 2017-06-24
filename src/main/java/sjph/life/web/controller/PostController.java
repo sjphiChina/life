@@ -1,16 +1,17 @@
 package sjph.life.web.controller;
 
+import java.io.File;
+
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import sjph.life.data.model.Post;
@@ -25,13 +26,11 @@ import sjph.life.web.service.PostHandler;
 @RequestMapping("posts")
 public class PostController {
 
-    private static final Logger logger   = LogManager.getLogger(PostController.class);
-
-    Long                        userId   = 1l;
-    String                      userName = "sjph";
+    Long                userId   = 1l;
+    String              userName = "sjph";
 
     @Autowired(required = true)
-    private PostHandler         postHandler;
+    private PostHandler postHandler;
 
     @RequestMapping("/list")
     public String showPosts(Model model) {
@@ -48,8 +47,22 @@ public class PostController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String processAddPostForm(@ModelAttribute("post") Post post) {
-        postHandler.createPost(post.getContent(), userId, userName);
+    public String processAddPostForm(@ModelAttribute("post") Post post,
+            HttpServletRequest request) {
+        long postId = postHandler.createPost(post.getContent(), userId, userName);
+        MultipartFile contentImage = post.getContentImage();
+        String rootDirectory = request.getSession().getServletContext().getRealPath("/");
+
+        if (contentImage != null && !contentImage.isEmpty()) {
+            try {
+                contentImage.transferTo(
+                        new File(rootDirectory + "resources/images/" + postId + ".png"));
+            }
+            catch (Exception e) {
+                throw new RuntimeException("Product Image saving failed", e);
+            }
+        }
+
         return "redirect:/posts/list";
     }
 
