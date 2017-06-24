@@ -14,12 +14,16 @@ import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.view.ContentNegotiatingViewResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
+
+import sjph.life.web.interceptor.ProcessingTimeLogInterceptor;
 
 @Configuration
 @EnableWebMvc
@@ -41,13 +45,13 @@ public class WebApplicationContextConfig extends WebMvcConfigurerAdapter {
         return resolver;
     }
 
-//    @Override
-//    public void configurePathMatch(PathMatchConfigurer configurer) {
-//        UrlPathHelper urlPathHelper = new UrlPathHelper();
-//        urlPathHelper.setRemoveSemicolonContent(false);
-//
-//        configurer.setUrlPathHelper(urlPathHelper);
-//    }
+    // @Override
+    // public void configurePathMatch(PathMatchConfigurer configurer) {
+    // UrlPathHelper urlPathHelper = new UrlPathHelper();
+    // urlPathHelper.setRemoveSemicolonContent(false);
+    //
+    // configurer.setUrlPathHelper(urlPathHelper);
+    // }
 
     @Bean
     public MessageSource messageSource() {
@@ -76,80 +80,69 @@ public class WebApplicationContextConfig extends WebMvcConfigurerAdapter {
         return jsonView;
     }
 
-//    @Bean
-//    public MarshallingView xmlView() {
-//        Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
-//        marshaller.setClassesToBeBound(Product.class);
-//
-//        MarshallingView xmlView = new MarshallingView(marshaller);
-//        return xmlView;
-//    }
+    // @Bean
+    // public MarshallingView xmlView() {
+    // Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
+    // marshaller.setClassesToBeBound(Product.class);
+    //
+    // MarshallingView xmlView = new MarshallingView(marshaller);
+    // return xmlView;
+    // }
 
     @Bean
     public ViewResolver contentNegotiatingViewResolver(ContentNegotiationManager manager) {
         ContentNegotiatingViewResolver resolver = new ContentNegotiatingViewResolver();
         resolver.setContentNegotiationManager(manager);
-
         List<View> views = new ArrayList<>();
         views.add(jsonView());
-//        views.add(xmlView());
-
         resolver.setDefaultViews(views);
-
         return resolver;
     }
 
-//    @Override
-//    public void addInterceptors(InterceptorRegistry registry) {
-//        registry.addInterceptor(new ProcessingTimeLogInterceptor());
-//
-//        LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
-//        localeChangeInterceptor.setParamName("language");
-//        registry.addInterceptor(localeChangeInterceptor);
-//
-//        registry.addInterceptor(promoCodeInterceptor())
-//                .addPathPatterns("/**/market/products/specialOffer");
-//    }
-//
-//    @Bean
-//    public LocaleResolver localeResolver() {
-//        SessionLocaleResolver resolver = new SessionLocaleResolver();
-//        resolver.setDefaultLocale(new Locale("en"));
-//
-//        return resolver;
-//    }
-//
-//    @Bean
-//    public HandlerInterceptor promoCodeInterceptor() {
-//        PromoCodeInterceptor promoCodeInterceptor = new PromoCodeInterceptor();
-//        promoCodeInterceptor.setPromoCode("OFF3R");
-//        promoCodeInterceptor.setOfferRedirect("market/products");
-//        promoCodeInterceptor.setErrorRedirect("invalidPromoCode");
-//
-//        return promoCodeInterceptor;
-//    }
-//
-//    @Bean(name = "validator")
-//    public LocalValidatorFactoryBean validator() {
-//        LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean();
-//        bean.setValidationMessageSource(messageSource());
-//        return bean;
-//    }
-//
-//    @Override
-//    public Validator getValidator() {
-//        return validator();
-//    }
-//
-//    @Bean
-//    public ProductValidator productValidator() {
-//        Set<Validator> springValidators = new HashSet<>();
-//        springValidators.add(new UnitsInStockValidator());
-//
-//        ProductValidator productValidator = new ProductValidator();
-//        productValidator.setSpringValidators(springValidators);
-//
-//        return productValidator;
-//    }
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new ProcessingTimeLogInterceptor());
+    }
+    //
+    // @Bean
+    // public LocaleResolver localeResolver() {
+    // SessionLocaleResolver resolver = new SessionLocaleResolver();
+    // resolver.setDefaultLocale(new Locale("en"));
+    //
+    // return resolver;
+    // }
+    //
+    // @Bean
+    // public HandlerInterceptor promoCodeInterceptor() {
+    // PromoCodeInterceptor promoCodeInterceptor = new PromoCodeInterceptor();
+    // promoCodeInterceptor.setPromoCode("OFF3R");
+    // promoCodeInterceptor.setOfferRedirect("market/products");
+    // promoCodeInterceptor.setErrorRedirect("invalidPromoCode");
+    //
+    // return promoCodeInterceptor;
+    // }
+    //
+    // @Bean(name = "validator")
+    // public LocalValidatorFactoryBean validator() {
+    // LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean();
+    // bean.setValidationMessageSource(messageSource());
+    // return bean;
+    // }
+    //
+    // @Override
+    // public Validator getValidator() {
+    // return validator();
+    // }
+    //
+    // @Bean
+    // public ProductValidator productValidator() {
+    // Set<Validator> springValidators = new HashSet<>();
+    // springValidators.add(new UnitsInStockValidator());
+    //
+    // ProductValidator productValidator = new ProductValidator();
+    // productValidator.setSpringValidators(springValidators);
+    //
+    // return productValidator;
+    // }
 
 }

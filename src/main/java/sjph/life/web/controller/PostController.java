@@ -1,9 +1,11 @@
 package sjph.life.web.controller;
 
 import java.io.File;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,15 +30,19 @@ import sjph.life.web.service.PostHandler;
 @RequestMapping("posts")
 public class PostController {
 
-    Long                userId   = 1l;
-    String              userName = "sjph";
+    private static final Logger logger   = Logger.getLogger(PostController.class);
+
+    Long                        userId   = 1l;
+    String                      userName = "sjph";
 
     @Autowired(required = true)
-    private PostHandler postHandler;
+    private PostHandler         postHandler;
 
     @RequestMapping("/list")
     public String showPosts(Model model) {
-        model.addAttribute("posts", postHandler.listPosts());
+        List<Post> list = postHandler.listPosts();
+        logger.info("The size of all posts is " + list.size());
+        model.addAttribute("posts", list);
         return "posts";
     }
 
