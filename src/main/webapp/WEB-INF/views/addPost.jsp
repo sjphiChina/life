@@ -1,24 +1,24 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>    
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>    
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Add your post</title>
-</head>
-<body>
- <form:form method="post" action="savePost">    
-        <table >    
-         <tr>    
-          <td>Content : </td>   
-          <td><form:input path="content"  /></td>  
-         </tr>    
-         <tr>    
-          <td colspan="2"><input type="submit" value="Save" /></td>    
-         </tr>    
-        </table>    
-       </form:form>
-</body>
-</html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+
+<section class="container">
+  <form:form method="POST" modelAttribute="post" class="form-horizontal">
+    <form:errors path="*" cssClass="alert alert-danger" element="div" />
+    <fieldset>
+      <legend>Create new post</legend>
+      <div class="form-group">
+        <label class="control-label col-lg-2" for="content"><spring:message
+            code="addPost.form.content.label" /></label>
+        <div class="col-lg-10">
+          <form:textarea id="content" path="content" rows="2" />
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-lg-offset-2 col-lg-10">
+          <input type="submit" id="btnAdd" class="btn btn-primary" value="Add" />
+        </div>
+      </div>
+    </fieldset>
+  </form:form>
+</section>

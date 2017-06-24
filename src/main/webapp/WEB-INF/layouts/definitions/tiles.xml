@@ -20,6 +20,10 @@
    <definition name="posts" extends="baseLayout">
       <put-attribute name="content" value="/WEB-INF/views/posts.jsp" />
    </definition>
+   
+   <definition name="addPost" extends="baseLayout">
+      <put-attribute name="content" value="/WEB-INF/views/addPost.jsp" />
+   </definition>
    <!-- 
    
    <definition name="product" extends="baseLayout">

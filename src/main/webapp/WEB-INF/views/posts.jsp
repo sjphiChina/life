@@ -15,7 +15,7 @@
             <div class="col-sm-6 col-md-3">
                <div class="thumbnail">
                   <div class="caption">
-                     <p><h5>UserName: </h5>${post.userName}
+                     <h5>UserName: </h5>${post.userName}
                      <p>${post.content}</p>
                      <p><h6>Created Date: </h6>${post.createdDate}
                      <p><h6>Modified Date: </h6><p>${post.modifiedDate}
