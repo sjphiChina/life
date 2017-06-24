@@ -17,12 +17,10 @@
       <!-- <put-attribute name="content" value="/WEB-INF/views/products.jsp" /> -->
    </definition>
    
-<!--    <definition name="products" extends="baseLayout">
-      <put-attribute name="title" value="Products" />
-      <put-attribute name="heading" value="Products" />
-      <put-attribute name="tagline" value="All the available products in our store" />
-      <put-attribute name="content" value="/WEB-INF/views/products.jsp" />
+   <definition name="posts" extends="baseLayout">
+      <put-attribute name="content" value="/WEB-INF/views/posts.jsp" />
    </definition>
+   <!-- 
    
    <definition name="product" extends="baseLayout">
       <put-attribute name="title" value="Product" />

@@ -1,6 +1,7 @@
 package sjph.life.web.service;
 
 import java.util.Date;
+import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,15 +19,20 @@ import sjph.life.data.model.Post;
 public class PostHandler {
     private static final Logger log = LogManager.getLogger(PostHandler.class);
 
-    @Autowired(required=true)
+    @Autowired(required = true)
     private PostDao             postDao;
 
-    public void createPost(PostBean postBean) {
-        Post post = new Post(postBean.getContent(), 1l, new Date(), new Date());
+    public void createPost(String content, Long userId, String userName) {
+        Post post = new Post(content, userId, new Date(), new Date(), userName);
         log.info("Create Post: " + post.toString());
         long id = postDao.createPost(post);
         post.setId(id);
         log.info("Created Post: " + post.toString());
     }
 
+    public List<Post> listPosts() {
+        List<Post> list = postDao.findPosts(true);
+
+        return list;
+    }
 }

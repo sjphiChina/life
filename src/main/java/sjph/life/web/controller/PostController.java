@@ -1,57 +1,65 @@
 package sjph.life.web.controller;
 
-import java.util.LinkedList;
-import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import sjph.life.web.service.PostBean;
+import sjph.life.data.model.Post;
 import sjph.life.web.service.PostHandler;
 
 /**
  * @author shaohuiguo
  *
  */
+@SuppressWarnings("javadoc")
 @Controller
+@RequestMapping("posts")
 public class PostController {
 
-    private static final Logger log = LogManager.getLogger(PostController.class);
+    private static final Logger logger   = LogManager.getLogger(PostController.class);
 
-    @Autowired(required=true)
+    Long                        userId   = 1l;
+    String                      userName = "sjph";
+
+    @Autowired(required = true)
     private PostHandler         postHandler;
 
-    @RequestMapping("/addPost")
-    public ModelAndView showform() {
-        // command is a reserved request attribute name, now use <form> tag to show object data
-        return new ModelAndView("postForm", "command", new PostBean());
+    @RequestMapping("/list")
+    public String showPosts(Model model) {
+        model.addAttribute("posts", postHandler.listPosts());
+        return "posts";
     }
 
-    @RequestMapping(value = "/savePost", method = RequestMethod.POST)
-    public ModelAndView save(@ModelAttribute("emp") PostBean postBean) {
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
+    public String getAddPostForm(Model model) {
+        // command is a reserved request attribute name, now use <form> tag to show object data
+        Post post = new Post();
+        model.addAttribute("post", post);
+        return "addPost";
+    }
+
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    public String processAddPostForm(@ModelAttribute("post") Post post) {
+        postHandler.createPost(post.getContent(), userId, userName);
+        return "redirect:/posts/list";
+    }
+
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    public ModelAndView save(@ModelAttribute("emp") Post post) {
         // write code to save emp object
         // here, we are displaying emp object to prove emp has data
-        System.out.println(postBean.getContent());
-        postHandler.createPost(postBean);
+        System.out.println(post.getContent());
+        postHandler.createPost(post.getContent(), userId, userName);
         // return new ModelAndView("empform","command",emp);//will display object data
         return new ModelAndView("redirect:/postsView");// will redirect to viewemp request mapping
-    }
-
-    @RequestMapping("/postsView")
-    public ModelAndView showPosts() {
-        // write the code to get all employees from DAO
-        // here, we are writing manual code of list for easy understanding
-        List<PostBean> list = new LinkedList<PostBean>();
-        list.add(new PostBean("abcde"));
-        list.add(new PostBean("fghij"));
-        list.add(new PostBean("klmno"));
-
-        return new ModelAndView("postsView", "list", list);
     }
 }

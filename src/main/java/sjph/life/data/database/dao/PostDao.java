@@ -8,7 +8,6 @@ import sjph.life.data.model.Post;
  * @author shaoguo
  *
  */
-@SuppressWarnings("javadoc")
 public interface PostDao {
 
     /**
@@ -18,37 +17,38 @@ public interface PostDao {
     Long createPost(Post post);
 
     /**
-     * @return
+     * @param isDesc 
+     * @return a list of Post
      */
-    List<Post> findPosts();
+    List<Post> findPosts(boolean isDesc);
 
     /**
      * @param postId post id
-     * @return
+     * @return a Post
      */
     Post findPost(Long postId);
 
     /**
      * @param userId user id
-     * @return
+     * @return a list of Post
      */
     List<Post> findPosts(Long userId);
 
     /**
      * @param post
-     * @return
+     * @return the number of affected rows
      */
     int updatePost(Post post);
 
     /**
      * @param id postId
-     * @return
+     * @return the number of affected rows
      */
     int deletePost(Long id);
 
     /**
      * @param userId
-     * @return
+     * @return the number of affected rows
      */
     int deletePostByUserId(Long userId);
 }

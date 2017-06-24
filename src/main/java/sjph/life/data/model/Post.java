@@ -1,7 +1,7 @@
 package sjph.life.data.model;
 
 import java.util.Date;
-//import java.time.ZonedDateTime;
+
 /**
  * @author shaoguo
  *
@@ -10,62 +10,86 @@ import java.util.Date;
 @SuppressWarnings("javadoc")
 public class Post {
 
-    private Long          id;
-    private String              content;
-    private final Long          userId;
-    private final Date createdDate;
-    private Date       modifiedDate;
+    private Long   id;
+    private String content;
+    private Long   userId;
+    private Date   createdDate;
+    private Date   modifiedDate;
+    private String userName;
 
-    public Post(String content, Long userId, Date createdDate,
-            Date modifiedDate) {
-        super();
-        this.id = null;
+    public Post() {
+    }
+
+    public Post(String content, Long userId, Date createdDate, Date modifiedDate, String userName) {
         this.content = content;
         this.userId = userId;
         this.createdDate = createdDate;
         this.modifiedDate = modifiedDate;
+        this.userName = userName;
     }
 
-    public Post(Long id, String content, Long userId, Date createdDate,
-            Date modifiedDate) {
-        super();
+    public Post(Long id, String content, Long userId, Date createdDate, Date modifiedDate,
+            String userName) {
         this.id = id;
         this.content = content;
         this.userId = userId;
         this.createdDate = createdDate;
         this.modifiedDate = modifiedDate;
+        this.userName = userName;
     }
 
     public Long getId() {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getContent() {
         return content;
-    }
-
-    public Date getCreatedDate() {
-        return createdDate;
-    }
-
-    public Date getModifiedDate() {
-        return modifiedDate;
-    }
-
-    public Long getUserId() {
-        return userId;
     }
 
     public void setContent(String content) {
         this.content = content;
     }
 
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public Date getModifiedDate() {
+        return modifiedDate;
+    }
+
     public void setModifiedDate(Date modifiedDate) {
         this.modifiedDate = modifiedDate;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    @Override
+    public String toString() {
+        return "Post [id=" + id + ", content=" + content + ", userId=" + userId + ", createdDate="
+                + createdDate + ", modifiedDate=" + modifiedDate + ", userName=" + userName + "]";
     }
 
     @Override
@@ -77,6 +101,7 @@ public class Post {
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         result = prime * result + ((modifiedDate == null) ? 0 : modifiedDate.hashCode());
         result = prime * result + ((userId == null) ? 0 : userId.hashCode());
+        result = prime * result + ((userName == null) ? 0 : userName.hashCode());
         return result;
     }
 
@@ -119,12 +144,12 @@ public class Post {
         }
         else if (!userId.equals(other.userId))
             return false;
+        if (userName == null) {
+            if (other.userName != null)
+                return false;
+        }
+        else if (!userName.equals(other.userName))
+            return false;
         return true;
-    }
-
-    @Override
-    public String toString() {
-        return "Post [id=" + id + ", content=" + content + ", createdDate=" + createdDate
-                + ", modifiedDate=" + modifiedDate + ", userId=" + userId + "]";
     }
 }

@@ -10,30 +10,11 @@ import java.util.Date;
 @SuppressWarnings("javadoc")
 public class PostBean {
 
-    private Long   id;
-    private String content;
-    private Long   userId;
-    private Date   createdDate;
-    private Date   modifiedDate;
-
-    public PostBean() {
-    }
-
-    public PostBean(String content) {
-        this.id = null;
-        this.content = content;
-        this.userId = null;
-        this.createdDate = null;
-        this.modifiedDate = null;
-    }
-
-    public PostBean(String content, Long userId, Date createdDate, Date modifiedDate) {
-        this.id = null;
-        this.content = content;
-        this.userId = userId;
-        this.createdDate = createdDate;
-        this.modifiedDate = modifiedDate;
-    }
+    private final Long   id;
+    private final String content;
+    private final Long   userId;
+    private final Date   createdDate;
+    private final Date   modifiedDate;
 
     public PostBean(Long id, String content, Long userId, Date createdDate, Date modifiedDate) {
         this.id = id;
@@ -63,11 +44,10 @@ public class PostBean {
         return userId;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    @Override
+    public String toString() {
+        return "PostBean [id=" + id + ", content=" + content + ", userId=" + userId
+                + ", createdDate=" + createdDate + ", modifiedDate=" + modifiedDate + "]";
     }
 
-    public void setModifiedDate(Date modifiedDate) {
-        this.modifiedDate = modifiedDate;
-    }
 }

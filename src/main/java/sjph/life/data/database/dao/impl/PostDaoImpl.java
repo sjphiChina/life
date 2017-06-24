@@ -6,10 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.PreparedStatementSetter;
@@ -17,7 +14,6 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 
 import sjph.life.data.database.dao.PostDao;
 import sjph.life.data.database.dao.PostSchema;
@@ -37,20 +33,22 @@ public class PostDaoImpl implements PostDao {
                     PostSchema.CONTENT + ", " +
                     PostSchema.USER_ID + ", " +
                     PostSchema.CREATED_DT + ", " +
-                    PostSchema.MODIFIED_DT;
+                    PostSchema.MODIFIED_DT + ", " +
+                    PostSchema.USER_NAME;
 
 /**create section    */
     private static final String CREATE_POST =
             "INSERT INTO " +
                     PostSchema.tableName +
-                    "( " +
+                    " (" +
                     PostSchema.CONTENT + ", " +
                     PostSchema.USER_ID + ", " +
                     PostSchema.CREATED_DT + ", " +
-                    PostSchema.MODIFIED_DT + " " +
+                    PostSchema.MODIFIED_DT + ", " +
+                    PostSchema.USER_NAME +
                     ") " +
             "VALUES " +
-                    "( ?, ?, ?, ?)";
+                    "( ?, ?, ?, ?, ?)";
 
 /**select section    */
     private static final String SELECT_FULL_TABLE_COLUMNS_SQL =
@@ -60,6 +58,10 @@ public class PostDaoImpl implements PostDao {
                     PostSchema.tableName;
 
     private static final String FIND = SELECT_FULL_TABLE_COLUMNS_SQL;
+
+    private static final String ORDER_BY = "ORDER BY";
+
+    private static final String DESC = "DESC";
 
     private static final String FIND_BY_ID =
             SELECT_FULL_TABLE_COLUMNS_SQL + " " +
@@ -92,19 +94,18 @@ public class PostDaoImpl implements PostDao {
     private static final String DELETE_POST_BY_ID =
             DELETE_POST_SQL + " " +
             "WHERE " +
-                    PostSchema.ID + " = ? ";
+                    PostSchema.ID + " = ?";
 
     private static final String DELETE_POST_BY_USER_ID =
             DELETE_POST_SQL + " " +
             "WHERE " +
-                    PostSchema.USER_ID + " = ? ";
+                    PostSchema.USER_ID + " = ?";
     //@formatter:on
 
     private final PostRowMapper postRowMapper                 = new PostRowMapper();
-    @Autowired(required=true)
+    @Autowired(required = true)
     private JdbcTemplate        jdbcTemplate;
 
-    @Override
     public Long createPost(final Post post) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(new PreparedStatementCreator() {
@@ -116,6 +117,7 @@ public class PostDaoImpl implements PostDao {
                 ps.setLong(2, post.getUserId());
                 ps.setObject(3, post.getCreatedDate());
                 ps.setObject(4, post.getModifiedDate());
+                ps.setObject(5, post.getUserName());
                 return ps;
             }
         }, keyHolder);
@@ -124,24 +126,27 @@ public class PostDaoImpl implements PostDao {
         // post.getModifiedDate(), post.getUserId());
     }
 
-    @Override
-    public List<Post> findPosts() {
-        return jdbcTemplate.query(FIND, postRowMapper);
+    public List<Post> findPosts(boolean isDesc) {
+        if (isDesc) {
+            return jdbcTemplate.query(
+                    FIND + " " + ORDER_BY + " " + PostSchema.CREATED_DT + " " + DESC,
+                    postRowMapper);
+        }
+        else {
+            return jdbcTemplate.query(FIND, postRowMapper);
+        }
     }
 
-    @Override
     public Post findPost(Long id) {
         final Object[] sqlParameters = new Object[] { id };
         return jdbcTemplate.queryForObject(FIND_BY_ID, sqlParameters, postRowMapper);
     }
 
-    @Override
     public List<Post> findPosts(Long userId) {
         final Object[] sqlParameters = new Object[] { userId };
         return jdbcTemplate.query(FIND_BY_USER_ID, sqlParameters, postRowMapper);
     }
 
-    @Override
     public int updatePost(final Post post) {
         return jdbcTemplate.update(UPDATE_CONTENT, new PreparedStatementSetter() {
             public void setValues(final PreparedStatement stmt) throws SQLException {
@@ -152,12 +157,10 @@ public class PostDaoImpl implements PostDao {
         });
     }
 
-    @Override
     public int deletePost(Long id) {
         return jdbcTemplate.update(DELETE_POST_BY_ID, id);
     }
 
-    @Override
     public int deletePostByUserId(Long userId) {
         return jdbcTemplate.update(DELETE_POST_BY_USER_ID, userId);
     }
@@ -174,8 +177,10 @@ public class PostDaoImpl implements PostDao {
                 rs.getLong(PostSchema.ID.name()), 
                 rs.getString(PostSchema.CONTENT.name()),
                 rs.getLong(PostSchema.USER_ID.name()), 
-                rs.getDate(PostSchema.CREATED_DT.name()),
-                rs.getDate(PostSchema.MODIFIED_DT.name()));
+                rs.getTimestamp(PostSchema.CREATED_DT.name()),
+                rs.getTimestamp(PostSchema.MODIFIED_DT.name()),
+                rs.getString(PostSchema.USER_NAME.name())
+                );
     }
     //@formatter:on
 }

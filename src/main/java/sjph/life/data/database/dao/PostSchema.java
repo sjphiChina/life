@@ -13,7 +13,8 @@ public enum PostSchema {
     CONTENT,
     USER_ID,
     CREATED_DT,
-    MODIFIED_DT
+    MODIFIED_DT,
+    USER_NAME
     ;
     public static final String tableName = DatabaseConstants.SCHEMA_OBJECT_PREFIX + "post";
 

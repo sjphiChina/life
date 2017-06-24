@@ -5,28 +5,20 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link rel="stylesheet"
    href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
-<title>Products</title>
+<title>All Posts</title>
 </head>
 <body>
-   <section>
-      <div class="jumbotron">
-         <div class="container">
-            <h1>Products</h1>
-            <p>All the available products in our store</p>
-         </div>
-      </div>
-   </section>
 
    <section class="container">
       <div class="row">
-         <c:forEach items="${products}" var="product">
+         <c:forEach items="${posts}" var="post">
             <div class="col-sm-6 col-md-3">
                <div class="thumbnail">
                   <div class="caption">
-                     <h3>${product.name}</h3>
-                     <p>${product.description}</p>
-                     <p>$${product.unitPrice}</p>
-<p>Available ${product.unitsInStock} units in stock</p>
+                     <p><h5>UserName: </h5>${post.userName}
+                     <p>${post.content}</p>
+                     <p><h6>Created Date: </h6>${post.createdDate}
+                     <p><h6>Modified Date: </h6><p>${post.modifiedDate}
                   </div>
                </div>
             </div>
