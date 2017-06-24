@@ -5,3 +5,4 @@
 .project
 /test-output/
 .springBeans
+/WebContent/

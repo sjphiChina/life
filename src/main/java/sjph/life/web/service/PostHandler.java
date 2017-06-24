@@ -32,7 +32,10 @@ public class PostHandler {
 
     public List<Post> listPosts() {
         List<Post> list = postDao.findPosts(true);
-
         return list;
+    }
+    
+    public Post getPost(long postId) {
+        return postDao.findPost(postId);
     }
 }

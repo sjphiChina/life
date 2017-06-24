@@ -11,6 +11,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -64,6 +65,12 @@ public class PostController {
         }
 
         return "redirect:/posts/list";
+    }
+
+    @RequestMapping("/post")
+    public String getPost(@RequestParam("id") String postId, Model model) {
+       model.addAttribute("post", postHandler.getPost(Long.valueOf(postId)));
+       return "post";
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)

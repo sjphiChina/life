@@ -4,6 +4,8 @@ import java.util.Date;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * @author shaoguo
  *
@@ -19,6 +21,7 @@ public class Post {
     private Date          modifiedDate;
     private String        userName;
 
+    @JsonIgnore
     private MultipartFile contentImage;
 
     public Post() {
