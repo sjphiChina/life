@@ -53,6 +53,7 @@ public class PostHandler {
     }
 
     public boolean updatePost(Post post) {
+        post.setModifiedDate(new Date());
         if (postDao.updatePost(post) == 1) {
             return true;
         }
