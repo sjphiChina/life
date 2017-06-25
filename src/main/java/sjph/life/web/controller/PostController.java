@@ -63,8 +63,10 @@ public class PostController {
 
         if (contentImage != null && !contentImage.isEmpty()) {
             try {
+//                contentImage.transferTo(
+//                        new File(rootDirectory + "resources/images/" + postId + ".png"));
                 contentImage.transferTo(
-                        new File(rootDirectory + "resources/images/" + postId + ".png"));
+                        new File("/data/local/life/data/images/posts/" + postId + ".png"));
             }
             catch (Exception e) {
                 throw new RuntimeException("Product Image saving failed", e);

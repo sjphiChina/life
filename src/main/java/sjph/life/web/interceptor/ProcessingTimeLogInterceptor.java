@@ -7,6 +7,10 @@ import org.apache.log4j.Logger;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+/**
+ * @author shaohuiguo
+ *
+ */
 public class ProcessingTimeLogInterceptor implements HandlerInterceptor {
 
     private static final Logger logger = Logger.getLogger(ProcessingTimeLogInterceptor.class);
@@ -33,6 +37,13 @@ public class ProcessingTimeLogInterceptor implements HandlerInterceptor {
 
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response,
             Object handler, Exception exceptionIfAny) {
-        // NO operation.
+        String queryString = request.getQueryString() == null ? "" : "?" + request.getQueryString();
+        String path = request.getRequestURL() + queryString;
+
+        long startTime = (Long) request.getAttribute("startTime");
+        long endTime = System.currentTimeMillis();
+
+        logger.info(String.format("%s millisecond taken to finish the request %s.",
+                (endTime - startTime), path));
     }
 }
