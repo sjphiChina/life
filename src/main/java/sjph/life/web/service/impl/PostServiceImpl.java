@@ -18,7 +18,7 @@ import sjph.life.web.exception.PostNotFoundException;
  */
 @SuppressWarnings("javadoc")
 @Service
-public class PostHandler {
+public class PostServiceImpl {
     private static final Logger log = Logger.getLogger(PostHandler.class);
 
     @Autowired(required = true)
