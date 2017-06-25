@@ -25,6 +25,10 @@ import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import sjph.life.web.interceptor.ProcessingTimeLogInterceptor;
 
+/**
+ * @author shaohuiguo
+ *
+ */
 @Configuration
 @EnableWebMvc
 @ComponentScan("sjph.life")

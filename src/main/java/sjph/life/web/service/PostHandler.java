@@ -16,6 +16,7 @@ import sjph.life.web.exception.PostNotFoundException;
  * @author shaohuiguo
  *
  */
+@SuppressWarnings("javadoc")
 @Service
 public class PostHandler {
     private static final Logger log = Logger.getLogger(PostHandler.class);
@@ -32,17 +33,49 @@ public class PostHandler {
         return id;
     }
 
-    public List<Post> listPosts() {
-        List<Post> list = postDao.findPosts(true);
-        return list;
-    }
-
-    public Post getPost(long postId) {
+    public Post findPost(long postId) {
         try {
             return postDao.findPost(postId);
         }
         catch (EmptyResultDataAccessException e) {
             throw new PostNotFoundException(postId, "No post found.", e);
+        }
+    }
+
+    public List<Post> listPosts() {
+        List<Post> list = postDao.listPosts(true);
+        return list;
+    }
+
+    public List<Post> listPosts(Long userId) {
+        List<Post> list = postDao.listPosts(userId, true);
+        return list;
+    }
+
+    public boolean updatePost(Post post) {
+        if (postDao.updatePost(post) == 1) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public boolean deletePost(Long postId) {
+        if (postDao.deletePost(postId) == 1) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public boolean deletePosts(Long userId) {
+        if (postDao.deletePosts(userId) >= 1) {
+            return true;
+        }
+        else {
+            return false;
         }
     }
 }

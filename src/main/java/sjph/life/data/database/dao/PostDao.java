@@ -10,45 +10,52 @@ import sjph.life.data.model.Post;
  */
 public interface PostDao {
 
+    //@formatter:off
+/** CREATE operation */
     /**
      * @param post
      * @return the ID of {@link Post} table record created
      */
     Long createPost(Post post);
 
-    /**
-     * @param isDesc 
-     * @return a list of Post
-     */
-    List<Post> findPosts(boolean isDesc);
-
+/** READ operation */
     /**
      * @param postId post id
      * @return a Post
      */
     Post findPost(Long postId);
 
-    /**
-     * @param userId user id
+/**
+     * @param isDescOrder
      * @return a list of Post
      */
-    List<Post> findPosts(Long userId);
+    List<Post> listPosts(boolean isDescOrder);
 
+/**
+     * @param userId user id
+     * @param isDescOrder
+     * @return a list of Post
+     */
+    List<Post> listPosts(Long userId, boolean isDescOrder);
+
+/** UPDATE operation */
     /**
      * @param post
      * @return the number of affected rows
      */
     int updatePost(Post post);
 
+/** DELETE operation */
     /**
-     * @param id postId
+     * @param postId postId
      * @return the number of affected rows
      */
-    int deletePost(Long id);
+    int deletePost(Long postId);
 
     /**
      * @param userId
      * @return the number of affected rows
      */
-    int deletePostByUserId(Long userId);
+    int deletePosts(Long userId);
+    //@formatter:on
 }

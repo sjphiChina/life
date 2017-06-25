@@ -24,7 +24,6 @@ import sjph.life.data.model.Post;
  *
  */
 @Repository
-@SuppressWarnings("javadoc")
 public class PostDaoImpl implements PostDao {
 
     //@formatter:off
@@ -69,7 +68,7 @@ public class PostDaoImpl implements PostDao {
                     PostSchema.ID + " = ?";
 
     private static final String FIND_BY_USER_ID =
-            SELECT_FULL_TABLE_COLUMNS_SQL +
+            SELECT_FULL_TABLE_COLUMNS_SQL + " " +
             "WHERE " +
                     PostSchema.USER_ID + " = ?";
 
@@ -106,9 +105,11 @@ public class PostDaoImpl implements PostDao {
     @Autowired(required = true)
     private JdbcTemplate        jdbcTemplate;
 
-    public Long createPost(final Post post) {
+    @Override
+    public Long createPost(Post post) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(new PreparedStatementCreator() {
+            @Override
             public PreparedStatement createPreparedStatement(Connection connection)
                     throws SQLException {
                 PreparedStatement ps = connection.prepareStatement(CREATE_POST,
@@ -126,8 +127,15 @@ public class PostDaoImpl implements PostDao {
         // post.getModifiedDate(), post.getUserId());
     }
 
-    public List<Post> findPosts(boolean isDesc) {
-        if (isDesc) {
+    @Override
+    public Post findPost(Long postId) {
+        final Object[] sqlParameters = new Object[] { postId };
+        return jdbcTemplate.queryForObject(FIND_BY_ID, sqlParameters, postRowMapper);
+    }
+
+    @Override
+    public List<Post> listPosts(boolean isDescOrder) {
+        if (isDescOrder) {
             return jdbcTemplate.query(
                     FIND + " " + ORDER_BY + " " + PostSchema.CREATED_DT + " " + DESC,
                     postRowMapper);
@@ -137,18 +145,18 @@ public class PostDaoImpl implements PostDao {
         }
     }
 
-    public Post findPost(Long id) {
-        final Object[] sqlParameters = new Object[] { id };
-        return jdbcTemplate.queryForObject(FIND_BY_ID, sqlParameters, postRowMapper);
-    }
-
-    public List<Post> findPosts(Long userId) {
+    @Override
+    public List<Post> listPosts(Long userId, boolean isDescOrder) {
         final Object[] sqlParameters = new Object[] { userId };
-        return jdbcTemplate.query(FIND_BY_USER_ID, sqlParameters, postRowMapper);
+        return jdbcTemplate.query(
+                FIND_BY_USER_ID + " " + ORDER_BY + " " + PostSchema.CREATED_DT + " " + DESC,
+                sqlParameters, postRowMapper);
     }
 
-    public int updatePost(final Post post) {
+    @Override
+    public int updatePost(Post post) {
         return jdbcTemplate.update(UPDATE_CONTENT, new PreparedStatementSetter() {
+            @Override
             public void setValues(final PreparedStatement stmt) throws SQLException {
                 stmt.setString(1, post.getContent());
                 stmt.setObject(2, post.getModifiedDate());
@@ -157,15 +165,18 @@ public class PostDaoImpl implements PostDao {
         });
     }
 
-    public int deletePost(Long id) {
-        return jdbcTemplate.update(DELETE_POST_BY_ID, id);
+    @Override
+    public int deletePost(Long postId) {
+        return jdbcTemplate.update(DELETE_POST_BY_ID, postId);
     }
 
-    public int deletePostByUserId(Long userId) {
+    @Override
+    public int deletePosts(Long userId) {
         return jdbcTemplate.update(DELETE_POST_BY_USER_ID, userId);
     }
 
     private static final class PostRowMapper implements RowMapper<Post> {
+        @Override
         public Post mapRow(ResultSet arg0, int arg1) throws SQLException {
             return populatePostRecord(arg0);
         }

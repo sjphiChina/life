@@ -78,7 +78,7 @@ public class PostController {
 
     @RequestMapping("/post")
     public String getPost(@RequestParam("id") String postId, Model model) {
-        model.addAttribute("post", postHandler.getPost(Long.valueOf(postId)));
+        model.addAttribute("post", postHandler.findPost(Long.valueOf(postId)));
         return "post";
     }
 
