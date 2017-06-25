@@ -1,5 +1,6 @@
 package sjph.life.web.rest.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import sjph.life.data.model.Post;
-import sjph.life.web.service.PostHandler;
+import sjph.life.web.service.PostService;
 
 /**
  * @author shaohuiguo
@@ -30,43 +31,49 @@ public class PostRestController {
     String                      userName = "sjph";
 
     @Autowired(required = true)
-    private PostHandler         postHandler;
+    private PostService         postService;
+
 // TODO add exception handler
+    @RequestMapping(method = RequestMethod.POST)
+    @ResponseStatus(value = HttpStatus.CREATED)
+    public Long createPost(@RequestBody Post post) {
+        post.setUserId(userId);
+        post.setUserName(userName);
+        post.setCreatedDate(new Date());
+        post.setModifiedDate(new Date());
+        return postService.createPost(post);
+    }
+
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public List<Post> showPosts() {
-        List<Post> list = postHandler.listPosts();
+        List<Post> list = postService.listPosts();
         logger.info("The size of all posts is " + list.size());
         return list;
     }
 
     @RequestMapping(value = "/list/{userId}", method = RequestMethod.GET)
     public List<Post> showPosts(@PathVariable String userId) {
-        List<Post> list = postHandler.listPosts(Long.valueOf(userId));
+        List<Post> list = postService.listPosts(Long.valueOf(userId));
         logger.info("The size of all posts is " + list.size());
         return list;
     }
 
     @RequestMapping(value = "/{postId}", method = RequestMethod.GET)
     public Post showPost(@PathVariable(value = "postId") String postId) {
-        Post post = postHandler.findPost(Long.valueOf(postId));
+        Post post = postService.findPost(Long.valueOf(postId));
         return post;
-    }
-
-    @RequestMapping(method = RequestMethod.POST)
-    @ResponseStatus(value = HttpStatus.CREATED)
-    public void createPost(@RequestBody Post post) {
-        postHandler.createPost(post.getContent(), userId, userName);
     }
 
     @RequestMapping(method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK)
     public void updatePost(@RequestBody Post post) {
-        postHandler.updatePost(post);
+        post.setModifiedDate(new Date());
+        postService.updatePost(post);
     }
 
     @RequestMapping(value = "/{postId}", method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK)
     public void deletePost(@PathVariable(value = "postId") String postId) {
-        postHandler.deletePost(Long.valueOf(postId));
+        postService.deletePost(Long.valueOf(postId));
     }
 }

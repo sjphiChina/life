@@ -1,6 +1,7 @@
 package sjph.life.web.controller;
 
 import java.io.File;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import sjph.life.data.model.Post;
 import sjph.life.web.exception.PostNotFoundException;
-import sjph.life.web.service.PostHandler;
+import sjph.life.web.service.PostService;
 
 /**
  * @author shaohuiguo
@@ -36,11 +37,11 @@ public class PostController {
     String                      userName = "sjph";
 
     @Autowired(required = true)
-    private PostHandler         postHandler;
+    private PostService         postService;
 
     @RequestMapping("/list")
     public String showPosts(Model model) {
-        List<Post> list = postHandler.listPosts();
+        List<Post> list = postService.listPosts();
         logger.info("The size of all posts is " + list.size());
         model.addAttribute("posts", list);
         return "posts";
@@ -57,14 +58,18 @@ public class PostController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String processAddPostForm(@ModelAttribute("post") Post post,
             HttpServletRequest request) {
-        long postId = postHandler.createPost(post.getContent(), userId, userName);
+        post.setUserId(userId);
+        post.setUserName(userName);
+        post.setCreatedDate(new Date());
+        post.setModifiedDate(new Date());
+        long postId = postService.createPost(post);
         MultipartFile contentImage = post.getContentImage();
         String rootDirectory = request.getSession().getServletContext().getRealPath("/");
 
         if (contentImage != null && !contentImage.isEmpty()) {
             try {
-//                contentImage.transferTo(
-//                        new File(rootDirectory + "resources/images/" + postId + ".png"));
+                // contentImage.transferTo(
+                // new File(rootDirectory + "resources/images/" + postId + ".png"));
                 contentImage.transferTo(
                         new File("/data/local/life/data/images/posts/" + postId + ".png"));
             }
@@ -78,7 +83,7 @@ public class PostController {
 
     @RequestMapping("/post")
     public String getPost(@RequestParam("id") String postId, Model model) {
-        model.addAttribute("post", postHandler.findPost(Long.valueOf(postId)));
+        model.addAttribute("post", postService.findPost(Long.valueOf(postId)));
         return "post";
     }
 
