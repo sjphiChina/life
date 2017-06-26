@@ -21,7 +21,7 @@ import org.springframework.stereotype.Repository;
 import sjph.life.data.database.dao.PostDao;
 import sjph.life.data.database.dao.PostSchema;
 import sjph.life.data.model.Post;
-import sjph.life.platform.service.text.TextCodingHelper;
+import sjph.life.platform.text.service.TextCodingHelper;
 import sjph.life.web.exception.RequestFailedException;
 
 /**

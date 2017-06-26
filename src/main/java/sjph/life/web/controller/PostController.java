@@ -20,11 +20,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import sjph.life.data.model.Post;
-import sjph.life.platform.service.text.TextCodingHelper;
+import sjph.life.platform.model.service.PostService;
+import sjph.life.platform.text.service.TextCodingHelper;
 import sjph.life.web.config.WebConfig;
 import sjph.life.web.exception.PostNotFoundException;
 import sjph.life.web.exception.RequestFailedException;
-import sjph.life.web.service.PostService;
 
 /**
  * @author shaohuiguo
