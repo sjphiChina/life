@@ -1,4 +1,4 @@
-package sjph.life.web.service;
+package sjph.life.platform.model.service;
 
 import java.util.List;
 

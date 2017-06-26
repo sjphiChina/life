@@ -1,4 +1,4 @@
-package sjph.life.web.service.impl;
+package sjph.life.platform.model.service.impl;
 
 import java.util.List;
 
@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 
 import sjph.life.data.database.dao.PostDao;
 import sjph.life.data.model.Post;
+import sjph.life.platform.model.service.PostService;
 import sjph.life.web.exception.PostNotFoundException;
-import sjph.life.web.service.PostService;
 
 /**
  * @author shaohuiguo
