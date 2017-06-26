@@ -1,0 +1,13 @@
+20170626_release/0.3:
+1. make spring mvc framework running based on java config
+2. refine app structure
+3. full dao and related for post
+4. a workable controller and related for post
+5. rest, interceptor, log4j, tiles
+
+20170621_release/0.2:
+1. make spring mvc framework running based on xml config
+2. real db connection
+
+20170612_release/0.1:
+one running spring web app
