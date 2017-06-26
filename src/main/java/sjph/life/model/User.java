@@ -1,9 +1,11 @@
 /**
  * 
  */
-package sjph.life.model.user;
+package sjph.life.model;
 
 import java.util.Date;
+
+import sjph.life.model.state.UserState;
 
 /**
  * @author shaoguo

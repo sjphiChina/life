@@ -1,15 +1,15 @@
 /**
  * 
  */
-package sjph.life.model.user.dao.impl;
+package sjph.life.model.dao.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import sjph.life.model.user.User;
-import sjph.life.model.user.dao.UserDao;
-import sjph.life.model.user.dao.UserSchema;
+import sjph.life.model.User;
+import sjph.life.model.dao.UserDao;
+import sjph.life.model.dao.schema.UserSchema;
 
 /**
  * @author shaoguo

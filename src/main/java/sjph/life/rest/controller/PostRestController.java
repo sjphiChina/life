@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import sjph.life.model.post.Post;
-import sjph.life.model.post.service.PostService;
+import sjph.life.model.Post;
+import sjph.life.model.service.PostService;
 
 /**
  * @author shaohuiguo

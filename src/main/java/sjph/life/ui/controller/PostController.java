@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import sjph.life.model.post.Post;
-import sjph.life.model.post.service.PostService;
+import sjph.life.model.Post;
+import sjph.life.model.service.PostService;
 import sjph.life.ui.exception.PostNotFoundException;
 import sjph.life.ui.exception.RequestFailedException;
 

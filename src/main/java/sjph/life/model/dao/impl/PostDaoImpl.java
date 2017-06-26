@@ -1,4 +1,4 @@
-package sjph.life.model.post.dao.impl;
+package sjph.life.model.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,9 +16,9 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-import sjph.life.model.post.Post;
-import sjph.life.model.post.dao.PostDao;
-import sjph.life.model.post.dao.PostSchema;
+import sjph.life.model.Post;
+import sjph.life.model.dao.PostDao;
+import sjph.life.model.dao.schema.PostSchema;
 
 /**
  * @author shaoguo

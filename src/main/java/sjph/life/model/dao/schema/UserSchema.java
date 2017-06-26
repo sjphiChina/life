@@ -1,7 +1,7 @@
 /**
  * 
  */
-package sjph.life.model.user.dao;
+package sjph.life.model.dao.schema;
 
 import sjph.life.platform.database.DatabaseConstants;
 

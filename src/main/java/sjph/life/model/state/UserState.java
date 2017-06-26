@@ -1,4 +1,4 @@
-package sjph.life.model.user;
+package sjph.life.model.state;
 
 /**
  * @author shaoguo

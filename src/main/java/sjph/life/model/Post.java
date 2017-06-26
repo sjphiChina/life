@@ -1,4 +1,4 @@
-package sjph.life.model.post;
+package sjph.life.model;
 
 import java.util.Date;
 

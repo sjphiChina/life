@@ -22,7 +22,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
-import sjph.life.ui.interceptor.ProcessingTimeLogInterceptor;
+import sjph.life.web.interceptor.ProcessingTimeLogInterceptor;
 
 /**
  * @author shaohuiguo
