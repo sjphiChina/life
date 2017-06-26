@@ -1,6 +1,5 @@
 package sjph.life.web.service.impl;
 
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -10,11 +9,8 @@ import org.springframework.stereotype.Service;
 
 import sjph.life.data.database.dao.PostDao;
 import sjph.life.data.model.Post;
-import sjph.life.platform.service.text.TextCodingHelper;
 import sjph.life.web.exception.PostNotFoundException;
 import sjph.life.web.service.PostService;
-import sjph.life.web.service.ServiceConfig;
-import sjph.life.web.service.exception.ServiceRequestFailedException;
 
 /**
  * @author shaohuiguo
@@ -30,6 +26,7 @@ public class PostServiceImpl implements PostService {
     @Override
     public long createPost(Post post) {
         logger.info("Create Post: " + post.toString());
+        // post.setContent(encodeText(post.getContent()));
         long id = postDao.createPost(post);
         post.setId(id);
         logger.info("Created Post: " + post.toString());
@@ -40,6 +37,7 @@ public class PostServiceImpl implements PostService {
     public Post findPost(long postId) {
         try {
             Post post = postDao.findPost(postId);
+            // post.setContent(decodeText(post.getContent()));
             return post;
         }
         catch (EmptyResultDataAccessException e) {
@@ -50,17 +48,24 @@ public class PostServiceImpl implements PostService {
     @Override
     public List<Post> listPosts() {
         List<Post> list = postDao.listPosts(true);
+        // for (Post post : list) {
+        // post.setContent(decodeText(post.getContent()));
+        // }
         return list;
     }
 
     @Override
     public List<Post> listPosts(Long userId) {
         List<Post> list = postDao.listPosts(userId, true);
+        // for (Post post : list) {
+        // post.setContent(decodeText(post.getContent()));
+        // }
         return list;
     }
 
     @Override
     public boolean updatePost(Post post) {
+        // post.setContent(encodeText(post.getContent()));
         if (postDao.updatePost(post) == 1) {
             return true;
         }
@@ -89,31 +94,31 @@ public class PostServiceImpl implements PostService {
         }
     }
 
-//    private String encodeText(String text) {
-//        try {
-//            if (text != null) {
-//                text = TextCodingHelper.encodeText(text, ServiceConfig.CHARACTER_ENCODING_SET);
-//            }
-//            return text;
-//        }
-//        catch (UnsupportedEncodingException e) {
-//            String message = "Cannot finish request.";
-//            logger.error(message, e);
-//            throw new ServiceRequestFailedException(message, e);
-//        }
-//    }
-//
-//    private String decodeText(String text) {
-//        try {
-//            if (text != null) {
-//                return TextCodingHelper.decodeText(text, ServiceConfig.CHARACTER_ENCODING_SET);
-//            }
-//            return text;
-//        }
-//        catch (UnsupportedEncodingException e) {
-//            String message = "Cannot finish request.";
-//            logger.error(message, e);
-//            throw new ServiceRequestFailedException(message, e);
-//        }
-//    }
+    // private String encodeText(String text) {
+    // try {
+    // if (text != null) {
+    // text = TextCodingHelper.encodeText(text, ServiceConfig.CHARACTER_ENCODING_SET);
+    // }
+    // return text;
+    // }
+    // catch (UnsupportedEncodingException e) {
+    // String message = "Cannot finish request.";
+    // logger.error(message, e);
+    // throw new ServiceRequestFailedException(message, e);
+    // }
+    // }
+    //
+    // private String decodeText(String text) {
+    // try {
+    // if (text != null) {
+    // return TextCodingHelper.decodeText(text, ServiceConfig.CHARACTER_ENCODING_SET);
+    // }
+    // return text;
+    // }
+    // catch (UnsupportedEncodingException e) {
+    // String message = "Cannot finish request.";
+    // logger.error(message, e);
+    // throw new ServiceRequestFailedException(message, e);
+    // }
+    // }
 }

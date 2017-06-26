@@ -1,6 +1,7 @@
 package sjph.life.web.controller;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.List;
 
@@ -19,6 +20,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import sjph.life.data.model.Post;
+import sjph.life.platform.service.text.TextCodingHelper;
+import sjph.life.web.config.WebConfig;
 import sjph.life.web.exception.PostNotFoundException;
 import sjph.life.web.exception.RequestFailedException;
 import sjph.life.web.service.PostService;
@@ -59,6 +62,8 @@ public class PostController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String processAddPostForm(@ModelAttribute("post") Post post,
             HttpServletRequest request) {
+        // encodeText(post.getContent(), WebConfig.CHARACTER_ENCODING_SET);
+        // Here I still use the original content, the code above is just for checking.
         post.setUserId(userId);
         post.setUserName(userName);
         post.setCreatedDate(new Date());
@@ -106,4 +111,15 @@ public class PostController {
         mav.setViewName("postNotFound");
         return mav;
     }
+
+    // private String encodeText(String text, String encodingSet) {
+    // try {
+    // return TextCodingHelper.encodeText(text, WebConfig.CHARACTER_ENCODING_SET);
+    // }
+    // catch (UnsupportedEncodingException e) {
+    // String message = "Cannot encode the content passed.";
+    // logger.error(message, e);
+    // throw new RequestFailedException(message, e);
+    // }
+    // }
 }
