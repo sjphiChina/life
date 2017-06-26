@@ -17,7 +17,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.view.ContentNegotiatingViewResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
@@ -39,6 +38,9 @@ public class WebApplicationContextConfig extends WebMvcConfigurerAdapter {
         configurer.enable();
     }
 
+    /**
+     * @return
+     */
     @Bean
     public InternalResourceViewResolver getInternalResourceViewResolver() {
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
@@ -57,6 +59,9 @@ public class WebApplicationContextConfig extends WebMvcConfigurerAdapter {
     // configurer.setUrlPathHelper(urlPathHelper);
     // }
 
+    /**
+     * @return
+     */
     @Bean
     public MessageSource messageSource() {
         ResourceBundleMessageSource resource = new ResourceBundleMessageSource();
@@ -70,6 +75,9 @@ public class WebApplicationContextConfig extends WebMvcConfigurerAdapter {
                 .addResourceLocations("file:///./data/local/life/data/images/posts/");
     }
 
+    /**
+     * @return
+     */
     @Bean
     public CommonsMultipartResolver multipartResolver() {
         CommonsMultipartResolver resolver = new CommonsMultipartResolver();
@@ -77,6 +85,9 @@ public class WebApplicationContextConfig extends WebMvcConfigurerAdapter {
         return resolver;
     }
 
+    /**
+     * @return
+     */
     @Bean
     public MappingJackson2JsonView jsonView() {
         MappingJackson2JsonView jsonView = new MappingJackson2JsonView();
@@ -94,6 +105,10 @@ public class WebApplicationContextConfig extends WebMvcConfigurerAdapter {
     // return xmlView;
     // }
 
+    /**
+     * @param manager
+     * @return
+     */
     @Bean
     public ViewResolver contentNegotiatingViewResolver(ContentNegotiationManager manager) {
         ContentNegotiatingViewResolver resolver = new ContentNegotiatingViewResolver();

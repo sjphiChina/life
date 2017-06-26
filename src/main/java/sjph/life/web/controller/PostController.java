@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import sjph.life.data.model.Post;
 import sjph.life.web.exception.PostNotFoundException;
+import sjph.life.web.exception.RequestFailedException;
 import sjph.life.web.service.PostService;
 
 /**
@@ -91,6 +92,15 @@ public class PostController {
     public ModelAndView handleError(HttpServletRequest req, PostNotFoundException exception) {
         ModelAndView mav = new ModelAndView();
         mav.addObject("invalidProductId", exception.getPostId());
+        mav.addObject("exception", exception);
+        mav.addObject("url", req.getRequestURL() + "?" + req.getQueryString());
+        mav.setViewName("postNotFound");
+        return mav;
+    }
+
+    @ExceptionHandler(RequestFailedException.class)
+    public ModelAndView handleError(HttpServletRequest req, RequestFailedException exception) {
+        ModelAndView mav = new ModelAndView();
         mav.addObject("exception", exception);
         mav.addObject("url", req.getRequestURL() + "?" + req.getQueryString());
         mav.setViewName("postNotFound");

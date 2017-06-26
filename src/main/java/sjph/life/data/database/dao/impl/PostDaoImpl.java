@@ -1,11 +1,14 @@
 package sjph.life.data.database.dao.impl;
 
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -18,6 +21,8 @@ import org.springframework.stereotype.Repository;
 import sjph.life.data.database.dao.PostDao;
 import sjph.life.data.database.dao.PostSchema;
 import sjph.life.data.model.Post;
+import sjph.life.platform.service.text.TextCodingHelper;
+import sjph.life.web.exception.RequestFailedException;
 
 /**
  * @author shaoguo
@@ -25,6 +30,8 @@ import sjph.life.data.model.Post;
  */
 @Repository
 public class PostDaoImpl implements PostDao {
+
+    private static final Logger logger                        = Logger.getLogger(PostDaoImpl.class);
 
     //@formatter:off
     private static final String FULL_TABLE_COLUMNS_SQL =

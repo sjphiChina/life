@@ -12,42 +12,42 @@ public interface PostService {
 
     /**
      * @param post
-     * @return
+     * @return the ID of {@link Post} table record created
      */
     long createPost(Post post);
 
     /**
      * @param postId
-     * @return
+     * @return the Post requested
      */
     Post findPost(long postId);
 
     /**
-     * @return
+     * @return a list of Post
      */
     List<Post> listPosts();
 
     /**
      * @param userId
-     * @return
+     * @return a list of Post by userId
      */
     List<Post> listPosts(Long userId);
 
     /**
      * @param post
-     * @return
+     * @return true if the post specified was updated successfully else false
      */
     boolean updatePost(Post post);
 
     /**
      * @param postId
-     * @return
+     * @return true if the post specified was updated successfully else false
      */
     boolean deletePost(Long postId);
 
     /**
      * @param userId
-     * @return
+     * @return true if posts specified by userId were updated successfully else false
      */
     boolean deletePosts(Long userId);
 }

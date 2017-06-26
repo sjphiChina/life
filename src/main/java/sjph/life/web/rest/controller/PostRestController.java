@@ -33,10 +33,15 @@ public class PostRestController {
     @Autowired(required = true)
     private PostService         postService;
 
-// TODO add exception handler
+    // TODO add exception handler
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.CREATED)
     public Long createPost(@RequestBody Post post) {
+        // disable this, I will move the encode/decode logic to client side, server side just use
+        // the same code
+        // encodeText(post.getContent(), WebConfig.CHARACTER_ENCODING_SET);
+        // Here I still use the original content, the code above is just for checking.
+        // here end
         post.setUserId(userId);
         post.setUserName(userName);
         post.setCreatedDate(new Date());
@@ -76,4 +81,15 @@ public class PostRestController {
     public void deletePost(@PathVariable(value = "postId") String postId) {
         postService.deletePost(Long.valueOf(postId));
     }
+
+    // private String encodeText(String text, String encodingSet) {
+    // try {
+    // return TextCodingHelper.encodeText(text, WebConfig.CHARACTER_ENCODING_SET);
+    // }
+    // catch (UnsupportedEncodingException e) {
+    // String message = "Cannot encode the content passed.";
+    // logger.error(message, e);
+    // throw new RequestFailedException(message, e);
+    // }
+    // }
 }

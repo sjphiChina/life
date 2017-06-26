@@ -21,20 +21,20 @@ public interface PostDao {
 /** READ operation */
     /**
      * @param postId post id
-     * @return a Post
+     * @return the Post requested
      */
     Post findPost(Long postId);
 
 /**
      * @param isDescOrder
-     * @return a list of Post
+     * @return a list of Post by desc order if isDescOrder is true else asc
      */
     List<Post> listPosts(boolean isDescOrder);
 
 /**
      * @param userId user id
      * @param isDescOrder
-     * @return a list of Post
+     * @return a list of Post by userId and desc order if isDescOrder is true else asc
      */
     List<Post> listPosts(Long userId, boolean isDescOrder);
 
