@@ -1,4 +1,4 @@
-package sjph.life.platform.service;
+package sjph.life.platform.config;
 
 /**
  * @author shaohuiguo
