@@ -1,7 +1,6 @@
-package sjph.life.web.controller;
+package sjph.life.ui.controller;
 
 import java.io.File;
-import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.List;
 
@@ -19,12 +18,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import sjph.life.data.model.Post;
-import sjph.life.platform.model.service.PostService;
-import sjph.life.platform.text.service.TextCodingHelper;
-import sjph.life.web.config.WebConfig;
-import sjph.life.web.exception.PostNotFoundException;
-import sjph.life.web.exception.RequestFailedException;
+import sjph.life.model.post.Post;
+import sjph.life.model.post.service.PostService;
+import sjph.life.ui.exception.PostNotFoundException;
+import sjph.life.ui.exception.RequestFailedException;
 
 /**
  * @author shaohuiguo

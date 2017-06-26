@@ -1,9 +1,9 @@
 /**
  * 
  */
-package sjph.life.data.database.dao;
+package sjph.life.model.user.dao;
 
-import sjph.life.data.model.User;
+import sjph.life.model.user.User;
 
 /**
  * @author shaoguo

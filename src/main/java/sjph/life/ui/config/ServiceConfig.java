@@ -1,4 +1,4 @@
-package sjph.life.web.service;
+package sjph.life.ui.config;
 
 import java.nio.charset.StandardCharsets;
 

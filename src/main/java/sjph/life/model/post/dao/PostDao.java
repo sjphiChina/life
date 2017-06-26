@@ -1,8 +1,8 @@
-package sjph.life.data.database.dao;
+package sjph.life.model.post.dao;
 
 import java.util.List;
 
-import sjph.life.data.model.Post;
+import sjph.life.model.post.Post;
 
 /**
  * @author shaoguo

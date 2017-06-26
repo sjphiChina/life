@@ -1,4 +1,4 @@
-package sjph.life.data.database.dao;
+package sjph.life.platform.database;
 
 /**
  * Database access constants.

@@ -1,7 +1,5 @@
-package sjph.life.data.database.dao.impl;
+package sjph.life.model.post.dao.impl;
 
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,11 +16,9 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-import sjph.life.data.database.dao.PostDao;
-import sjph.life.data.database.dao.PostSchema;
-import sjph.life.data.model.Post;
-import sjph.life.platform.text.service.TextCodingHelper;
-import sjph.life.web.exception.RequestFailedException;
+import sjph.life.model.post.Post;
+import sjph.life.model.post.dao.PostDao;
+import sjph.life.model.post.dao.PostSchema;
 
 /**
  * @author shaoguo

@@ -1,8 +1,8 @@
-package sjph.life.platform.model.service;
+package sjph.life.model.post.service;
 
 import java.util.List;
 
-import sjph.life.data.model.Post;
+import sjph.life.model.post.Post;
 
 /**
  * @author shaohuiguo

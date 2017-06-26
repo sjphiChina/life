@@ -1,4 +1,4 @@
-package sjph.life.web.controller;
+package sjph.life.ui.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

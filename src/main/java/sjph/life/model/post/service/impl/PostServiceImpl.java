@@ -1,4 +1,4 @@
-package sjph.life.platform.model.service.impl;
+package sjph.life.model.post.service.impl;
 
 import java.util.List;
 
@@ -7,10 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
-import sjph.life.data.database.dao.PostDao;
-import sjph.life.data.model.Post;
-import sjph.life.platform.model.service.PostService;
-import sjph.life.web.exception.PostNotFoundException;
+import sjph.life.model.post.Post;
+import sjph.life.model.post.dao.PostDao;
+import sjph.life.model.post.service.PostService;
+import sjph.life.ui.exception.PostNotFoundException;
 
 /**
  * @author shaohuiguo

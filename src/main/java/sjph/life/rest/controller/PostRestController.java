@@ -1,4 +1,4 @@
-package sjph.life.web.rest.controller;
+package sjph.life.rest.controller;
 
 import java.util.Date;
 import java.util.List;
@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import sjph.life.data.model.Post;
-import sjph.life.platform.model.service.PostService;
+import sjph.life.model.post.Post;
+import sjph.life.model.post.service.PostService;
 
 /**
  * @author shaohuiguo

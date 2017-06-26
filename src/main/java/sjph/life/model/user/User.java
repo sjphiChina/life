@@ -1,7 +1,7 @@
 /**
  * 
  */
-package sjph.life.data.model;
+package sjph.life.model.user;
 
 import java.util.Date;
 

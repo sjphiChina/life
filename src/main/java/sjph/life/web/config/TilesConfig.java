@@ -13,20 +13,26 @@ import org.springframework.web.servlet.view.tiles3.TilesView;
 @Configuration
 public class TilesConfig {
 
+    /**
+     * @return
+     */
     @Bean
-       public UrlBasedViewResolver viewResolver() {
-           UrlBasedViewResolver viewResolver = new UrlBasedViewResolver();
-           viewResolver.setViewClass(TilesView.class);
-           viewResolver.setOrder(-2);
-           return viewResolver;
-       }
+    public UrlBasedViewResolver viewResolver() {
+        UrlBasedViewResolver viewResolver = new UrlBasedViewResolver();
+        viewResolver.setViewClass(TilesView.class);
+        viewResolver.setOrder(-2);
+        return viewResolver;
+    }
 
-       @Bean
-       public TilesConfigurer tilesConfigurer() {
-           TilesConfigurer tilesConfigurer = new TilesConfigurer();
-           tilesConfigurer.setDefinitions("/WEB-INF/layouts/definitions/tiles.xml");
-           tilesConfigurer.setCheckRefresh(true);
+    /**
+     * @return
+     */
+    @Bean
+    public TilesConfigurer tilesConfigurer() {
+        TilesConfigurer tilesConfigurer = new TilesConfigurer();
+        tilesConfigurer.setDefinitions("/WEB-INF/layouts/definitions/tiles.xml");
+        tilesConfigurer.setCheckRefresh(true);
 
-           return tilesConfigurer;
-       }
+        return tilesConfigurer;
+    }
 }

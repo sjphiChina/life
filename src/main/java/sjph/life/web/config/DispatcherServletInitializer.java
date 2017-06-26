@@ -2,6 +2,10 @@ package sjph.life.web.config;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+/**
+ * @author shaohuiguo
+ *
+ */
 public class DispatcherServletInitializer
         extends AbstractAnnotationConfigDispatcherServletInitializer {
 
