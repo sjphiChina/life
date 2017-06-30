@@ -6,7 +6,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,7 +33,7 @@ import sjph.life.ui.exception.RequestFailedException;
 @RequestMapping("posts")
 public class PostController {
 
-    private static final Logger logger   = Logger.getLogger(PostController.class);
+    private static final Logger LOGGER   = LogManager.getLogger(PostController.class);
 
     Long                        userId   = 1l;
     String                      userName = "sjph";
@@ -43,7 +44,16 @@ public class PostController {
     @RequestMapping("/list")
     public String showPosts(Model model) {
         List<Post> list = postService.listPosts();
-        logger.info("The size of all posts is " + list.size());
+        LOGGER.info("The size of all posts is " + list.size());
+        model.addAttribute("posts", list);
+        return "posts";
+    }
+
+    @RequestMapping("/list/{userId}")
+    public String showPosts(@RequestParam("userId") String userId, Model model) {
+        Long userIdLong = Long.valueOf(userId);
+        List<Post> list = postService.listPosts(userIdLong);
+        LOGGER.info("The size of all posts is " + list.size());
         model.addAttribute("posts", list);
         return "posts";
     }

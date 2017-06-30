@@ -3,29 +3,30 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link rel="stylesheet"
-   href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
 <title>All Posts</title>
 </head>
 <body>
 
-   <section class="container">
-      <div class="row">
-         <c:forEach items="${posts}" var="post">
-            <div class="col-sm-6 col-md-3">
-               <div class="thumbnail">
-               <img src="<c:url value="/img/${post.id}.png"></c:url>"
-                        alt="image" style="width: 100%" />
-                  <div class="caption">
-                     <h5>UserName: </h5>${post.userName}
-                     <p>${post.content}</p>
-                     <p><h6>Created Date: </h6>${post.createdDate}
-                     <p><h6>Modified Date: </h6><p>${post.modifiedDate}
-                  </div>
-               </div>
+  <section class="container">
+    <div class="row">
+      <c:forEach items="${posts}" var="post">
+        <div class="col-sm-6 col-md-3">
+          <div class="thumbnail">
+            <img src="<c:url value="/img/${post.id}.png"></c:url>" alt="image" style="width: 100%" />
+            <div class="caption">
+              <h5>UserName:</h5>${post.userName}
+              <p>${post.content}</p>
+              <p>
+              <h6>Created Date:</h6>${post.createdDate}
+              <p>
+              <h6>Modified Date:</h6>
+              <p>${post.modifiedDate}
             </div>
-         </c:forEach>
-      </div>
-   </section>
+          </div>
+        </div>
+      </c:forEach>
+    </div>
+  </section>
 </body>
 </html>

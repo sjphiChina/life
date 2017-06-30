@@ -3,7 +3,6 @@ package sjph.life.web.config;
 import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -13,7 +12,6 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
  *
  */
 @Configuration
-@ComponentScan("sjph.life")
 @SuppressWarnings("javadoc")
 public class RootApplicationContextConfig {
 

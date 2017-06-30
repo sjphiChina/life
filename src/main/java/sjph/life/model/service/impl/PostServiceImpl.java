@@ -2,7 +2,8 @@ package sjph.life.model.service.impl;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
@@ -18,18 +19,18 @@ import sjph.life.ui.exception.PostNotFoundException;
  */
 @Service
 public class PostServiceImpl implements PostService {
-    private static final Logger logger = Logger.getLogger(PostServiceImpl.class);
+    private static final Logger LOGGER   = LogManager.getLogger(PostServiceImpl.class);
 
     @Autowired(required = true)
     private PostDao             postDao;
 
     @Override
     public long createPost(Post post) {
-        logger.info("Create Post: " + post.toString());
+        LOGGER.info("Create Post: " + post.toString());
         // post.setContent(encodeText(post.getContent()));
         long id = postDao.createPost(post);
         post.setId(id);
-        logger.info("Created Post: " + post.toString());
+        LOGGER.info("Created Post: " + post.toString());
         return id;
     }
 
