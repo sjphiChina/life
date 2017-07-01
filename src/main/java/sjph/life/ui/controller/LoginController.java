@@ -16,31 +16,36 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class LoginController {
 
-    @RequestMapping("/login")
-    public String login(Model model) {
-        System.out.println("/login-------Work hard, Good luck!");
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String login() {
         return "login";
-        //String message = "luck";
-        //return new ModelAndView("Login", "name", message);
     }
 
-    /**
-     * @param request
-     * @param res
-     * @return
-     */
-    @RequestMapping(value = "/loginSubmit", method = RequestMethod.POST)
-    public ModelAndView loginSubmit(HttpServletRequest request, HttpServletResponse res) {
-        System.out.println("Work hard, Good luck!");
-        String name = request.getParameter("name");
-        String password = request.getParameter("password");
-        System.out.println("password: " + password);
-        if (password.equals("admin")) {
-            String message = name;
-            return new ModelAndView("greetingview", "name", message);
-        }
-        else {
-            return new ModelAndView("errorpage", "message", "Sorry, username or password error");
-        }
-    }
+    // @RequestMapping("/login")
+    // public String login(Model model) {
+    // System.out.println("/login-------Work hard, Good luck!");
+    // return "login";
+    // //String message = "luck";
+    // //return new ModelAndView("Login", "name", message);
+    // }
+    //
+    // /**
+    // * @param request
+    // * @param res
+    // * @return
+    // */
+    // @RequestMapping(value = "/loginSubmit", method = RequestMethod.POST)
+    // public ModelAndView loginSubmit(HttpServletRequest request, HttpServletResponse res) {
+    // System.out.println("Work hard, Good luck!");
+    // String name = request.getParameter("name");
+    // String password = request.getParameter("password");
+    // System.out.println("password: " + password);
+    // if (password.equals("admin")) {
+    // String message = name;
+    // return new ModelAndView("greetingview", "name", message);
+    // }
+    // else {
+    // return new ModelAndView("errorpage", "message", "Sorry, username or password error");
+    // }
+    // }
 }

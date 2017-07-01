@@ -49,8 +49,8 @@ public class PostController {
         return "posts";
     }
 
-    @RequestMapping("/list/{userId}")
-    public String showPosts(@RequestParam("userId") String userId, Model model) {
+    @RequestMapping("/list/{user}")
+    public String showPosts(@RequestParam("id") String userId, Model model) {
         Long userIdLong = Long.valueOf(userId);
         List<Post> list = postService.listPosts(userIdLong);
         LOGGER.info("The size of all posts is " + list.size());

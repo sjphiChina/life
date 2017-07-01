@@ -24,6 +24,13 @@
    <definition name="addPost" extends="baseLayout">
       <put-attribute name="content" value="/WEB-INF/views/addPost.jsp" />
    </definition>
+   
+   <definition name="login" extends="baseLayout">
+      <put-attribute name="title" value="Login" />
+      <put-attribute name="heading" value="Welcome to Web Store!" />
+      <put-attribute name="tagline" value="The one and only amazing web store" />
+      <put-attribute name="content" value="/WEB-INF/views/login.jsp" />
+   </definition>
    <!-- 
    
    <definition name="product" extends="baseLayout">
@@ -40,12 +47,7 @@
       <put-attribute name="content" value="/WEB-INF/views/addProduct.jsp" />
    </definition>
    
-   <definition name="login" extends="baseLayout">
-      <put-attribute name="title" value="Login" />
-      <put-attribute name="heading" value="Welcome to Web Store!" />
-      <put-attribute name="tagline" value="The one and only amazing web store" />
-      <put-attribute name="content" value="/WEB-INF/views/login.jsp" />
-   </definition>
+   
    
    <definition name="cart" extends="baseLayout">
       <put-attribute name="title" value="Shopping Cart" />

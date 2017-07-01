@@ -58,8 +58,8 @@ public class PostRestController {
         return list;
     }
 
-    @RequestMapping(value = "/list/{userId}", method = RequestMethod.GET)
-    public List<Post> showUserPosts(Model model, @PathVariable("userId") String userId) {
+    @RequestMapping(value = "/list/{user}", method = RequestMethod.GET)
+    public List<Post> showUserPosts(Model model, @PathVariable("id") String userId) {
         List<Post> list = postService.listPosts(Long.valueOf(userId));
         LOGGER.info("The size of all posts is " + list.size());
         return list;

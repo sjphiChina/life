@@ -11,7 +11,7 @@ public class DispatcherServletInitializer
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class[] { RootApplicationContextConfig.class };
+        return new Class[] { RootApplicationContextConfig.class, SecurityConfig.class};
     }
 
     @Override
