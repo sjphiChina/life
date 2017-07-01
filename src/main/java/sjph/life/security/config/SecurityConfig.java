@@ -1,4 +1,4 @@
-package sjph.life.web.config;
+package sjph.life.security.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
