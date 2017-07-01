@@ -31,6 +31,13 @@
       <put-attribute name="tagline" value="The one and only amazing web store" />
       <put-attribute name="content" value="/WEB-INF/views/login.jsp" />
    </definition>
+   
+   <definition name="register" extends="baseLayout">
+      <put-attribute name="title" value="Register" />
+      <put-attribute name="heading" value="Welcome to Web Store!" />
+      <put-attribute name="tagline" value="The one and only amazing web store" />
+      <put-attribute name="content" value="/WEB-INF/views/register.jsp" />
+   </definition>
    <!-- 
    
    <definition name="product" extends="baseLayout">

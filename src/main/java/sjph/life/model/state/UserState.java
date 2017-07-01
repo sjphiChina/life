@@ -1,5 +1,8 @@
 package sjph.life.model.state;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author shaoguo
  *
@@ -7,6 +10,7 @@ package sjph.life.model.state;
 public enum UserState {
 
     //@formatter:off
+    NONE('N', "NONE"),
     ACTIVE('A', "ACTIVE"),
     INACTIVE('I', "INACTIVE"),
     DELETED('D', "DELETED"),
@@ -14,8 +18,9 @@ public enum UserState {
     //@formatter:on
 
     // Fields
-    private char   charValue;
-    private String description;
+    private char                             charValue;
+    private String                           description;
+    private static Map<Character, UserState> lookUp = new HashMap<>();
 
     private UserState(char charValue, String description) {
         this.charValue = charValue;
@@ -36,4 +41,17 @@ public enum UserState {
         return description;
     }
 
+    public static UserState get(char charValue) {
+        UserState userState = lookUp.get(charValue);
+        if (userState == null) {
+            userState = NONE;
+        }
+        return userState;
+    }
+
+    static {
+        for (UserState userState : UserState.values()) {
+            lookUp.put(userState.charValue, userState);
+        }
+    }
 }

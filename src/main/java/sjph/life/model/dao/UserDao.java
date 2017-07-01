@@ -11,28 +11,38 @@ import sjph.life.model.User;
  */
 public interface UserDao {
 
+    //@formatter:off
+/** CREATE operation */
     /**
      * @param user
      * @return
      */
-    int createUser(User user);
+    long createUser(User user);
 
+/** READ operation */
     /**
-     * @param id
+     * @param userId
      * @return
      */
-    int deleteUser(Long id);
+    User findUser(Long userId);
 
     /**
-     * @param id
+     * @param email
      * @return
      */
-    User findUser(Long id);
+    User findUser(String email);
 
+/** UPDATE operation */
     /**
      * @param user
      * @return
      */
-    User updateUser(User user);
+    int updateUser(User user);
+
+/** DELETE operation */
+    /**
+     * @param userId
+     * @return
+     */
+    int deleteUser(Long userId);
 }
-

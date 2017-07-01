@@ -25,6 +25,7 @@
    <section class="container">
       <div class="pull-right" style="padding-right: 50px">
          <a href="?language=en">English</a>|<a href="?language=nl">中文</a>
+         <a href="<spring:url value="/user/register"/>">Register</a>
          <a href="<c:url value="/logout" />">Logout</a>
       </div>
    </section>
