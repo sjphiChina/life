@@ -10,11 +10,12 @@ import java.util.Map;
 public enum UserState {
 
     //@formatter:off
-    NONE('N', "NONE"),
-    ACTIVE('A', "ACTIVE"),
-    INACTIVE('I', "INACTIVE"),
-    DELETED('D', "DELETED"),
-    BLOCKED('B', "BLOCKED");
+    NONE                                                                              ('N', "NONE"),
+    ACTIVE                                                                          ('A', "ACTIVE"),
+    INACTIVE                                                                      ('I', "INACTIVE"),
+    EXPIRED                                                                        ('E', "EXPIRED"),
+    CREDENTIAL_EXPIRED                                                  ('C', "CREDENTIAL_EXPIRED"),
+    LOCKED                                                                          ('L', "LOCKED");
     //@formatter:on
 
     // Fields
