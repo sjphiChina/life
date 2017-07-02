@@ -28,10 +28,21 @@ public interface PostService {
     List<Post> listPosts();
 
     /**
+     * Get all posts just for the specific user per userId passed.
+     * 
      * @param userId
-     * @return a list of Post by userId
+     * @return a list of Post
      */
     List<Post> listPosts(Long userId);
+
+    /**
+     * Get all posts for the specific user per userId passed and persons who are followed by the 
+     * specific user.
+     * 
+     * @param userId
+     * @return a list of Post
+     */
+    List<Post> listPostsAll(Long userId);
 
     /**
      * @param post

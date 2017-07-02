@@ -1,6 +1,3 @@
-/**
- * 
- */
 package sjph.life.security.authentication;
 
 import java.util.ArrayList;
@@ -13,7 +10,6 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -71,7 +67,7 @@ public class LifeUserDetailsService implements UserDetailsService {
         return authorities;
     }
 
-    private User buildUserForAuthentication(sjph.life.model.User user,
+    private AuthenticatedUser buildUserForAuthentication(sjph.life.model.User user,
             List<GrantedAuthority> result) {
         boolean enabled = true;
         boolean accountNonExpired = true;
@@ -90,8 +86,9 @@ public class LifeUserDetailsService implements UserDetailsService {
         if (user.getUserState().equals(UserState.CREDENTIAL_EXPIRED)) {
             credentialsNonExpired = false;
         }
-        User userDetails = new User(user.getEmail(), user.getPassword(), enabled, accountNonExpired,
-                credentialsNonExpired, accountNonLocked, result);
-        return userDetails;
+        AuthenticatedUser authenticatedUser = new AuthenticatedUser(user.getEmail(),
+                user.getPassword(), enabled, accountNonExpired, credentialsNonExpired,
+                accountNonLocked, result, user);
+        return authenticatedUser;
     }
 }

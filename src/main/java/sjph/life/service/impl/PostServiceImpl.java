@@ -1,5 +1,6 @@
 package sjph.life.service.impl;
 
+import java.util.Comparator;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -10,7 +11,9 @@ import org.springframework.stereotype.Service;
 
 import sjph.life.model.Post;
 import sjph.life.model.dao.PostDao;
+import sjph.life.platform.util.algorithm.MergeSort;
 import sjph.life.service.PostService;
+import sjph.life.service.RelationshipService;
 import sjph.life.ui.exception.PostNotFoundException;
 
 /**
@@ -19,10 +22,12 @@ import sjph.life.ui.exception.PostNotFoundException;
  */
 @Service
 public class PostServiceImpl implements PostService {
-    private static final Logger LOGGER   = LogManager.getLogger(PostServiceImpl.class);
+    private static final Logger LOGGER = LogManager.getLogger(PostServiceImpl.class);
 
     @Autowired(required = true)
     private PostDao             postDao;
+    @Autowired(required = true)
+    private RelationshipService relationshipService;
 
     @Override
     public long createPost(Post post) {
@@ -57,11 +62,38 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<Post> listPosts(Long userId) {
+        return postDao.listPosts(userId, true);
+    }
+
+    @Override
+    public List<Post> listPostsAll(Long userId) {
         List<Post> list = postDao.listPosts(userId, true);
-        // for (Post post : list) {
-        // post.setContent(decodeText(post.getContent()));
-        // }
-        return list;
+        List<Long> followerList = relationshipService.getFollwers(userId);
+        List<Post>[] arrayList = new List[followerList.size() + 1];
+        // There are two ways to this merge:
+        // 1. PriorityQueue, merge the head of each list and traverse
+        // 2. Merge all sorted list
+        // Now use the 2.
+        int index = 0;
+        arrayList[index++] = list;
+        for (long followerId : followerList) {
+            List<Post> followerPostList = postDao.listPosts(followerId, true);
+            arrayList[index++] = followerPostList;
+        }
+        MergeSort<Post> mergeSort = new MergeSort<>(new Comparator<Post>() {
+            @Override
+            public int compare(Post a, Post b) {
+                long diff = b.getCreatedDate().getTime() - a.getCreatedDate().getTime();
+                if (diff >= 0) {
+                    return 1;
+                }
+                else {
+                    return -1;
+                }
+            }
+        });
+        List<Post> result = mergeSort.mergeKLists(arrayList);
+        return result;
     }
 
     @Override

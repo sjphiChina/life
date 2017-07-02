@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -20,6 +21,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import sjph.life.model.Post;
+import sjph.life.model.User;
+import sjph.life.security.authentication.AuthenticatedUser;
 import sjph.life.service.PostService;
 import sjph.life.ui.exception.PostNotFoundException;
 import sjph.life.ui.exception.RequestFailedException;
@@ -41,12 +44,28 @@ public class PostController {
     @Autowired(required = true)
     private PostService         postService;
 
+    // @RequestMapping("/list")
+    // public String showPosts(Model model) {
+    // List<Post> list = postService.listPosts();
+    // LOGGER.info("The size of all posts is " + list.size());
+    // model.addAttribute("posts", list);
+    // return "posts";
+    // }
+
     @RequestMapping("/list")
     public String showPosts(Model model) {
-        List<Post> list = postService.listPosts();
-        LOGGER.info("The size of all posts is " + list.size());
-        model.addAttribute("posts", list);
-        return "posts";
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (principal instanceof AuthenticatedUser) {
+            User user = ((AuthenticatedUser) principal).getUserOfLife();
+            List<Post> list = postService.listPostsAll(user.getId());
+            LOGGER.info("The size of all posts is " + list.size());
+            model.addAttribute("posts", list);
+            return "posts";
+        }
+        else {
+            throw new RequestFailedException("Cannot find user.");
+        }
     }
 
     @RequestMapping("/list/{user}")
