@@ -19,8 +19,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import sjph.life.model.service.UserService;
 import sjph.life.model.state.UserState;
+import sjph.life.service.UserService;
 
 /**
  * @author shaohuiguo

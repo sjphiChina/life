@@ -1,7 +1,4 @@
-/**
- * 
- */
-package sjph.life.model.service;
+package sjph.life.service;
 
 import sjph.life.model.User;
 

@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import sjph.life.model.User;
-import sjph.life.model.service.UserService;
 import sjph.life.model.state.UserState;
+import sjph.life.service.UserService;
 
 /**
  * @author shaohuiguo

@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import sjph.life.model.Post;
-import sjph.life.model.service.PostService;
+import sjph.life.service.PostService;
 
 /**
  * @author shaohuiguo

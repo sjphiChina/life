@@ -1,4 +1,4 @@
-package sjph.life.model.service.impl;
+package sjph.life.service.impl;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import sjph.life.model.Post;
 import sjph.life.model.dao.PostDao;
-import sjph.life.model.service.PostService;
+import sjph.life.service.PostService;
 import sjph.life.ui.exception.PostNotFoundException;
 
 /**
