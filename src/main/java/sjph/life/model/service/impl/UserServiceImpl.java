@@ -1,6 +1,3 @@
-/**
- * 
- */
 package sjph.life.model.service.impl;
 
 import org.apache.logging.log4j.LogManager;
@@ -23,11 +20,6 @@ public class UserServiceImpl implements UserService {
     @Autowired(required = true)
     private UserDao             userDao;
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see sjph.life.model.service.UserService#createUser(sjph.life.model.User)
-     */
     @Override
     public long createUser(User user) {
         long id = userDao.createUser(user);
@@ -36,31 +28,16 @@ public class UserServiceImpl implements UserService {
         return user.getId();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see sjph.life.model.service.UserService#findUser(long)
-     */
     @Override
     public User findUser(long userId) {
         return userDao.findUser(userId);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see sjph.life.model.service.UserService#findUser(java.lang.String)
-     */
     @Override
     public User findUser(String email) {
         return userDao.findUser(email);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see sjph.life.model.service.UserService#updateUser(sjph.life.model.User)
-     */
     @Override
     public boolean updateUser(User user) {
         if (userDao.updateUser(user) == 1) {
@@ -71,11 +48,6 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see sjph.life.model.service.UserService#deleteUser(long)
-     */
     @Override
     public boolean deleteUser(long userId) {
         if (userDao.deleteUser(userId) == 1) {

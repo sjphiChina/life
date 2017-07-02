@@ -21,7 +21,6 @@ import org.springframework.stereotype.Repository;
 
 import sjph.life.model.User;
 import sjph.life.model.dao.UserDao;
-import sjph.life.model.dao.schema.PostSchema;
 import sjph.life.model.dao.schema.UserSchema;
 import sjph.life.model.state.UserState;
 
