@@ -38,34 +38,23 @@ public class PostController {
 
     private static final Logger LOGGER   = LogManager.getLogger(PostController.class);
 
-    Long                        userId   = 1l;
-    String                      userName = "sjph";
-
     @Autowired(required = true)
     private PostService         postService;
-
-    // @RequestMapping("/list")
-    // public String showPosts(Model model) {
-    // List<Post> list = postService.listPosts();
-    // LOGGER.info("The size of all posts is " + list.size());
-    // model.addAttribute("posts", list);
-    // return "posts";
-    // }
 
     @RequestMapping("/list")
     public String showPosts(Model model) {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
+        List<Post> list = null;
         if (principal instanceof AuthenticatedUser) {
             User user = ((AuthenticatedUser) principal).getUserOfLife();
-            List<Post> list = postService.listPostsAll(user.getId());
-            LOGGER.info("The size of all posts is " + list.size());
-            model.addAttribute("posts", list);
-            return "posts";
+            list = postService.listPostsAll(user.getId());
         }
         else {
-            throw new RequestFailedException("Cannot find user.");
+            list = postService.listPosts();
         }
+        LOGGER.info("The size of all posts is " + list.size());
+        model.addAttribute("posts", list);
+        return "posts";
     }
 
     @RequestMapping("/list/{user}")
@@ -88,10 +77,18 @@ public class PostController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String processAddPostForm(@ModelAttribute("post") Post post,
             HttpServletRequest request) {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = null;
+        if (principal instanceof AuthenticatedUser) {
+            user = ((AuthenticatedUser) principal).getUserOfLife();
+        }
+        else {
+            throw new RequestFailedException("Cannot find user.");
+        }
         // encodeText(post.getContent(), WebConfig.CHARACTER_ENCODING_SET);
         // Here I still use the original content, the code above is just for checking.
-        post.setUserId(userId);
-        post.setUserName(userName);
+        post.setUserId(user.getId());
+        post.setUserName(user.getUserName());
         post.setCreatedDate(new Date());
         post.setModifiedDate(new Date());
         long postId = postService.createPost(post);
