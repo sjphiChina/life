@@ -68,16 +68,16 @@ public class PostServiceImpl implements PostService {
     @Override
     public List<Post> listPostsAll(Long userId) {
         List<Post> list = postDao.listPosts(userId, true);
-        List<Long> followerList = relationshipService.getFollwers(userId);
-        List<Post>[] arrayList = new List[followerList.size() + 1];
+        List<Long> followeeList = relationshipService.getFollwees(userId);
+        List<Post>[] arrayList = new List[followeeList.size() + 1];
         // There are two ways to this merge:
         // 1. PriorityQueue, merge the head of each list and traverse
         // 2. Merge all sorted list
         // Now use the 2.
         int index = 0;
         arrayList[index++] = list;
-        for (long followerId : followerList) {
-            List<Post> followerPostList = postDao.listPosts(followerId, true);
+        for (long followeeId : followeeList) {
+            List<Post> followerPostList = postDao.listPosts(followeeId, true);
             arrayList[index++] = followerPostList;
         }
         MergeSort<Post> mergeSort = new MergeSort<>(new Comparator<Post>() {

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import sjph.life.model.User;
 import sjph.life.model.dao.UserDao;
 import sjph.life.service.UserService;
+import sjph.life.service.exception.UserNotFoundException;
 
 /**
  * @author shaohuiguo
@@ -29,13 +30,36 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findUser(long userId) {
-        return userDao.findUser(userId);
+    public User findUser(long userId) throws UserNotFoundException {
+        User user = userDao.findUser(userId);
+        if (user != null) {
+            return user;
+        }
+        else {
+            throw new UserNotFoundException("Cannot find user: userId=" + userId);
+        }
     }
 
     @Override
-    public User findUser(String email) {
-        return userDao.findUser(email);
+    public User findUserByEmail(String email) throws UserNotFoundException {
+        User user = userDao.findUserByEmail(email);
+        if (user != null) {
+            return user;
+        }
+        else {
+            throw new UserNotFoundException("Cannot find user: email=" + email);
+        }
+    }
+
+    @Override
+    public User findUserByUserName(String userName) throws UserNotFoundException {
+        User user = userDao.findUserByUserName(userName);
+        if (user != null) {
+            return user;
+        }
+        else {
+            throw new UserNotFoundException("Cannot find user: userName=" + userName);
+        }
     }
 
     @Override
@@ -57,5 +81,4 @@ public class UserServiceImpl implements UserService {
             return false;
         }
     }
-
 }

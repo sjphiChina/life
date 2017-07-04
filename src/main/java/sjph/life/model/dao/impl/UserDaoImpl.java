@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.PreparedStatementSetter;
@@ -88,6 +89,10 @@ public class UserDaoImpl implements UserDao {
             "WHERE " +
                     UserSchema.EMAIL + " = ?";
 
+    private static final String FIND_BY_USER_NAME =
+            SELECT_FULL_TABLE_COLUMNS_SQL + " " +
+            "WHERE " +
+                    UserSchema.USER_NAME + " = ?";
 /**update section    */
     private static final String UPDATE_TABLE_SQL =
             "UPDATE " +
@@ -150,14 +155,35 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User findUser(Long userId) {
-        final Object[] sqlParameters = new Object[] { userId };
-        return jdbcTemplate.queryForObject(FIND_BY_ID, sqlParameters, userRowMapper);
+        try {
+            final Object[] sqlParameters = new Object[] { userId };
+            return jdbcTemplate.queryForObject(FIND_BY_ID, sqlParameters, userRowMapper);
+        }
+        catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     @Override
-    public User findUser(String email) {
-        final Object[] sqlParameters = new Object[] { email };
-        return jdbcTemplate.queryForObject(FIND_BY_EMAIL, sqlParameters, userRowMapper);
+    public User findUserByEmail(String email) {
+        try {
+            final Object[] sqlParameters = new Object[] { email };
+            return jdbcTemplate.queryForObject(FIND_BY_EMAIL, sqlParameters, userRowMapper);
+        }
+        catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
+
+    @Override
+    public User findUserByUserName(String userName) {
+        try {
+            final Object[] sqlParameters = new Object[] { userName };
+            return jdbcTemplate.queryForObject(FIND_BY_USER_NAME, sqlParameters, userRowMapper);
+        }
+        catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     @Override

@@ -32,7 +32,7 @@ public class LifeUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        sjph.life.model.User user = userService.findUser(email);
+        sjph.life.model.User user = userService.findUserByEmail(email);
         if (user != null) {
             LOGGER.info("Found User: " + user.toString());
             LOGGER.info("USER role: " + UserRole.Role.USER.toString());

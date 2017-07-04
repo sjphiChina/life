@@ -24,6 +24,7 @@ import sjph.life.model.Post;
 import sjph.life.model.User;
 import sjph.life.security.authentication.AuthenticatedUser;
 import sjph.life.service.PostService;
+import sjph.life.service.RelationshipService;
 import sjph.life.ui.exception.PostNotFoundException;
 import sjph.life.ui.exception.RequestFailedException;
 
@@ -40,6 +41,8 @@ public class PostController {
 
     @Autowired(required = true)
     private PostService         postService;
+    @Autowired(required = true)
+    private RelationshipService relationshipService;
 
     @RequestMapping("/list")
     public String showPosts(Model model) {
@@ -47,13 +50,19 @@ public class PostController {
         List<Post> list = null;
         if (principal instanceof AuthenticatedUser) {
             User user = ((AuthenticatedUser) principal).getUserOfLife();
+            model.addAttribute("user", user);
             list = postService.listPostsAll(user.getId());
+            // TODO need to refine this, add it to user object
+            long numberOfFollower = relationshipService.getNumberOfFollower(user.getId());
+            model.addAttribute("numberOfFollower", numberOfFollower);
         }
         else {
             list = postService.listPosts();
         }
         LOGGER.info("The size of all posts is " + list.size());
         model.addAttribute("posts", list);
+        Post post = new Post();
+        model.addAttribute("post", post);
         return "posts";
     }
 

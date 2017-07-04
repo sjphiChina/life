@@ -42,6 +42,14 @@
    <definition name="settings" extends="baseLayout">
       <put-attribute name="content" value="/WEB-INF/views/settings.jsp" />
    </definition>
+   
+      <definition name="userAbout" extends="baseLayout">
+      <put-attribute name="content" value="/WEB-INF/views/userAbout.jsp" />
+   </definition>
+   
+      <definition name="userTimeline" extends="baseLayout">
+      <put-attribute name="content" value="/WEB-INF/views/userTimeline.jsp" />
+   </definition>
    <!-- 
    
    <definition name="product" extends="baseLayout">

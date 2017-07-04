@@ -40,6 +40,22 @@ public class RelationshipDaoImpl implements RelationshipDao {
             "WHERE " +
                     RelationshipSchema.USER_ID + " = ?";
 
+    private static final String SELECT_FOLLOWEE_ID_SQL =
+            "SELECT " +
+                    RelationshipSchema.USER_ID + " " +
+            "FROM " +
+                    RelationshipSchema.tableName + " " +
+            "WHERE " +
+                    RelationshipSchema.FOLLOWER_ID + " = ?";
+
+    private static final String COUNT_FOLLOWER_NUMBER_SQL =
+            "SELECT " +
+                    "COUNT(*)" + " " +
+            "FROM " +
+                    RelationshipSchema.tableName + " " +
+            "WHERE " +
+                    RelationshipSchema.USER_ID + " = ?";
+
     /**delete section    */
     private static final String DELETE_FOLLOWER_ID_SQL =
             "DELETE FROM " +
@@ -48,6 +64,14 @@ public class RelationshipDaoImpl implements RelationshipDao {
                     RelationshipSchema.USER_ID + " = ? " +
             "AND " +
                     RelationshipSchema.FOLLOWER_ID + " = ?";
+
+    private static final String DELETE_FOLLOWEE_ID_SQL =
+            "DELETE FROM " +
+                    RelationshipSchema.tableName + " " +
+            "WHERE " +
+                    RelationshipSchema.FOLLOWER_ID + " = ? " +
+            "AND " +
+                    RelationshipSchema.USER_ID + " = ?";
     //@formatter:on
 
     private final FollowerIdRowMapper followerIdRowMapper    = new FollowerIdRowMapper();
@@ -62,12 +86,27 @@ public class RelationshipDaoImpl implements RelationshipDao {
     @Override
     public List<Long> getFollwers(Long userId) {
         return jdbcTemplate.query(SELECT_FOLLOWER_ID_SQL, followerIdRowMapper, userId);
+    }
 
+    @Override
+    public List<Long> getFollwees(Long followerId) {
+        return jdbcTemplate.query(SELECT_FOLLOWEE_ID_SQL, followerIdRowMapper, followerId);
+    }
+
+    @Override
+    public Long getNumberOfFollower(Long userId) {
+        return jdbcTemplate.queryForObject(COUNT_FOLLOWER_NUMBER_SQL, new Object[] { userId },
+                Long.class);
     }
 
     @Override
     public int deleteFollwer(Long userId, Long followerId) {
         return jdbcTemplate.update(DELETE_FOLLOWER_ID_SQL, userId, followerId);
+    }
+
+    @Override
+    public int deleteFollwee(Long userId, Long followerId) {
+        return jdbcTemplate.update(DELETE_FOLLOWEE_ID_SQL, followerId, userId);
     }
 
     private static final class FollowerIdRowMapper implements RowMapper<Long> {

@@ -1,6 +1,7 @@
 package sjph.life.service;
 
 import sjph.life.model.User;
+import sjph.life.service.exception.UserNotFoundException;
 
 /**
  * @author shaohuiguo
@@ -17,14 +18,23 @@ public interface UserService {
     /**
      * @param userId
      * @return the User requested
+     * @throws UserNotFoundException 
      */
-    User findUser(long userId);
+    User findUser(long userId) throws UserNotFoundException;
 
     /**
      * @param email
      * @return the User requested
+     * @throws UserNotFoundException 
      */
-    User findUser(String email);
+    User findUserByEmail(String email) throws UserNotFoundException;
+
+    /**
+     * @param userName
+     * @return the User requested
+     * @throws UserNotFoundException 
+     */
+    User findUserByUserName(String userName) throws UserNotFoundException;
 
     /**
      * @param user

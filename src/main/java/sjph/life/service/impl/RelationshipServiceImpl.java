@@ -29,7 +29,22 @@ public class RelationshipServiceImpl implements RelationshipService {
     }
 
     @Override
+    public List<Long> getFollwees(Long followerId) {
+        return relationshipDao.getFollwees(followerId);
+    }
+
+    @Override
+    public Long getNumberOfFollower(Long userId) {
+        return relationshipDao.getNumberOfFollower(userId);
+    }
+
+    @Override
     public int deleteFollwer(Long userId, Long followerId) {
         return relationshipDao.deleteFollwer(userId, followerId);
+    }
+
+    @Override
+    public int deleteFollwee(Long userId, Long followerId) {
+        return relationshipDao.deleteFollwee(userId, followerId);
     }
 }

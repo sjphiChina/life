@@ -24,9 +24,28 @@ public interface RelationshipDao {
     List<Long> getFollwers(Long userId);
 
     /**
+     * @param followerId
+     * @return a list of followees' id
+     */
+    List<Long> getFollwees(Long followerId);
+
+    /**
+     * @param userId
+     * @return the number of followers per userId
+     */
+    Long getNumberOfFollower(Long userId);
+
+    /**
      * @param userId
      * @param followerId
      * @return the affected rows
      */
     int deleteFollwer(Long userId, Long followerId);
+
+    /**
+     * @param userId
+     * @param followerId
+     * @return the affected rows
+     */
+    int deleteFollwee(Long userId, Long followerId);
 }

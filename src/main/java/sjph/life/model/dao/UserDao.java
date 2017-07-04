@@ -30,7 +30,13 @@ public interface UserDao {
      * @param email
      * @return
      */
-    User findUser(String email);
+    User findUserByEmail(String email);
+
+    /**
+     * @param userName
+     * @return
+     */
+    User findUserByUserName(String userName);
 
 /** UPDATE operation */
     /**
