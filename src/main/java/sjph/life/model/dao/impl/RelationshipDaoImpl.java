@@ -72,9 +72,21 @@ public class RelationshipDaoImpl implements RelationshipDao {
                     RelationshipSchema.FOLLOWER_ID + " = ? " +
             "AND " +
                     RelationshipSchema.USER_ID + " = ?";
+    
+    /**check section*/
+    private static final String CHECK_FOLLOWER_NUMBER_SQL =
+            "SELECT " +
+                    "COUNT(*)" + " " +
+            "FROM " +
+                    RelationshipSchema.tableName + " " +
+            "WHERE " +
+                    RelationshipSchema.USER_ID + " = ? " +
+            "AND " +
+                    RelationshipSchema.FOLLOWER_ID + " = ?";
     //@formatter:on
 
-    private final FollowerIdRowMapper followerIdRowMapper    = new FollowerIdRowMapper();
+    private final FollowerIdRowMapper followerIdRowMapper       = new FollowerIdRowMapper();
+    private final FolloweeIdRowMapper followeeIdRowMapper       = new FolloweeIdRowMapper();
     @Autowired(required = true)
     private JdbcTemplate              jdbcTemplate;
 
@@ -85,12 +97,14 @@ public class RelationshipDaoImpl implements RelationshipDao {
 
     @Override
     public List<Long> getFollwers(Long userId) {
-        return jdbcTemplate.query(SELECT_FOLLOWER_ID_SQL, followerIdRowMapper, userId);
+        final Object[] sqlParameters = new Object[] { userId };
+        return jdbcTemplate.query(SELECT_FOLLOWER_ID_SQL, sqlParameters, followerIdRowMapper);
     }
 
     @Override
     public List<Long> getFollwees(Long followerId) {
-        return jdbcTemplate.query(SELECT_FOLLOWEE_ID_SQL, followerIdRowMapper, followerId);
+        final Object[] sqlParameters = new Object[] { followerId };
+        return jdbcTemplate.query(SELECT_FOLLOWEE_ID_SQL, sqlParameters, followeeIdRowMapper);
     }
 
     @Override
@@ -109,14 +123,37 @@ public class RelationshipDaoImpl implements RelationshipDao {
         return jdbcTemplate.update(DELETE_FOLLOWEE_ID_SQL, followerId, userId);
     }
 
-    private static final class FollowerIdRowMapper implements RowMapper<Long> {
-        @Override
-        public Long mapRow(ResultSet arg0, int arg1) throws SQLException {
-            return populateRecord(arg0);
+    @Override
+    public boolean isFollowUser(Long userId, Long followerId) {
+        int count = jdbcTemplate.queryForObject(CHECK_FOLLOWER_NUMBER_SQL,
+                new Object[] { userId, followerId }, Integer.class);
+        if (count == 1) {
+            return true;
+        }
+        else {
+            return false;
         }
     }
 
-    private static Long populateRecord(final ResultSet rs) throws SQLException {
-        return rs.getLong(RelationshipSchema.FOLLOWER_ID.toString());
+    private static final class FollowerIdRowMapper implements RowMapper<Long> {
+        @Override
+        public Long mapRow(ResultSet arg0, int arg1) throws SQLException {
+            return populateFollowerRecord(arg0);
+        }
+    }
+
+    private static Long populateFollowerRecord(final ResultSet rs) throws SQLException {
+        return rs.getLong(RelationshipSchema.FOLLOWER_ID.name());
+    }
+    
+    private static final class FolloweeIdRowMapper implements RowMapper<Long> {
+        @Override
+        public Long mapRow(ResultSet arg0, int arg1) throws SQLException {
+            return populateFolloweeRecord(arg0);
+        }
+    }
+
+    private static Long populateFolloweeRecord(final ResultSet rs) throws SQLException {
+        return rs.getLong(RelationshipSchema.USER_ID.name());
     }
 }

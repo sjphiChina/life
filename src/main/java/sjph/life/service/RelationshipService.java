@@ -45,4 +45,11 @@ public interface RelationshipService {
      * @return the affected rows
      */
     int deleteFollwee(Long userId, Long followerId);
+
+    /**
+     * @param userId
+     * @param followerId
+     * @return true if userId is following followerID
+     */
+    boolean isFollowUser(Long userId, Long followerId);
 }

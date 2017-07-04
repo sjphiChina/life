@@ -46,8 +46,8 @@ public class PostController {
 
     @RequestMapping("/list")
     public String showPosts(Model model) {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         List<Post> list = null;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof AuthenticatedUser) {
             User user = ((AuthenticatedUser) principal).getUserOfLife();
             model.addAttribute("loginedUser", user);

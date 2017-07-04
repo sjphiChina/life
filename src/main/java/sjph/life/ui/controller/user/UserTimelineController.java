@@ -11,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import sjph.life.model.Post;
 import sjph.life.model.User;
@@ -53,6 +52,11 @@ public class UserTimelineController {
             // TODO need to refine this, add it to user object
             long numberOfFollower = relationshipService.getNumberOfFollower(user.getId());
             model.addAttribute("numberOfFollower", numberOfFollower);
+            if (loginedUser.getId() != user.getId()) {
+                boolean followed = relationshipService.isFollowUser(user.getId(), loginedUser.getId());
+                LOGGER.warn("Check if followed: " + followed);
+                model.addAttribute("followed", followed);
+            }
         }
         return "userTimeline";
     }

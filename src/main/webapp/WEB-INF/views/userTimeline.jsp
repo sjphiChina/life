@@ -27,10 +27,23 @@
                   <li><a href="<c:url value="/${user.userName}/friends"></c:url>">Friends</a></li>
                 </ul>
                 <c:if test="${loginedUser != null && loginedUser.userName != user.userName}">
-                <ul class="follow-me list-inline">
-                  <li>1,299 followers</li>
-                  <li><button class="btn-primary">Add Friend</button></li>
-                </ul>
+                  <ul class="follow-me list-inline">
+                    <li>1,299 followers</li>
+                    <li>
+                    <c:if test="${followed == false}">
+                      <a href="<spring:url value="/user/follow?userId=${user.id}"/>"
+                        class="btn btn-success pull-right"> <span
+                        class="glyphicon-shopping-cart glyphicon"></span> follow
+                      </a>
+                    </c:if>
+                    <c:if test="${followed == true}">
+                      <a href="<spring:url value="/user/unfollow?userId=${user.id}"/>"
+                        class="btn btn-danger pull-right"> <span
+                        class="glyphicon-shopping-cart glyphicon"></span> unfollow
+                      </a>
+                    </c:if>
+                    </li>
+                  </ul>
                 </c:if>
               </div>
             </div>
@@ -50,7 +63,9 @@
                 <li><a href="<c:url value="/${user.userName}/album"></c:url>">Album</a></li>
                 <li><a href="<c:url value="/${user.userName}/friends"></c:url>">Friends</a></li>
               </ul>
-              <button class="btn-primary">Add Friend</button>
+              <c:if test="${loginedUser != null && loginedUser.userName != user.userName}">
+                <button class="btn-primary">Add Friend</button>
+              </c:if>
             </div>
           </div><!--Timeline Menu for Small Screens End-->
 

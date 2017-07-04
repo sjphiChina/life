@@ -98,11 +98,11 @@
                   <li><a href="timeline-friends.html">Timeline Friends</a></li>
                   <li><a href="edit-profile-basic.html">Edit Profile</a></li>
                   <li><a href="contact.html">Contact Us</a></li>
-                  <li><a href="<c:url value="/logout" />">Logout</a></li>
                 </ul>
               </li>
-              <li class="dropdown"><a href="resources/html/contact.html">Contact</a></li>
+              <!-- <li class="dropdown"><a href="resources/html/contact.html">Contact</a></li> -->
               <li class="dropdown"><a href="/life/login">Login</a></li>
+                  <li><a href="<c:url value="/logout" />">Logout</a></li>
             </ul>
             <form class="navbar-form navbar-right hidden-sm">
               <div class="form-group">

@@ -47,4 +47,9 @@ public class RelationshipServiceImpl implements RelationshipService {
     public int deleteFollwee(Long userId, Long followerId) {
         return relationshipDao.deleteFollwee(userId, followerId);
     }
+
+    @Override
+    public boolean isFollowUser(Long userId, Long followerId) {
+        return relationshipDao.isFollowUser(userId, followerId);
+    }
 }
