@@ -3,9 +3,11 @@ package sjph.life.rest.controller;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import sjph.life.model.Post;
-import sjph.life.model.service.PostService;
+import sjph.life.service.PostService;
 
 /**
  * @author shaohuiguo
@@ -25,7 +27,7 @@ import sjph.life.model.service.PostService;
 @RequestMapping(value = "rest/posts")
 public class PostRestController {
 
-    private static final Logger logger   = Logger.getLogger(PostRestController.class);
+    private static final Logger LOGGER   = LogManager.getLogger(PostRestController.class);
 
     Long                        userId   = 1l;
     String                      userName = "sjph";
@@ -52,14 +54,14 @@ public class PostRestController {
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public List<Post> showPosts() {
         List<Post> list = postService.listPosts();
-        logger.info("The size of all posts is " + list.size());
+        LOGGER.info("The size of all posts is " + list.size());
         return list;
     }
 
-    @RequestMapping(value = "/list/{userId}", method = RequestMethod.GET)
-    public List<Post> showPosts(@PathVariable String userId) {
+    @RequestMapping(value = "/list/{user}", method = RequestMethod.GET)
+    public List<Post> showUserPosts(Model model, @PathVariable("id") String userId) {
         List<Post> list = postService.listPosts(Long.valueOf(userId));
-        logger.info("The size of all posts is " + list.size());
+        LOGGER.info("The size of all posts is " + list.size());
         return list;
     }
 

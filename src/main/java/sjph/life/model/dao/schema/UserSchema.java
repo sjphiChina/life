@@ -17,7 +17,11 @@ public enum UserSchema {
     PASSWORD,
     STATE,
     CREATED_DT,
-    MODIFIED_DT
+    MODIFIED_DT,
+    FIRST_NAME,
+    LAST_NAME,
+    PORTRAY,
+    LEVEL
     ;
     public static final String tableName = DatabaseConstants.SCHEMA_OBJECT_PREFIX + "user";
 

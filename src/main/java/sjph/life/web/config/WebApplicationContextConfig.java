@@ -30,7 +30,7 @@ import sjph.life.web.interceptor.ProcessingTimeLogInterceptor;
  */
 @Configuration
 @EnableWebMvc
-@ComponentScan("sjph.life")
+@ComponentScan(basePackages = "sjph.life")
 public class WebApplicationContextConfig extends WebMvcConfigurerAdapter {
 
     @Override

@@ -11,12 +11,13 @@ public class DispatcherServletInitializer
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class[] { RootApplicationContextConfig.class };
+        return new Class[] { RootApplicationContextConfig.class, WebApplicationContextConfig.class};
     }
 
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        return new Class[] { WebApplicationContextConfig.class };
+        //return new Class[] { WebApplicationContextConfig.class };
+        return null;
     }
 
     @Override

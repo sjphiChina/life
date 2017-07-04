@@ -6,7 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -27,7 +28,8 @@ import sjph.life.model.dao.schema.PostSchema;
 @Repository
 public class PostDaoImpl implements PostDao {
 
-    private static final Logger logger                        = Logger.getLogger(PostDaoImpl.class);
+    private static final Logger LOGGER                        = LogManager
+            .getLogger(PostDaoImpl.class);
 
     //@formatter:off
     private static final String FULL_TABLE_COLUMNS_SQL =
@@ -58,8 +60,6 @@ public class PostDaoImpl implements PostDao {
                     FULL_TABLE_COLUMNS_SQL + " " +
             "FROM " +
                     PostSchema.tableName;
-
-    private static final String FIND = SELECT_FULL_TABLE_COLUMNS_SQL;
 
     private static final String ORDER_BY = "ORDER BY";
 
@@ -139,12 +139,11 @@ public class PostDaoImpl implements PostDao {
     @Override
     public List<Post> listPosts(boolean isDescOrder) {
         if (isDescOrder) {
-            return jdbcTemplate.query(
-                    FIND + " " + ORDER_BY + " " + PostSchema.CREATED_DT + " " + DESC,
-                    postRowMapper);
+            return jdbcTemplate.query(SELECT_FULL_TABLE_COLUMNS_SQL + " " + ORDER_BY + " "
+                    + PostSchema.CREATED_DT + " " + DESC, postRowMapper);
         }
         else {
-            return jdbcTemplate.query(FIND, postRowMapper);
+            return jdbcTemplate.query(SELECT_FULL_TABLE_COLUMNS_SQL, postRowMapper);
         }
     }
 

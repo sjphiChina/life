@@ -6,8 +6,10 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -19,7 +21,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import sjph.life.model.Post;
-import sjph.life.model.service.PostService;
+import sjph.life.model.User;
+import sjph.life.security.authentication.AuthenticatedUser;
+import sjph.life.service.PostService;
+import sjph.life.service.RelationshipService;
 import sjph.life.ui.exception.PostNotFoundException;
 import sjph.life.ui.exception.RequestFailedException;
 
@@ -32,18 +37,40 @@ import sjph.life.ui.exception.RequestFailedException;
 @RequestMapping("posts")
 public class PostController {
 
-    private static final Logger logger   = Logger.getLogger(PostController.class);
-
-    Long                        userId   = 1l;
-    String                      userName = "sjph";
+    private static final Logger LOGGER   = LogManager.getLogger(PostController.class);
 
     @Autowired(required = true)
     private PostService         postService;
+    @Autowired(required = true)
+    private RelationshipService relationshipService;
 
     @RequestMapping("/list")
     public String showPosts(Model model) {
-        List<Post> list = postService.listPosts();
-        logger.info("The size of all posts is " + list.size());
+        List<Post> list = null;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof AuthenticatedUser) {
+            User user = ((AuthenticatedUser) principal).getUserOfLife();
+            model.addAttribute("loginedUser", user);
+            list = postService.listPostsAll(user.getId());
+            // TODO need to refine this, add it to user object
+            long numberOfFollower = relationshipService.getNumberOfFollower(user.getId());
+            model.addAttribute("numberOfFollower", numberOfFollower);
+        }
+        else {
+            list = postService.listPosts();
+        }
+        LOGGER.info("The size of all posts is " + list.size());
+        model.addAttribute("posts", list);
+        Post post = new Post();
+        model.addAttribute("post", post);
+        return "posts";
+    }
+
+    @RequestMapping("/list/{user}")
+    public String showPosts(@RequestParam("id") String userId, Model model) {
+        Long userIdLong = Long.valueOf(userId);
+        List<Post> list = postService.listPosts(userIdLong);
+        LOGGER.info("The size of all posts is " + list.size());
         model.addAttribute("posts", list);
         return "posts";
     }
@@ -59,10 +86,18 @@ public class PostController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String processAddPostForm(@ModelAttribute("post") Post post,
             HttpServletRequest request) {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = null;
+        if (principal instanceof AuthenticatedUser) {
+            user = ((AuthenticatedUser) principal).getUserOfLife();
+        }
+        else {
+            throw new RequestFailedException("Cannot find user.");
+        }
         // encodeText(post.getContent(), WebConfig.CHARACTER_ENCODING_SET);
         // Here I still use the original content, the code above is just for checking.
-        post.setUserId(userId);
-        post.setUserName(userName);
+        post.setUserId(user.getId());
+        post.setUserName(user.getUserName());
         post.setCreatedDate(new Date());
         post.setModifiedDate(new Date());
         long postId = postService.createPost(post);

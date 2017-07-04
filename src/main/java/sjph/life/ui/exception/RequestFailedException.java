@@ -18,4 +18,12 @@ public class RequestFailedException extends RuntimeException {
     public RequestFailedException(String message, Throwable t) {
         super(message, t);
     }
+
+    /**
+     * @param message
+     * @param t
+     */
+    public RequestFailedException(String message) {
+        super(message);
+    }
 }

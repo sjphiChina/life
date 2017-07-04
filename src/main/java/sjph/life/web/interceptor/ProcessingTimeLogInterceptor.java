@@ -3,7 +3,8 @@ package sjph.life.web.interceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -13,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
  */
 public class ProcessingTimeLogInterceptor implements HandlerInterceptor {
 
-    private static final Logger logger = Logger.getLogger(ProcessingTimeLogInterceptor.class);
+    private static final Logger LOGGER   = LogManager.getLogger(ProcessingTimeLogInterceptor.class);
 
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
             Object handler) {
@@ -31,7 +32,7 @@ public class ProcessingTimeLogInterceptor implements HandlerInterceptor {
         long startTime = (Long) request.getAttribute("startTime");
         long endTime = System.currentTimeMillis();
 
-        logger.info(String.format("%s millisecond taken to process the request %s.",
+        LOGGER.info(String.format("%s millisecond taken to process the request %s.",
                 (endTime - startTime), path));
     }
 
@@ -43,7 +44,7 @@ public class ProcessingTimeLogInterceptor implements HandlerInterceptor {
         long startTime = (Long) request.getAttribute("startTime");
         long endTime = System.currentTimeMillis();
 
-        logger.info(String.format("%s millisecond taken to finish the request %s.",
+        LOGGER.info(String.format("%s millisecond taken to finish the request %s.",
                 (endTime - startTime), path));
     }
 }
