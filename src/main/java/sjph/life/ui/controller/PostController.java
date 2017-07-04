@@ -50,7 +50,7 @@ public class PostController {
         List<Post> list = null;
         if (principal instanceof AuthenticatedUser) {
             User user = ((AuthenticatedUser) principal).getUserOfLife();
-            model.addAttribute("user", user);
+            model.addAttribute("loginedUser", user);
             list = postService.listPostsAll(user.getId());
             // TODO need to refine this, add it to user object
             long numberOfFollower = relationshipService.getNumberOfFollower(user.getId());

@@ -26,10 +26,12 @@
                   <li><a href="<c:url value="/${user.userName}/album"></c:url>">Album</a></li>
                   <li><a href="<c:url value="/${user.userName}/friends"></c:url>">Friends</a></li>
                 </ul>
+                <c:if test="${loginedUser != null && loginedUser.userName != user.userName}">
                 <ul class="follow-me list-inline">
-                  <li>1,299 people following her</li>
+                  <li>1,299 followers</li>
                   <li><button class="btn-primary">Add Friend</button></li>
                 </ul>
+                </c:if>
               </div>
             </div>
           </div><!--Timeline Menu for Large Screens End-->
@@ -43,10 +45,10 @@
             </div>
             <div class="mobile-menu">
               <ul class="list-inline">
-                <li><a href="timline.html" class="active">Timeline</a></li>
-                <li><a href="timeline-about.html">About</a></li>
-                <li><a href="timeline-album.html">Album</a></li>
-                <li><a href="timeline-friends.html">Friends</a></li>
+                <li><a href="<c:url value="/${user.userName}"></c:url>" class="active">Timeline</a></li>
+                <li><a href="<c:url value="/${user.userName}/about"></c:url>">About</a></li>
+                <li><a href="<c:url value="/${user.userName}/album"></c:url>">Album</a></li>
+                <li><a href="<c:url value="/${user.userName}/friends"></c:url>">Friends</a></li>
               </ul>
               <button class="btn-primary">Add Friend</button>
             </div>
@@ -57,7 +59,7 @@
           <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-7">
-
+      <c:if test="${loginedUser != null}">
               <!-- Post Create Box
               ================================================= -->
               <div class="create-post">
@@ -81,7 +83,7 @@
                   </div>
                 </div>
               </div><!-- Post Create Box End-->
-
+      </c:if>
 <c:forEach items="${posts}" var="post">
               <!-- Post Content
               ================================================= -->
@@ -127,28 +129,28 @@
             </div>
             <div class="col-md-2 static">
               <div id="sticky-sidebar">
-                <h4 class="grey">${user.userName}'s activity</h4>
+                <h4 class="grey">${user.firstName}'s activity</h4>
                 <div class="feed-item">
                   <div class="live-activity">
-                    <p><a href="#" class="profile-link">${user.userName}</a> Commended on a Photo</p>
+                    <p><a href="#" class="profile-link">${user.firstName}</a> Commended on a Photo</p>
                     <p class="text-muted">5 mins ago</p>
                   </div>
                 </div>
                 <div class="feed-item">
                   <div class="live-activity">
-                    <p><a href="#" class="profile-link">${user.userName}</a> Has posted a photo</p>
+                    <p><a href="#" class="profile-link">${user.firstName}</a> Has posted a photo</p>
                     <p class="text-muted">an hour ago</p>
                   </div>
                 </div>
                 <div class="feed-item">
                   <div class="live-activity">
-                    <p><a href="#" class="profile-link">${user.userName}</a> Liked her friend's post</p>
+                    <p><a href="#" class="profile-link">${user.firstName}</a> Liked her friend's post</p>
                     <p class="text-muted">4 hours ago</p>
                   </div>
                 </div>
                 <div class="feed-item">
                   <div class="live-activity">
-                    <p><a href="#" class="profile-link">${user.userName}</a> has shared an album</p>
+                    <p><a href="#" class="profile-link">${user.firstName}</a> has shared an album</p>
                     <p class="text-muted">a day ago</p>
                   </div>
                 </div>

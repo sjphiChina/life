@@ -49,17 +49,18 @@
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right main-menu">
               <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Home <span><img src="/life/resources/images/down-arrow.png" alt="" /></span></a>
+              <a href="/life">Home </a>
+                <!-- <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Home <span><img src="/life/resources/images/down-arrow.png" alt="" /></span></a>
                 <ul class="dropdown-menu newsfeed-home">
                   <li><a href="index.html">Landing Page 1</a></li>
                   <li><a href="index-register.html">Landing Page 2</a></li>
-                </ul>
+                </ul> -->
               </li>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Newsfeed <span><img src="/life/resources/images/down-arrow.png" alt="" /></span></a>
                 <ul class="dropdown-menu newsfeed-home">
                   <li><a href="<spring:url value="/posts/list"/>">Posts</a></li>
-                  <li><a href="newsfeed-people-nearby.html">Poeple Nearly</a></li>
+                  <li><a href="resources/html/newsfeed-people-nearby.html">Poeple Nearly</a></li>
                   <li><a href="newsfeed-friends.html">My friends</a></li>
                   <li><a href="newsfeed-messages.html">Chatroom</a></li>
                   <li><a href="newsfeed-images.html">Images</a></li>
@@ -100,7 +101,8 @@
                   <li><a href="<c:url value="/logout" />">Logout</a></li>
                 </ul>
               </li>
-              <li class="dropdown"><a href="contact.html">Contact</a></li>
+              <li class="dropdown"><a href="resources/html/contact.html">Contact</a></li>
+              <li class="dropdown"><a href="/life/login">Login</a></li>
             </ul>
             <form class="navbar-form navbar-right hidden-sm">
               <div class="form-group">

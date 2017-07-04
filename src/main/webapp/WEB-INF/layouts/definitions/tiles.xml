@@ -8,7 +8,6 @@
       <put-attribute name="title" value="My life" />
       <put-attribute name="heading" value="Anything Remembered" />
       <put-attribute name="tagline" value="enterprise, explore, experiment, expand, exploit, experience, evolve, eternity" />
-      <put-attribute name="navigation" value="/WEB-INF/layouts/template/navigation.jsp" />
       <put-attribute name="content" value="/WEB-INF/views/welcome.jsp" />
       <put-attribute name="footer" value="/WEB-INF/layouts/template/footer.jsp" />
    </definition>

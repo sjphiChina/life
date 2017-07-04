@@ -6,17 +6,17 @@
         <div class="container">
             <div class="row">
 
-      <c:if test="${user != null}">
+      <c:if test="${loginedUser != null}">
 <!-- Newsfeed Common Side Bar Left
           ================================================= -->
           <div class="col-md-3 static">
             <div class="profile-card">
                 <img src="http://placehold.it/300x300" alt="user" class="profile-photo" />
-                <h5><a href="timeline.html" class="text-white">${user.firstName} ${user.lastName}</a></h5>
+                <h5><a href="<c:url value="/${loginedUser.userName}"></c:url>" class="text-white">${loginedUser.firstName} ${loginedUser.lastName}</a></h5>
                 <a href="#" class="text-white"><i class="ion ion-android-person-add"></i> ${numberOfFollower} followers</a>
             </div><!--profile card ends-->
             <ul class="nav-news-feed">
-              <li><i class="icon ion-ios-paper"></i><div><a href="<c:url value="/${user.userName}"></c:url>">Timeline</a></div></li>
+              <li><i class="icon ion-ios-paper"></i><div><a href="<c:url value="/${loginedUser.userName}"></c:url>">Timeline</a></div></li>
               <li><i class="icon ion-ios-people"></i><div><a href="newsfeed-people-nearby.html">People Nearby</a></div></li>
               <li><i class="icon ion-ios-people-outline"></i><div><a href="newsfeed-friends.html">Friends</a></div></li>
               <li><i class="icon ion-chatboxes"></i><div><a href="newsfeed-messages.html">Messages</a></div></li>
@@ -40,7 +40,14 @@
           </div>
           
 
-      <!-- Post Create Box
+
+      </c:if>
+      
+
+
+                <div class="col-md-7">
+                      <c:if test="${loginedUser != null}">
+          <!-- Post Create Box
             ================================================= -->
         <div class="create-post">
           <form:form method="POST" action="/life/posts/add" modelAttribute="post" enctype="multipart/form-data">
@@ -53,6 +60,8 @@
                       class="form-control" placeholder="Anyting you want to remember"></form:textarea>
                   </div>
                 </div>
+              </div>
+              <div class="row">
                 <div class="col-md-5 col-sm-5">
                   <div class="tools">
                     <ul class="publishing-tools list-inline">
@@ -71,12 +80,7 @@
           </form:form>
         </div>
         <!-- Post Create Box End-->
-      </c:if>
-      
-
-
-                <div class="col-md-7">
-    <div class="row">
+        </c:if>
         <c:forEach items="${posts}" var="post">
             <!-- Post Content
             ================================================= -->
@@ -86,7 +90,7 @@
                   <img src="http://placehold.it/300x300" alt="user" class="profile-photo-md pull-left" />
                   <div class="post-detail">
                     <div class="user-info">
-                      <h5><a href="timeline.html" class="profile-link">${post.userName}</a> <span class="following">following</span></h5>
+                      <h5><a href="<c:url value="/${post.userName}"></c:url>" class="profile-link">${post.userName}</a> <span class="following">following</span></h5>
                       <p class="text-muted">${post.createdDate}</p>
                     </div>
                     <div class="reaction">
@@ -110,10 +114,10 @@
                 </div>
               </div>
         </c:forEach>
-      </div>
+ 
           </div>
 
-      <c:if test="${user != null}">
+      <c:if test="${loginedUser != null}">
           <!-- Newsfeed Common Side Bar Right
           ================================================= -->
                 <div class="col-md-2 static">

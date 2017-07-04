@@ -42,9 +42,9 @@
             <div class="mobile-menu">
               <ul class="list-inline">
                 <li><a href="<c:url value="/${user.userName}"></c:url>">Timeline</a></li>
-                <li><a href="<c:url value="/${user.userName}/about" class="active"></c:url>">About</a></li>
-                <li><a href="<c:url value="/life/${user.userName}/album"></c:url>">Album</a></li>
-                <li><a href="<c:url value="/life/${user.userName}/friends"></c:url>">Friends</a></li>
+                  <li><a href="<c:url value="/${user.userName}/about"></c:url>" class="active">About</a></li>
+                  <li><a href="<c:url value="/${user.userName}/album"></c:url>">Album</a></li>
+                  <li><a href="<c:url value="/${user.userName}/friends"></c:url>">Friends</a></li>
               </ul>
               <button class="btn-primary">Add Friend</button>
             </div>
