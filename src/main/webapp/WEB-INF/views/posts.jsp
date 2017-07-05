@@ -92,10 +92,10 @@
               enctype="multipart/form-data">
               <fieldset>
                 <div class="row">
-                  <div class="col-md-7 col-sm-7">
+                  <div class="col-md-12 col-sm-12">
                     <div class="form-group">
                       <img src="http://placehold.it/300x300" alt="" class="profile-photo-md" />
-                      <form:textarea name="texts" id="content" path="content" cols="30" rows="1"
+                      <form:textarea name="texts" id="content" path="content" cols="80" rows="1"
                         class="form-control" placeholder="Anyting you want to remember"></form:textarea>
                     </div>
                   </div>
