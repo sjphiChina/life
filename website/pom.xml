@@ -2,9 +2,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>sjph.life.service</groupId>
-  <artifactId>sjph-life-service</artifactId>
-  <name>service group pom</name>
+  <groupId>sjph.life.webstie</groupId>
+  <artifactId>sjph-life-website</artifactId>
+  <name>website group pom</name>
   <packaging>pom</packaging>
   
   <parent>
@@ -19,5 +19,9 @@
   
   <dependencies>
       <dependency><groupId>sjph.life.model</groupId><artifactId>sjph-life-model</artifactId></dependency>
+      <dependency><groupId>sjph.life.security</groupId><artifactId>sjph-life-security</artifactId></dependency>
+      <dependency>
+          <groupId>sjph.life.service</groupId>
+      </dependency>
   </dependencies>
 </project>
