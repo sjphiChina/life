@@ -1,4 +1,4 @@
-package sjph.life.web.config;
+package sjph.life.app.website.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

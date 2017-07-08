@@ -1,28 +1,24 @@
-package sjph.life.web.config;
+package sjph.life.app.rest.config;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.context.MessageSource;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.web.accept.ContentNegotiationManager;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.ContentNegotiatingViewResolver;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
-import org.springframework.web.servlet.view.JstlView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
-import sjph.life.web.interceptor.ProcessingTimeLogInterceptor;
+import sjph.life.app.rest.interceptor.ProcessingTimeLogInterceptor;
 
 /**
  * @author shaohuiguo
@@ -33,23 +29,25 @@ import sjph.life.web.interceptor.ProcessingTimeLogInterceptor;
 @ComponentScan(basePackages = "sjph.life")
 public class WebApplicationContextConfig extends WebMvcConfigurerAdapter {
 
+    private static final Logger LOGGER   = LogManager.getLogger(WebApplicationContextConfig.class);
+
     @Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
         configurer.enable();
     }
 
-    /**
-     * @return
-     */
-    @Bean
-    public InternalResourceViewResolver getInternalResourceViewResolver() {
-        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-        resolver.setViewClass(JstlView.class);
-        resolver.setPrefix("/WEB-INF/views/");
-        resolver.setSuffix(".jsp");
-
-        return resolver;
-    }
+//    /**
+//     * @return
+//     */
+//    @Bean
+//    public InternalResourceViewResolver getInternalResourceViewResolver() {
+//        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+//        resolver.setViewClass(JstlView.class);
+//        resolver.setPrefix("/WEB-INF/views/");
+//        resolver.setSuffix(".jsp");
+//
+//        return resolver;
+//    }
 
     // @Override
     // public void configurePathMatch(PathMatchConfigurer configurer) {
@@ -59,31 +57,31 @@ public class WebApplicationContextConfig extends WebMvcConfigurerAdapter {
     // configurer.setUrlPathHelper(urlPathHelper);
     // }
 
-    /**
-     * @return
-     */
-    @Bean
-    public MessageSource messageSource() {
-        ResourceBundleMessageSource resource = new ResourceBundleMessageSource();
-        resource.setBasename("messages");
-        return resource;
-    }
-
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/img/**")
-                .addResourceLocations("file:///./data/local/life/data/images/posts/");
-    }
-
-    /**
-     * @return
-     */
-    @Bean
-    public CommonsMultipartResolver multipartResolver() {
-        CommonsMultipartResolver resolver = new CommonsMultipartResolver();
-        resolver.setDefaultEncoding("utf-8");
-        return resolver;
-    }
+//    /**
+//     * @return
+//     */
+//    @Bean
+//    public MessageSource messageSource() {
+//        ResourceBundleMessageSource resource = new ResourceBundleMessageSource();
+//        resource.setBasename("messages");
+//        return resource;
+//    }
+//
+//    @Override
+//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+//        registry.addResourceHandler("/img/**")
+//                .addResourceLocations("file:///./data/local/life/data/images/posts/");
+//    }
+//
+//    /**
+//     * @return
+//     */
+//    @Bean
+//    public CommonsMultipartResolver multipartResolver() {
+//        CommonsMultipartResolver resolver = new CommonsMultipartResolver();
+//        resolver.setDefaultEncoding("utf-8");
+//        return resolver;
+//    }
 
     /**
      * @return
@@ -122,6 +120,7 @@ public class WebApplicationContextConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new ProcessingTimeLogInterceptor());
+        LOGGER.debug("Add ProcessingTimeLogInterceptor");
     }
     //
     // @Bean

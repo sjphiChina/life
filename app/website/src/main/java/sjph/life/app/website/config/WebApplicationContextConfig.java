@@ -1,4 +1,4 @@
-package sjph.life.web.config;
+package sjph.life.app.website.config;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +22,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
-import sjph.life.web.interceptor.ProcessingTimeLogInterceptor;
+import sjph.life.app.website.interceptor.ProcessingTimeLogInterceptor;
 
 /**
  * @author shaohuiguo
