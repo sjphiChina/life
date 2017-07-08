@@ -84,7 +84,7 @@ public class WebApplicationContextConfig extends WebMvcConfigurerAdapter {
 //    }
 
     /**
-     * @return
+     * @return a MappingJackson2JsonView
      */
     @Bean
     public MappingJackson2JsonView jsonView() {
@@ -104,8 +104,8 @@ public class WebApplicationContextConfig extends WebMvcConfigurerAdapter {
     // }
 
     /**
-     * @param manager
-     * @return
+     * @param manager ContentNegotiationManager
+     * @return a ViewResolver
      */
     @Bean
     public ViewResolver contentNegotiatingViewResolver(ContentNegotiationManager manager) {

@@ -1,5 +1,6 @@
 package sjph.life.service.impl;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -69,7 +70,8 @@ public class PostServiceImpl implements PostService {
     public List<Post> listPostsAll(Long userId) {
         List<Post> list = postDao.listPosts(userId, true);
         List<Long> followeeList = relationshipService.getFollwees(userId);
-        List<Post>[] arrayList = new List[followeeList.size() + 1];
+        @SuppressWarnings("unchecked")
+        List<Post>[] arrayList = new ArrayList[followeeList.size() + 1];
         // There are two ways to this merge:
         // 1. PriorityQueue, merge the head of each list and traverse
         // 2. Merge all sorted list
@@ -87,9 +89,7 @@ public class PostServiceImpl implements PostService {
                 if (diff >= 0) {
                     return 1;
                 }
-                else {
-                    return -1;
-                }
+                return -1;
             }
         });
         List<Post> result = mergeSort.mergeKLists(arrayList);
@@ -102,9 +102,7 @@ public class PostServiceImpl implements PostService {
         if (postDao.updatePost(post) == 1) {
             return true;
         }
-        else {
-            return false;
-        }
+        return false;
     }
 
     @Override
@@ -112,9 +110,7 @@ public class PostServiceImpl implements PostService {
         if (postDao.deletePost(postId) == 1) {
             return true;
         }
-        else {
-            return false;
-        }
+        return false;
     }
 
     @Override
@@ -122,9 +118,7 @@ public class PostServiceImpl implements PostService {
         if (postDao.deletePosts(userId) >= 1) {
             return true;
         }
-        else {
-            return false;
-        }
+        return false;
     }
 
     // private String encodeText(String text) {

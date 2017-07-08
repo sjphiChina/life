@@ -15,40 +15,40 @@ public interface UserDao {
 /** CREATE operation */
     /**
      * @param user
-     * @return
+     * @return the user id
      */
     long createUser(User user);
 
 /** READ operation */
     /**
      * @param userId
-     * @return
+     * @return one user object
      */
     User findUser(Long userId);
 
     /**
      * @param email
-     * @return
+     * @return one user object
      */
     User findUserByEmail(String email);
 
     /**
      * @param userName
-     * @return
+     * @return one user object
      */
     User findUserByUserName(String userName);
 
 /** UPDATE operation */
     /**
      * @param user
-     * @return
+     * @return the affected row number
      */
     int updateUser(User user);
 
 /** DELETE operation */
     /**
      * @param userId
-     * @return
+     * @return the affected row number
      */
     int deleteUser(Long userId);
 }

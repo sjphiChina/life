@@ -130,9 +130,7 @@ public class RelationshipDaoImpl implements RelationshipDao {
         if (count == 1) {
             return true;
         }
-        else {
-            return false;
-        }
+        return false;
     }
 
     private static final class FollowerIdRowMapper implements RowMapper<Long> {

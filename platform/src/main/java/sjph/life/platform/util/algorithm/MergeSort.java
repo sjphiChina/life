@@ -12,7 +12,7 @@ import java.util.List;
  * A template for merging sorted lists.
  * 
  * @author shaohuiguo
- * @param <E>
+ * @param <E> the class type for comparing
  *
  */
 public class MergeSort<E> {
@@ -24,15 +24,15 @@ public class MergeSort<E> {
     private final Comparator<? super E> comparator;
 
     /**
-     * @param comparator
+     * @param comparator one customized Comparator
      */
     public MergeSort(Comparator<? super E> comparator) {
         this.comparator = comparator;
     }
 
     /**
-     * @param lists
-     * @return
+     * @param lists the array of list
+     * @return a sorted list
      */
     public List<E> mergeKLists(List<E>[] lists) {
         if (lists.length == 0) {

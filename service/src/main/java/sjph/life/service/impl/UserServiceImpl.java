@@ -35,9 +35,7 @@ public class UserServiceImpl implements UserService {
         if (user != null) {
             return user;
         }
-        else {
-            throw new UserNotFoundException("Cannot find user: userId=" + userId);
-        }
+        throw new UserNotFoundException("Cannot find user: userId=" + userId);
     }
 
     @Override
@@ -46,9 +44,7 @@ public class UserServiceImpl implements UserService {
         if (user != null) {
             return user;
         }
-        else {
-            throw new UserNotFoundException("Cannot find user: email=" + email);
-        }
+        throw new UserNotFoundException("Cannot find user: email=" + email);
     }
 
     @Override
@@ -57,9 +53,7 @@ public class UserServiceImpl implements UserService {
         if (user != null) {
             return user;
         }
-        else {
-            throw new UserNotFoundException("Cannot find user: userName=" + userName);
-        }
+        throw new UserNotFoundException("Cannot find user: userName=" + userName);
     }
 
     @Override
@@ -67,9 +61,7 @@ public class UserServiceImpl implements UserService {
         if (userDao.updateUser(user) == 1) {
             return true;
         }
-        else {
-            return false;
-        }
+        return false;
     }
 
     @Override
@@ -77,8 +69,6 @@ public class UserServiceImpl implements UserService {
         if (userDao.deleteUser(userId) == 1) {
             return true;
         }
-        else {
-            return false;
-        }
+        return false;
     }
 }

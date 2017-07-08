@@ -22,6 +22,7 @@ import sjph.life.model.state.UserState;
 import sjph.life.security.authentication.AuthenticatedUser;
 import sjph.life.service.RelationshipService;
 import sjph.life.service.UserService;
+import sjph.life.website.exception.UserNotFoundException;
 
 /**
  * @author shaohuiguo
@@ -60,9 +61,10 @@ public class UserController {
             model.addAttribute("user", user);
             relationshipService.createRelationship(followee.getId(), follower.getId());
             model.addAttribute("followed", true);
+            return "redirect:/" + user.getUserName();
         }
-        // TODO later handle null pointer issue
-        return "redirect:/" + user.getUserName();
+        LOGGER.error("Cannot found user, userId=" + userId);
+        throw new UserNotFoundException("Cannot found user, userId=" + userId);
     }
 
     @RequestMapping(value = "/unfollow", method = RequestMethod.GET)
@@ -78,8 +80,10 @@ public class UserController {
             model.addAttribute("user", user);
             relationshipService.deleteFollwee(followee.getId(), follower.getId());
             model.addAttribute("followed", false);
+            return "redirect:/" + user.getUserName();
         }
-        return "redirect:/" + user.getUserName();
+        LOGGER.error("Cannot found user, userId=" + userId);
+        throw new UserNotFoundException("Cannot found user, userId=" + userId);
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
@@ -93,6 +97,9 @@ public class UserController {
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String processAddPostForm(@ModelAttribute("user") User user,
             HttpServletRequest request) {
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.info("HttpServletRequest content: ", request.getPathInfo());
+        }
         // encodeText(post.getContent(), WebConfig.CHARACTER_ENCODING_SET);
         // Here I still use the original content, the code above is just for checking.
         user.setCreatedDate(new Date());
@@ -100,7 +107,7 @@ public class UserController {
         user.setUserState(UserState.ACTIVE);
         long userId = userService.createUser(user);
         MultipartFile profileImage = user.getProfileImage();
-        String rootDirectory = request.getSession().getServletContext().getRealPath("/");
+        //String rootDirectory = request.getSession().getServletContext().getRealPath("/");
 
         if (profileImage != null && !profileImage.isEmpty()) {
             try {

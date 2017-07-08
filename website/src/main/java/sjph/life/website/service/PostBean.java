@@ -6,7 +6,6 @@ import java.util.Date;
  * @author shaohuiguo
  *
  */
-
 @SuppressWarnings("javadoc")
 public class PostBean {
 

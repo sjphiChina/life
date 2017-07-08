@@ -41,6 +41,8 @@ public class UserAboutController {
         }
         catch (UserNotFoundException e) {
             // TODO right now just return null, in future, add security check logic
+            LOGGER.error(
+                    "Cannot find user, userName=" + username + ", exception: " + e.getMessage());
             return null;
         }
     }

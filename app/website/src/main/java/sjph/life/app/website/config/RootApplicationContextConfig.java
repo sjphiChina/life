@@ -12,9 +12,11 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
  *
  */
 @Configuration
-@SuppressWarnings("javadoc")
 public class RootApplicationContextConfig {
 
+    /**
+     * @return a {@link DataSource} of MySQL
+     */
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
@@ -25,6 +27,9 @@ public class RootApplicationContextConfig {
         return driverManagerDataSource;
     }
 
+    /**
+     * @return a {@link JdbcTemplate} for MySQL {@link DataSource}
+     */
     @Bean
     public JdbcTemplate getJdbcTemplate() {
         return new JdbcTemplate(dataSource());

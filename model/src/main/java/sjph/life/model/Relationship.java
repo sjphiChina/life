@@ -9,6 +9,7 @@ package sjph.life.model;
  * @author shaohuiguo
  *
  */
+@SuppressWarnings("javadoc")
 public class Relationship {
 
     private final Long userId;

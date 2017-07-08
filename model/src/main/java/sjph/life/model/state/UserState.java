@@ -7,6 +7,7 @@ import java.util.Map;
  * @author shaoguo
  *
  */
+@SuppressWarnings("javadoc")
 public enum UserState {
 
     //@formatter:off
@@ -29,19 +30,23 @@ public enum UserState {
     }
 
     /**
-     * @return
+     * @return char value
      */
     public char getCharValue() {
         return charValue;
     }
 
     /**
-     * @return
+     * @return description
      */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * @param charValue the char value
+     * @return UserState
+     */
     public static UserState get(char charValue) {
         UserState userState = lookUp.get(charValue);
         if (userState == null) {

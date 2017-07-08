@@ -10,7 +10,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @author shaoguo
  *
  */
-
 @SuppressWarnings("javadoc")
 public class Post {
 

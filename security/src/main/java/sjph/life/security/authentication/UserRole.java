@@ -12,6 +12,7 @@ import sjph.life.model.User;
  * @author shaohuiguo
  *
  */
+@SuppressWarnings("javadoc")
 public class UserRole {
 
     public enum Role {
@@ -35,19 +36,23 @@ public class UserRole {
         }
 
         /**
-         * @return
+         * @return char value
          */
         public char getCharValue() {
             return charValue;
         }
 
         /**
-         * @return
+         * @return description
          */
         public String getDescription() {
             return description;
         }
 
+        /**
+         * @param charValue char value
+         * @return Role
+         */
         public static Role get(char charValue) {
             Role role = lookUp.get(charValue);
             if (role == null) {

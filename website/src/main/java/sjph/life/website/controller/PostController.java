@@ -32,7 +32,6 @@ import sjph.life.website.exception.RequestFailedException;
  * @author shaohuiguo
  *
  */
-@SuppressWarnings("javadoc")
 @Controller
 @RequestMapping("posts")
 public class PostController {
@@ -44,6 +43,10 @@ public class PostController {
     @Autowired(required = true)
     private RelationshipService relationshipService;
 
+    /**
+     * @param model model
+     * @return view of posts
+     */
     @RequestMapping("/list")
     public String showPosts(Model model) {
         List<Post> list = null;
@@ -66,6 +69,11 @@ public class PostController {
         return "posts";
     }
 
+    /**
+     * @param userId string of user id
+     * @param model model
+     * @return view of posts
+     */
     @RequestMapping("/list/{user}")
     public String showPosts(@RequestParam("id") String userId, Model model) {
         Long userIdLong = Long.valueOf(userId);
@@ -75,6 +83,10 @@ public class PostController {
         return "posts";
     }
 
+    /**
+     * @param model model
+     * @return view of addPost
+     */
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String getAddPostForm(Model model) {
         // command is a reserved request attribute name, now use <form> tag to show object data
@@ -83,9 +95,17 @@ public class PostController {
         return "addPost";
     }
 
+    /**
+     * @param post attribute of {@link Post} object
+     * @param request HttpServletRequest
+     * @return url of posts/list
+     */
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String processAddPostForm(@ModelAttribute("post") Post post,
             HttpServletRequest request) {
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.info("HttpServletRequest content: ", request.getPathInfo());
+        }
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = null;
         if (principal instanceof AuthenticatedUser) {
@@ -102,7 +122,7 @@ public class PostController {
         post.setModifiedDate(new Date());
         long postId = postService.createPost(post);
         MultipartFile contentImage = post.getContentImage();
-        String rootDirectory = request.getSession().getServletContext().getRealPath("/");
+        // String rootDirectory = request.getSession().getServletContext().getRealPath("/");
 
         if (contentImage != null && !contentImage.isEmpty()) {
             try {
@@ -119,27 +139,42 @@ public class PostController {
         return "redirect:/posts/list";
     }
 
+    /**
+     * @param postId string of post id
+     * @param model model
+     * @return view of post
+     */
     @RequestMapping("/post")
     public String getPost(@RequestParam("id") String postId, Model model) {
         model.addAttribute("post", postService.findPost(Long.valueOf(postId)));
         return "post";
     }
 
+    /**
+     * @param reqest HttpServletRequest
+     * @param exception PostNotFoundException
+     * @return ModelAndView
+     */
     @ExceptionHandler(PostNotFoundException.class)
-    public ModelAndView handleError(HttpServletRequest req, PostNotFoundException exception) {
+    public ModelAndView handleError(HttpServletRequest reqest, PostNotFoundException exception) {
         ModelAndView mav = new ModelAndView();
-        mav.addObject("invalidProductId", exception.getPostId());
+        //mav.addObject("invalidProductId", exception.getPostId());
         mav.addObject("exception", exception);
-        mav.addObject("url", req.getRequestURL() + "?" + req.getQueryString());
+        mav.addObject("url", reqest.getRequestURL() + "?" + reqest.getQueryString());
         mav.setViewName("postNotFound");
         return mav;
     }
 
+    /**
+     * @param request HttpServletRequest
+     * @param exception RequestFailedException
+     * @return ModelAndView
+     */
     @ExceptionHandler(RequestFailedException.class)
-    public ModelAndView handleError(HttpServletRequest req, RequestFailedException exception) {
+    public ModelAndView handleError(HttpServletRequest request, RequestFailedException exception) {
         ModelAndView mav = new ModelAndView();
         mav.addObject("exception", exception);
-        mav.addObject("url", req.getRequestURL() + "?" + req.getQueryString());
+        mav.addObject("url", request.getRequestURL() + "?" + request.getQueryString());
         mav.setViewName("postNotFound");
         return mav;
     }

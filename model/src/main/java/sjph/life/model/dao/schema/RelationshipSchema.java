@@ -9,6 +9,7 @@ import sjph.life.platform.database.DatabaseConstants;
  * @author shaohuiguo
  *
  */
+@SuppressWarnings("javadoc")
 public enum RelationshipSchema {
 
     USER_ID,

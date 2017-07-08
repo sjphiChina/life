@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class HomeController {
 
+    /**
+     * @param model model
+     * @return url
+     */
     @RequestMapping("/")
     public String welcome(Model model) {
         model.addAttribute("greeting", "Welcome to Web Store!");

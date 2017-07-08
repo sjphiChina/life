@@ -14,10 +14,10 @@ import java.net.URLEncoder;
 public class TextCodingHelper {
 
     /**
-     * @param text
-     * @param encodingSet
-     * @return
-     * @throws UnsupportedEncodingException
+     * @param text the content to be encoded
+     * @param encodingSet the character set
+     * @return the encoded text
+     * @throws UnsupportedEncodingException if cannot encode
      */
     public static String encodeText(String text, String encodingSet)
             throws UnsupportedEncodingException {
@@ -25,10 +25,10 @@ public class TextCodingHelper {
     }
 
     /**
-     * @param text
-     * @param decodingSet
-     * @return
-     * @throws UnsupportedEncodingException
+     * @param text the content to be decoded
+     * @param decodingSet the character set
+     * @return the decoded text
+     * @throws UnsupportedEncodingException if cannot decode
      */
     public static String decodeText(String text, String decodingSet)
             throws UnsupportedEncodingException {

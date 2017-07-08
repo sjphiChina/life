@@ -6,8 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -27,9 +25,6 @@ import sjph.life.model.dao.schema.PostSchema;
  */
 @Repository
 public class PostDaoImpl implements PostDao {
-
-    private static final Logger LOGGER                        = LogManager
-            .getLogger(PostDaoImpl.class);
 
     //@formatter:off
     private static final String FULL_TABLE_COLUMNS_SQL =
@@ -142,9 +137,7 @@ public class PostDaoImpl implements PostDao {
             return jdbcTemplate.query(SELECT_FULL_TABLE_COLUMNS_SQL + " " + ORDER_BY + " "
                     + PostSchema.CREATED_DT + " " + DESC, postRowMapper);
         }
-        else {
-            return jdbcTemplate.query(SELECT_FULL_TABLE_COLUMNS_SQL, postRowMapper);
-        }
+        return jdbcTemplate.query(SELECT_FULL_TABLE_COLUMNS_SQL, postRowMapper);
     }
 
     @Override

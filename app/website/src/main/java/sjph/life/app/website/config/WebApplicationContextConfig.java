@@ -39,7 +39,7 @@ public class WebApplicationContextConfig extends WebMvcConfigurerAdapter {
     }
 
     /**
-     * @return
+     * @return a InternalResourceViewResolver
      */
     @Bean
     public InternalResourceViewResolver getInternalResourceViewResolver() {
@@ -60,7 +60,7 @@ public class WebApplicationContextConfig extends WebMvcConfigurerAdapter {
     // }
 
     /**
-     * @return
+     * @return a MessageSource
      */
     @Bean
     public MessageSource messageSource() {
@@ -76,7 +76,7 @@ public class WebApplicationContextConfig extends WebMvcConfigurerAdapter {
     }
 
     /**
-     * @return
+     * @return a CommonsMultipartResolver
      */
     @Bean
     public CommonsMultipartResolver multipartResolver() {
@@ -86,7 +86,7 @@ public class WebApplicationContextConfig extends WebMvcConfigurerAdapter {
     }
 
     /**
-     * @return
+     * @return a MappingJackson2JsonView
      */
     @Bean
     public MappingJackson2JsonView jsonView() {
@@ -106,8 +106,8 @@ public class WebApplicationContextConfig extends WebMvcConfigurerAdapter {
     // }
 
     /**
-     * @param manager
-     * @return
+     * @param manager contentNegotiatingViewResolver
+     * @return a ViewResolver
      */
     @Bean
     public ViewResolver contentNegotiatingViewResolver(ContentNegotiationManager manager) {

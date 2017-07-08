@@ -17,7 +17,6 @@ import sjph.life.security.authentication.UserRole;
  * @author shaohuiguo
  *
  */
-@SuppressWarnings("javadoc")
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -32,6 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     // auth.inMemoryAuthentication().withUser("admin").password("password").roles("USER","ADMIN");
     // }
 
+    @SuppressWarnings("javadoc")
     @Autowired
     public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(lifeUserDetailsService);
@@ -65,6 +65,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity.csrf().disable();
     }
 
+    /**
+     * @return a {@link DaoAuthenticationProvider}
+     */
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();

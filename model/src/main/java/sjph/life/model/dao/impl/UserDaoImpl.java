@@ -75,9 +75,9 @@ public class UserDaoImpl implements UserDao {
             "FROM " +
                     UserSchema.tableName;
 
-    private static final String ORDER_BY = "ORDER BY";
+    //private static final String ORDER_BY = "ORDER BY";
 
-    private static final String DESC = "DESC";
+    //private static final String DESC = "DESC";
 
     private static final String FIND_BY_ID =
             SELECT_FULL_TABLE_COLUMNS_SQL + " " +
@@ -159,7 +159,8 @@ public class UserDaoImpl implements UserDao {
             final Object[] sqlParameters = new Object[] { userId };
             return jdbcTemplate.queryForObject(FIND_BY_ID, sqlParameters, userRowMapper);
         }
-        catch (EmptyResultDataAccessException e) {
+        catch (@SuppressWarnings("unused") EmptyResultDataAccessException e) {
+            LOGGER.warn("Don't find user, userId=" + userId);
             return null;
         }
     }
@@ -170,7 +171,8 @@ public class UserDaoImpl implements UserDao {
             final Object[] sqlParameters = new Object[] { email };
             return jdbcTemplate.queryForObject(FIND_BY_EMAIL, sqlParameters, userRowMapper);
         }
-        catch (EmptyResultDataAccessException e) {
+        catch (@SuppressWarnings("unused") EmptyResultDataAccessException e) {
+            LOGGER.warn("Don't find user, email=" + email);
             return null;
         }
     }
@@ -181,7 +183,8 @@ public class UserDaoImpl implements UserDao {
             final Object[] sqlParameters = new Object[] { userName };
             return jdbcTemplate.queryForObject(FIND_BY_USER_NAME, sqlParameters, userRowMapper);
         }
-        catch (EmptyResultDataAccessException e) {
+        catch (@SuppressWarnings("unused") EmptyResultDataAccessException e) {
+            LOGGER.warn("Don't find user, userName=" + userName);
             return null;
         }
     }

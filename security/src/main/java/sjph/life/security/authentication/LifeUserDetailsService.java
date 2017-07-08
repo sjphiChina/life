@@ -42,13 +42,13 @@ public class LifeUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("User not found");
         }
 
-        List<GrantedAuthority> result = buildUserAuthority(user.getId(), null);
+        List<GrantedAuthority> result = buildUserAuthority(user.getId());
         return buildUserForAuthentication(user, result);
     }
 
-    private List<GrantedAuthority> buildUserAuthority(Long userId, Set<UserRole> userRoles) {
-
-        Set<GrantedAuthority> setAuths = new HashSet<GrantedAuthority>();
+    // private List<GrantedAuthority> buildUserAuthority(Long userId, Set<UserRole> userRoles) {
+    private List<GrantedAuthority> buildUserAuthority(Long userId) {
+        Set<GrantedAuthority> setAuths = new HashSet<>();
 
         // Build user's authorities
         // for (UserRole userRole : userRoles) {
@@ -62,7 +62,7 @@ public class LifeUserDetailsService implements UserDetailsService {
         }
         // End
 
-        List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>(setAuths);
+        List<GrantedAuthority> authorities = new ArrayList<>(setAuths);
         LOGGER.info("authorities : {}", authorities);
         return authorities;
     }

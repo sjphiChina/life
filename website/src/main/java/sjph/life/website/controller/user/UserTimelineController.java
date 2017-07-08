@@ -42,7 +42,7 @@ public class UserTimelineController {
     public String showProfile(@PathVariable String username, Model model) {
         User user = getUser(username);
         model.addAttribute("user", user);
-        List<Post>list = postService.listPosts(user.getId());
+        List<Post> list = postService.listPosts(user.getId());
         model.addAttribute("posts", list);
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof AuthenticatedUser) {
@@ -53,7 +53,8 @@ public class UserTimelineController {
             long numberOfFollower = relationshipService.getNumberOfFollower(user.getId());
             model.addAttribute("numberOfFollower", numberOfFollower);
             if (loginedUser.getId() != user.getId()) {
-                boolean followed = relationshipService.isFollowUser(user.getId(), loginedUser.getId());
+                boolean followed = relationshipService.isFollowUser(user.getId(),
+                        loginedUser.getId());
                 LOGGER.warn("Check if followed: " + followed);
                 model.addAttribute("followed", followed);
             }
@@ -61,12 +62,12 @@ public class UserTimelineController {
         return "userTimeline";
     }
 
-//    @RequestMapping("/")
-//    public String showUser(@RequestParam("id") String userId, Model model) {
-//        User user = userService.findUser(Long.valueOf(userId));
-//        model.addAttribute("user", user);
-//        return "user";
-//    }
+    // @RequestMapping("/")
+    // public String showUser(@RequestParam("id") String userId, Model model) {
+    // User user = userService.findUser(Long.valueOf(userId));
+    // model.addAttribute("user", user);
+    // return "user";
+    // }
 
     private User getUser(String username) {
         try {
@@ -75,6 +76,8 @@ public class UserTimelineController {
         }
         catch (UserNotFoundException e) {
             // TODO right now just return null, in future, add security check logic
+            LOGGER.error(
+                    "Cannot find user, userName=" + username + ", exception: " + e.getMessage());
             return null;
         }
     }

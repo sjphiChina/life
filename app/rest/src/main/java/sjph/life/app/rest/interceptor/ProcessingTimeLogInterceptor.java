@@ -16,6 +16,7 @@ public class ProcessingTimeLogInterceptor implements HandlerInterceptor {
 
     private static final Logger LOGGER   = LogManager.getLogger(ProcessingTimeLogInterceptor.class);
 
+    @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
             Object handler) {
         long startTime = System.currentTimeMillis();
@@ -24,6 +25,7 @@ public class ProcessingTimeLogInterceptor implements HandlerInterceptor {
         return true;
     }
 
+    @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
             ModelAndView modelAndView) {
         String queryString = request.getQueryString() == null ? "" : "?" + request.getQueryString();
@@ -36,6 +38,7 @@ public class ProcessingTimeLogInterceptor implements HandlerInterceptor {
                 (endTime - startTime), path));
     }
 
+    @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response,
             Object handler, Exception exceptionIfAny) {
         String queryString = request.getQueryString() == null ? "" : "?" + request.getQueryString();

@@ -4,6 +4,11 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * @author shaohuiguo
+ *
+ */
+@SuppressWarnings("javadoc")
 public class JDBCTester {
 
     public static void main(String[] argv) {
@@ -24,11 +29,10 @@ public class JDBCTester {
         try {
             connection = DriverManager
             .getConnection("jdbc:mysql://localhost:3306/life_common","root", "admin");
+            connection.close();
 
         } catch (SQLException e) {
-            System.out.println("Connection Failed! Check output console");
-            e.printStackTrace();
-            return;
+            System.out.println("Connection Failed! Check output console: " + e);
         }
 
         if (connection != null) {

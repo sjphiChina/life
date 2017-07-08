@@ -7,7 +7,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +21,6 @@ import sjph.life.service.PostService;
  * @author shaohuiguo
  *
  */
-@SuppressWarnings("javadoc")
 @RestController
 @RequestMapping(value = "rest/posts")
 public class PostRestController {
@@ -36,6 +34,10 @@ public class PostRestController {
     private PostService         postService;
 
     // TODO add exception handler
+    /**
+     * @param post body of {@link Post}
+     * @return id of post created
+     */
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.CREATED)
     public Long createPost(@RequestBody Post post) {
@@ -51,6 +53,9 @@ public class PostRestController {
         return postService.createPost(post);
     }
 
+    /**
+     * @return a list of {@link Post}
+     */
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public List<Post> showPosts() {
         List<Post> list = postService.listPosts();
@@ -58,19 +63,30 @@ public class PostRestController {
         return list;
     }
 
+    /**
+     * @param id user id
+     * @return a list of {@link Post}
+     */
     @RequestMapping(value = "/list/{user}", method = RequestMethod.GET)
-    public List<Post> showUserPosts(Model model, @PathVariable("id") String userId) {
-        List<Post> list = postService.listPosts(Long.valueOf(userId));
+    public List<Post> showUserPosts(@PathVariable("id") String id) {
+        List<Post> list = postService.listPosts(Long.valueOf(id));
         LOGGER.info("The size of all posts is " + list.size());
         return list;
     }
 
+    /**
+     * @param postId post id
+     * @return {@link Post}
+     */
     @RequestMapping(value = "/{postId}", method = RequestMethod.GET)
     public Post showPost(@PathVariable(value = "postId") String postId) {
         Post post = postService.findPost(Long.valueOf(postId));
         return post;
     }
 
+    /**
+     * @param post the updated {@link Post}
+     */
     @RequestMapping(method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK)
     public void updatePost(@RequestBody Post post) {
@@ -78,6 +94,9 @@ public class PostRestController {
         postService.updatePost(post);
     }
 
+    /**
+     * @param postId the id of {@link Post} to be deleted
+     */
     @RequestMapping(value = "/{postId}", method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK)
     public void deletePost(@PathVariable(value = "postId") String postId) {
