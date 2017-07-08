@@ -7,10 +7,6 @@
   <artifactId>app-rest</artifactId>
   <packaging>war</packaging>
 
-  <properties>
-    <life.root.dir>${project.basedir}/../..</life.root.dir>
-  </properties>
-
   <parent>
     <groupId>sjph.life.build</groupId>
     <artifactId>sjph-life-build-release-base</artifactId>

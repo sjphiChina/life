@@ -12,9 +12,6 @@
     <version>1.0-SNAPSHOT</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
-  <properties>
-    <life.root.dir>${project.basedir}/..</life.root.dir>
-  </properties>
 
   <dependencies>
     <dependency>
