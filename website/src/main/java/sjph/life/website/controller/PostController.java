@@ -1,4 +1,4 @@
-package sjph.life.ui.controller;
+package sjph.life.website.controller;
 
 import java.io.File;
 import java.util.Date;
@@ -25,8 +25,8 @@ import sjph.life.model.User;
 import sjph.life.security.authentication.AuthenticatedUser;
 import sjph.life.service.PostService;
 import sjph.life.service.RelationshipService;
-import sjph.life.ui.exception.PostNotFoundException;
-import sjph.life.ui.exception.RequestFailedException;
+import sjph.life.website.exception.PostNotFoundException;
+import sjph.life.website.exception.RequestFailedException;
 
 /**
  * @author shaohuiguo

@@ -1,4 +1,4 @@
-package sjph.life.ui.controller.user;
+package sjph.life.website.controller.user;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

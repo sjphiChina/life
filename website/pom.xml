@@ -2,26 +2,112 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>sjph.life.webstie</groupId>
+  <groupId>sjph.life.website</groupId>
   <artifactId>sjph-life-website</artifactId>
   <name>website group pom</name>
-  <packaging>pom</packaging>
-  
+
   <parent>
-      <groupId>sjph.life.build</groupId>
-      <artifactId>sjph-life-build-release-base</artifactId>
-      <version>1.0-SNAPSHOT</version>
-      <relativePath>../pom.xml</relativePath>
+    <groupId>sjph.life.build</groupId>
+    <artifactId>sjph-life-build-release-base</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <relativePath>../pom.xml</relativePath>
   </parent>
   <properties>
-      <life.root.dir>${project.basedir}/..</life.root.dir>
+    <life.root.dir>${project.basedir}/..</life.root.dir>
   </properties>
-  
+
   <dependencies>
-      <dependency><groupId>sjph.life.model</groupId><artifactId>sjph-life-model</artifactId></dependency>
-      <dependency><groupId>sjph.life.security</groupId><artifactId>sjph-life-security</artifactId></dependency>
-      <dependency>
-          <groupId>sjph.life.service</groupId>
-      </dependency>
+    <dependency>
+      <groupId>sjph.life.model</groupId>
+      <artifactId>sjph-life-model</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>sjph.life.security</groupId>
+      <artifactId>sjph-life-security</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>sjph.life.service</groupId>
+      <artifactId>sjph-life-service</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-webmvc</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-config</artifactId>
+      <version>${spring.security.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-web</artifactId>
+      <version>${spring.security.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-core</artifactId>
+      <version>${spring.security.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-test</artifactId>
+      <version>${spring.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>commons-fileupload</groupId>
+      <artifactId>commons-fileupload</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.tiles</groupId>
+      <artifactId>tiles-extras</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>jstl</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-simple</artifactId>
+    </dependency>
+    <!-- Log4j -->
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-api</artifactId>
+    </dependency>
   </dependencies>
 </project>

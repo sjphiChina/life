@@ -1,4 +1,4 @@
-package sjph.life.ui.exception;
+package sjph.life.website.exception;
 
 /**
  * @author shaohuiguo

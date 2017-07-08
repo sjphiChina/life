@@ -14,7 +14,7 @@ import sjph.life.model.dao.PostDao;
 import sjph.life.platform.util.algorithm.MergeSort;
 import sjph.life.service.PostService;
 import sjph.life.service.RelationshipService;
-import sjph.life.ui.exception.PostNotFoundException;
+import sjph.life.service.exception.PostNotFoundException;
 
 /**
  * @author shaohuiguo
@@ -47,7 +47,7 @@ public class PostServiceImpl implements PostService {
             return post;
         }
         catch (EmptyResultDataAccessException e) {
-            throw new PostNotFoundException(postId, "No post found.", e);
+            throw new PostNotFoundException("No post found.", e);
         }
     }
 

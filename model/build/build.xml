@@ -1,9 +1,0 @@
-<project name="model" basedir=".." default="dist">
-  <description>
-    sjph
-    Copyright (c) 2017- sjph. All Rights Reserved.
-    Build the model module
-  </description>
-
-  <import file="../../build/build-maven-base.xml"/>
-</project>

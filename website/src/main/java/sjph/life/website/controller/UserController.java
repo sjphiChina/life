@@ -1,4 +1,4 @@
-package sjph.life.ui.controller;
+package sjph.life.website.controller;
 
 import java.io.File;
 import java.util.Date;
