@@ -7,11 +7,13 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import sjph.life.model.Post;
 import sjph.life.model.dao.PostDao;
+import sjph.life.platform.cache.CacheService;
 import sjph.life.platform.util.algorithm.MergeSort;
 import sjph.life.service.PostService;
 import sjph.life.service.RelationshipService;
@@ -29,6 +31,9 @@ public class PostServiceImpl implements PostService {
     private PostDao             postDao;
     @Autowired(required = true)
     private RelationshipService relationshipService;
+    @Autowired(required = true)
+    @Qualifier("redisCacheService")
+    private CacheService        redisCacheService;
 
     @Override
     public long createPost(Post post) {
@@ -68,6 +73,10 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<Post> listPostsAll(Long userId) {
+        String cacheTest = "Work hard, Good luck!";
+        redisCacheService.addValue(String.valueOf(userId), cacheTest);
+        LOGGER.debug("Add value: " + cacheTest);
+
         List<Post> list = postDao.listPosts(userId, true);
         List<Long> followeeList = relationshipService.getFollwees(userId);
         @SuppressWarnings("unchecked")
@@ -93,6 +102,8 @@ public class PostServiceImpl implements PostService {
             }
         });
         List<Post> result = mergeSort.mergeKLists(arrayList);
+        String value = redisCacheService.getValue(String.valueOf(userId));
+        LOGGER.debug("The value: " + value);
         return result;
     }
 
