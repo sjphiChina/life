@@ -1,8 +1,9 @@
-/bin/
-/target/
-/.settings
-.classpath
-.project
-/test-output/
-.springBeans
-/WebContent/
+**/bin/
+**/target/
+**/.settings
+**/.classpath
+**/.project
+**/test-output/
+**/.springBeans
+**/WebContent/
+**/.dist

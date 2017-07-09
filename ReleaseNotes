@@ -1,3 +1,8 @@
+20170708_release/0.5:
+1. Split the original project into multiple sub projects based on domain
+2. Refactor structure and naming of projects
+3. Fix almost of all warnings  
+
 20170704_release/0.4:
 1. implement the mechanism like twitter, newsfeed and follow/unfollow
 2. replace old ui with new and professional web template
