@@ -22,27 +22,27 @@
           <!--profile card ends-->
           <ul class="nav-news-feed">
             <li><i class="icon ion-ios-paper"></i>
-            <div>
+              <div>
                 <a href="<c:url value="/${loginedUser.userName}"></c:url>">Timeline</a>
               </div></li>
             <li><i class="icon ion-ios-people"></i>
-            <div>
+              <div>
                 <a href="newsfeed-people-nearby.html">People Nearby</a>
               </div></li>
             <li><i class="icon ion-ios-people-outline"></i>
-            <div>
+              <div>
                 <a href="newsfeed-friends.html">Friends</a>
               </div></li>
             <li><i class="icon ion-chatboxes"></i>
-            <div>
+              <div>
                 <a href="newsfeed-messages.html">Messages</a>
               </div></li>
             <li><i class="icon ion-images"></i>
-            <div>
+              <div>
                 <a href="newsfeed-images.html">Images</a>
               </div></li>
             <li><i class="icon ion-ios-videocam"></i>
-            <div>
+              <div>
                 <a href="newsfeed-videos.html">Videos</a>
               </div></li>
           </ul>
@@ -101,10 +101,12 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-md-5 col-sm-5">
+                  <div class="col-md-12 col-sm-12">
                     <div class="tools">
                       <ul class="publishing-tools list-inline">
-                        <li><a href="#"><i class="ion-compose"></i></a></li>
+                        <li data-toggle="modal" data-target=".img_posting"><a href="#"><i
+                            class="ion-compose"></i></a></li>
+                        <!-- <li><a href="#"><i class="ion-compose"></i></a></li> -->
                         <!-- <li><a href="#"><i class="ion-images"></i></a></li> -->
                         <li><form:input id="contentImage" path="contentImage" type="file"
                             class="ion-images" /></li>
@@ -119,6 +121,27 @@
             </form:form>
           </div>
           <!-- Post Create Box End-->
+          <!--Popup for image-->
+          <div class="modal fade img_posting" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="post_contents_modal">
+                  <div class="modal_header">
+                    <h4>Upload Your Media</h4>
+                  </div>
+                  <div class="main_box">
+                    <div class="drop_files">
+                      <h4 class="grey">Drop your files here</h4>
+                      <p class="or">or</p>
+                      <button class="btn btn-primary">Select files</button>
+                      <p>Please only select .jpg, .png, and .gif</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--Popup End-->
         </c:if>
 
         <c:forEach items="${posts}" var="post">

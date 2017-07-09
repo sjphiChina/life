@@ -42,6 +42,7 @@
     - Slide Animations
     - Scroll Down Arrow
     - Preloader
+    - Popup for image
 ==================================================*/
 
 html, body {
@@ -2367,3 +2368,40 @@ ul.contact li i{
 }
 
 
+/*==================================================
+  Popup for image CSS
+  ==================================================*/
+
+.create-post .tools{
+  margin-left: 60px;
+}
+
+.post_contents_modal{
+  text-align: center;
+}
+
+.post_contents_modal .modal_header{
+  padding: 10px;
+  border-bottom: 1px solid #f2f2f2;
+}
+
+.post_contents_modal .main_box{
+  padding: 30px 130px;
+}
+
+.post_contents_modal .main_box .drop_files{
+  border: 3px dashed #f2f2f2;
+  padding: 30px 30px 20px 30px;
+}
+
+.post_contents_modal .main_box .drop_files h4{
+  margin-bottom: 0;
+}
+
+.post_contents_modal .main_box .drop_files .or{
+  margin-bottom: 5px;
+}
+
+.post_contents_modal .main_box .drop_files .btn-primary{
+  margin-bottom: 10px;
+}
