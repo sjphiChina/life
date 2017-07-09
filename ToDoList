@@ -1,3 +1,5 @@
-0.6 release: redis and cassandra
-0.5 release: microservice and decouple the whole project, host the project to godaddy
+0.7 release: support short url, scale life
+0.6 release: redis and cassandra, add session logic, 
+#for 0.5: finally given fast dev, move microservice to 0.7 
+#0.5 release: microservice and decouple the whole project, host the project to godaddy
 refine relationship model
