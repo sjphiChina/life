@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -126,6 +127,7 @@ public class UserDaoImpl implements UserDao {
 
     private final UserRowMapper userRowMapper                 = new UserRowMapper();
     @Autowired(required = true)
+    @Qualifier("mysqlJdbcTemplate")
     private JdbcTemplate        jdbcTemplate;
 
     @Override

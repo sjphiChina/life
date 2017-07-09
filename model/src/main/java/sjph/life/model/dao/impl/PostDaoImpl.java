@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.PreparedStatementSetter;
@@ -101,6 +102,7 @@ public class PostDaoImpl implements PostDao {
 
     private final PostRowMapper postRowMapper                 = new PostRowMapper();
     @Autowired(required = true)
+    @Qualifier("mysqlJdbcTemplate")
     private JdbcTemplate        jdbcTemplate;
 
     @Override
