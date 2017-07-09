@@ -18,7 +18,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.ContentNegotiatingViewResolver;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
-import sjph.life.app.rest.interceptor.ProcessingTimeLogInterceptor;
+import sjph.life.platform.intercetor.ProcessingTimeLogInterceptor;
 
 /**
  * @author shaohuiguo

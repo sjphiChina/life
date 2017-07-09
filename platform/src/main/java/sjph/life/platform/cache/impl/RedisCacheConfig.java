@@ -28,7 +28,7 @@ public class RedisCacheConfig {
     /**
      * @return a {@link JedisConnectionFactory}
      */
-    @Bean
+    @Bean("redisTemplate")
     public RedisTemplate<?, ?> getRedisTemplate() {
         RedisTemplate<?, ?> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(getJedisConnectionFactory());
