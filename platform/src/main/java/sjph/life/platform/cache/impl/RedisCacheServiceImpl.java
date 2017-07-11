@@ -19,7 +19,7 @@ public class RedisCacheServiceImpl implements CacheService {
     private static final Logger LOGGER = LogManager.getLogger(RedisCacheServiceImpl.class);
     // inject the actual template
     @Autowired(required = true)
-    @Qualifier("redisTemplate")
+    @Qualifier("redisJedisTemplate")
     private RedisTemplate<String, String>  template;
 
     // inject the template as ListOperations
@@ -31,7 +31,6 @@ public class RedisCacheServiceImpl implements CacheService {
     public void addValue(String key, String value) {
         LOGGER.info("Add value: " + value);
         template.boundValueOps(key).set(value);
-
     }
 
     @Override

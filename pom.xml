@@ -130,6 +130,7 @@
                 <version>${spring.version}</version>
                 <scope>test</scope>
             </dependency>
+            <!-- Redis -->
             <dependency>
                 <groupId>org.springframework.data</groupId>
                 <artifactId>spring-data-redis</artifactId>
