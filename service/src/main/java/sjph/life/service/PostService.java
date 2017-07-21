@@ -1,64 +1,84 @@
+/*
+ * Copyright 2017 the original author or authors.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package sjph.life.service;
 
-import java.util.List;
+import java.util.Collection;
 
 import sjph.life.model.Post;
+import sjph.life.service.dto.PostDto;
 
 /**
- * @author shaohuiguo
+ * Provides services for {@link PostDto}.
+ * 
+ * @author Shaohui Guo
  *
  */
 public interface PostService {
 
     /**
      * @param post
-     * @return the ID of {@link Post} table record created
+     * @return the id of {@link Post} created
      */
-    long createPost(Post post);
+    Long createPost(Post post);
 
     /**
      * @param postId
-     * @return the Post requested
+     * @return the PostDto requested
      */
-    Post findPost(long postId);
+    PostDto findPost(String postId);
 
     /**
-     * @return a list of Post
+     * @param range the range for post selection
+     * @return a list of PostDto
      */
-    List<Post> listPosts();
+    Collection<PostDto> listPosts(Range range);
 
     /**
-     * Get all posts just for the specific user per userId passed.
+     * Get the user's timeline given the user id and range selected.
      * 
      * @param userId
-     * @return a list of Post
+     * @param range the range for post selection
+     * @return a list of PostDto
      */
-    List<Post> listPosts(Long userId);
+    Collection<PostDto> listUserTimeline(String userId, Range range);
 
     /**
-     * Get all posts for the specific user per userId passed and persons who are followed by the 
-     * specific user.
+     * Get all posts of the specific user and following given the user id and range selected.
      * 
      * @param userId
-     * @return a list of Post
+     * @param range the range for post selection
+     * @return a list of PostDto
      */
-    List<Post> listPostsAll(Long userId);
+    Collection<PostDto> listUserPosts(String userId, Range range);
 
     /**
-     * @param post
-     * @return true if the post specified was updated successfully else false
+     * @param postDto
+     * @return true if the post specified was updated successfully
      */
-    boolean updatePost(Post post);
+    boolean updatePost(Post postDto);
 
     /**
-     * @param postId
-     * @return true if the post specified was updated successfully else false
+     * @param postDto
+     * @return true if the post specified was deleted successfully
      */
-    boolean deletePost(Long postId);
+    boolean deletePost(PostDto postDto);
 
     /**
      * @param userId
-     * @return true if posts specified by userId were updated successfully else false
+     * @return true if posts specified by userId were deleted successfully
      */
-    boolean deletePosts(Long userId);
+    boolean deletePosts(String userId);
 }

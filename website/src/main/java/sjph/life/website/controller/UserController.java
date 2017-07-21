@@ -22,6 +22,7 @@ import sjph.life.model.state.UserState;
 import sjph.life.security.authentication.AuthenticatedUser;
 import sjph.life.service.RelationshipService;
 import sjph.life.service.UserService;
+import sjph.life.service.dto.UserDto;
 import sjph.life.website.exception.UserNotFoundException;
 
 /**
@@ -42,26 +43,25 @@ public class UserController {
 
     @RequestMapping("/")
     public String showUser(@RequestParam("id") String userId, Model model) {
-        User user = userService.findUser(Long.valueOf(userId));
+        UserDto user = userService.findUser(userId);
         model.addAttribute("user", user);
         return "user";
     }
 
     @RequestMapping(value = "/follow", method = RequestMethod.GET)
     public String followUser(@RequestParam("userId") String userId, Model model) {
-        User user = null;
         // command is a reserved request attribute name, now use <form> tag to show object data
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof AuthenticatedUser) {
             User loginedUser = ((AuthenticatedUser) principal).getUserOfLife();
-            model.addAttribute("loginedUser", loginedUser);
-            User follower = loginedUser;
-            User followee = userService.findUser(Long.valueOf(userId));
-            user = followee;
-            model.addAttribute("user", user);
-            relationshipService.createRelationship(followee.getId(), follower.getId());
+            //UserDto loginedUserDto = new UserDto(loginedUser);
+            //model.addAttribute("loginedUser", loginedUserDto);
+            UserDto following = userService.findUser(userId);
+            model.addAttribute("user", following);
+            relationshipService.follow(userId,
+                    String.valueOf(loginedUser.getId()));
             model.addAttribute("followed", true);
-            return "redirect:/" + user.getUserName();
+            return "redirect:/" + following.getUserName();
         }
         LOGGER.error("Cannot found user, userId=" + userId);
         throw new UserNotFoundException("Cannot found user, userId=" + userId);
@@ -69,18 +69,18 @@ public class UserController {
 
     @RequestMapping(value = "/unfollow", method = RequestMethod.GET)
     public String unfollowUser(@RequestParam("userId") String userId, Model model) {
-        User user = null;
+        //UserDto userDto = null;
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof AuthenticatedUser) {
             User loginedUser = ((AuthenticatedUser) principal).getUserOfLife();
-            model.addAttribute("loginedUser", loginedUser);
-            User follower = loginedUser;
-            User followee = userService.findUser(Long.valueOf(userId));
-            user = followee;
-            model.addAttribute("user", user);
-            relationshipService.deleteFollwee(followee.getId(), follower.getId());
+            //UserDto loginedUserDto = new UserDto(loginedUser);
+            //model.addAttribute("loginedUser", loginedUserDto);
+            UserDto followingDto = userService.findUser(userId);
+            //model.addAttribute("user", userDto);
+            relationshipService.unFollow(userId,
+                    String.valueOf(loginedUser.getId()));
             model.addAttribute("followed", false);
-            return "redirect:/" + user.getUserName();
+            return "redirect:/" + followingDto.getUserName();
         }
         LOGGER.error("Cannot found user, userId=" + userId);
         throw new UserNotFoundException("Cannot found user, userId=" + userId);
@@ -107,7 +107,7 @@ public class UserController {
         user.setUserState(UserState.ACTIVE);
         long userId = userService.createUser(user);
         MultipartFile profileImage = user.getProfileImage();
-        //String rootDirectory = request.getSession().getServletContext().getRealPath("/");
+        // String rootDirectory = request.getSession().getServletContext().getRealPath("/");
 
         if (profileImage != null && !profileImage.isEmpty()) {
             try {

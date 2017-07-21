@@ -4,10 +4,14 @@
 package sjph.life.platform.cache;
 
 /**
+ * Will reconsider how to define and use this interface.
+ * 
  * @author shaohuiguo
+ * @param <K> 
+ * @param <V> 
  *
  */
-public interface CacheService {
+public interface CacheService<K, V> {
 
     /**
      * Add String value to cache.
@@ -15,7 +19,7 @@ public interface CacheService {
      * @param key the key
      * @param value the String value
      */
-    void addValue(String key, String value);
+    void addValue(K key, V value);
 
     /**
      * Get String value from cache
@@ -23,5 +27,5 @@ public interface CacheService {
      * @param key the key
      * @return the String value
      */
-    String getValue(String key);
+    V getValue(K key);
 }

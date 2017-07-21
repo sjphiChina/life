@@ -1,7 +1,22 @@
+/*
+ * Copyright 2017 the original author or authors.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package sjph.life.rest.controller;
 
+import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,9 +31,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import sjph.life.model.Post;
 import sjph.life.service.PostService;
+import sjph.life.service.Range;
+import sjph.life.service.dto.PostDto;
 
 /**
- * @author shaohuiguo
+ * Rest controller for {@link PostDto} operations.
+ * 
+ * @author Shaohui Guo
  *
  */
 @RestController
@@ -41,6 +60,7 @@ public class PostRestController {
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.CREATED)
     public Long createPost(@RequestBody Post post) {
+        // TODO  will switch to PostDto later
         // disable this, I will move the encode/decode logic to client side, server side just use
         // the same code
         // encodeText(post.getContent(), WebConfig.CHARACTER_ENCODING_SET);
@@ -54,22 +74,22 @@ public class PostRestController {
     }
 
     /**
-     * @return a list of {@link Post}
+     * @return a list of {@link PostDto}
      */
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public List<Post> showPosts() {
-        List<Post> list = postService.listPosts();
+    public Collection<PostDto> showPosts() {
+        Collection<PostDto> list = postService.listPosts(new Range());
         LOGGER.info("The size of all posts is " + list.size());
         return list;
     }
 
     /**
-     * @param id user id
-     * @return a list of {@link Post}
+     * @param id the user id of user
+     * @return a list of {@link PostDto}
      */
     @RequestMapping(value = "/list/{user}", method = RequestMethod.GET)
-    public List<Post> showUserPosts(@PathVariable("id") String id) {
-        List<Post> list = postService.listPosts(Long.valueOf(id));
+    public Collection<PostDto> showUserPosts(@PathVariable("id") String id) {
+        Collection<PostDto> list = postService.listUserTimeline(id, new Range());
         LOGGER.info("The size of all posts is " + list.size());
         return list;
     }
@@ -79,8 +99,8 @@ public class PostRestController {
      * @return {@link Post}
      */
     @RequestMapping(value = "/{postId}", method = RequestMethod.GET)
-    public Post showPost(@PathVariable(value = "postId") String postId) {
-        Post post = postService.findPost(Long.valueOf(postId));
+    public PostDto showPost(@PathVariable(value = "postId") String postId) {
+        PostDto post = postService.findPost(postId);
         return post;
     }
 
@@ -100,7 +120,8 @@ public class PostRestController {
     @RequestMapping(value = "/{postId}", method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK)
     public void deletePost(@PathVariable(value = "postId") String postId) {
-        postService.deletePost(Long.valueOf(postId));
+        PostDto postDto = postService.findPost(postId);
+        postService.deletePost(postDto);
     }
 
     // private String encodeText(String text, String encodingSet) {

@@ -12,7 +12,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import sjph.life.model.state.UserState;
 
 /**
- * @author shaoguo
+ * Model for user object.
+ * 
+ * @author Shaohui Guo
  *
  */
 @SuppressWarnings("javadoc")

@@ -11,15 +11,17 @@ import sjph.life.platform.cache.CacheService;
 
 /**
  * @author shaohuiguo
+ * @param <String> test
  *
  */
+@SuppressWarnings("hiding")
 @Service("redisCacheService")
-public class RedisCacheServiceImpl implements CacheService {
+public class RedisCacheServiceImpl<String> implements CacheService {
 
     private static final Logger LOGGER = LogManager.getLogger(RedisCacheServiceImpl.class);
     // inject the actual template
     @Autowired(required = true)
-    @Qualifier("redisJedisTemplate")
+    @Qualifier("jedisRedisTemplate")
     private RedisTemplate<String, String>  template;
 
     // inject the template as ListOperations
@@ -28,14 +30,15 @@ public class RedisCacheServiceImpl implements CacheService {
 //    private ListOperations<String, String> listOps;
 
     @Override
-    public void addValue(String key, String value) {
+    public void addValue(Object key, Object value) {
         LOGGER.info("Add value: " + value);
-        template.boundValueOps(key).set(value);
+        //template.boundValueOps(key).set(value);
     }
 
     @Override
-    public String getValue(String key) {
-        return template.boundValueOps(key).get();
+    public Object getValue(Object key) {
+        //return template.boundValueOps(key).get();
+        return null;
     }
 
 }

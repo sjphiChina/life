@@ -155,7 +155,7 @@
               <div class="post-detail">
                 <div class="user-info">
                   <h5>
-                    <a href="<c:url value="/${post.userName}"></c:url>" class="profile-link">${post.userName}</a>
+                    <a href="<c:url value="/${post.userNameDisplaying}"></c:url>" class="profile-link">${post.userNameDisplaying}</a>
                     <span class="following">following</span>
                   </h5>
                   <p class="text-muted">${post.createdDate}</p>

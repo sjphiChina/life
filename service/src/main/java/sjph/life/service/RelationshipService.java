@@ -1,55 +1,72 @@
+/*
+ * Copyright 2017 the original author or authors.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package sjph.life.service;
 
 import java.util.List;
 
 /**
- * @author shaohuiguo
+ * Provides services for relationship.
+ * 
+ * @author Shaohui Guo
  *
  */
 public interface RelationshipService {
 
     /**
-     * @param userId
+     * @param followingId
      * @param followerId
      */
-    void createRelationship(Long userId, Long followerId);
+    void follow(String followingId, String followerId);
 
     /**
      * @param userId
      * @return a list of followers' id
      */
-    List<Long> getFollwers(Long userId);
+    List<Long> getFollwers(String userId);
 
     /**
      * @param followerId
      * @return a list of followees' id
      */
-    List<Long> getFollwees(Long followerId);
+    List<Long> getFollwees(String followerId);
 
     /**
      * @param userId
      * @return the number of followers per userId
      */
-    Long getNumberOfFollower(Long userId);
+    Long getNumberOfFollower(String userId);
 
     /**
      * @param userId
      * @param followerId
      * @return the affected rows
      */
-    int deleteFollwer(Long userId, Long followerId);
+    int deleteFollwer(String userId, String followerId);
 
     /**
-     * @param userId
+     * @param followingId
      * @param followerId
      * @return the affected rows
      */
-    int deleteFollwee(Long userId, Long followerId);
+    int unFollow(String followingId, String followerId);
 
     /**
      * @param userId
      * @param followerId
      * @return true if userId is following followerID
      */
-    boolean isFollowUser(Long userId, Long followerId);
+    boolean isFollowUser(String userId, String followerId);
 }
