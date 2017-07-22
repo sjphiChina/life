@@ -59,6 +59,7 @@ public class UserCacheHandler {
     // DecoratingStringHashMapper(
     // new Jackson2HashMapper(false));
 
+    @SuppressWarnings("unused")
     private final HashMapper<UserDto, String, String> userMapper = new DecoratingStringHashMapper<UserDto>(
             new JacksonHashMapperWarpper<UserDto>(UserDto.class));
 

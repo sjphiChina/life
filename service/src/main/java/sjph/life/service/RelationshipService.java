@@ -15,7 +15,7 @@
  */
 package sjph.life.service;
 
-import java.util.List;
+import java.util.Collection;
 
 /**
  * Provides services for relationship.
@@ -35,19 +35,19 @@ public interface RelationshipService {
      * @param userId
      * @return a list of followers' id
      */
-    List<Long> getFollwers(String userId);
+    Collection<String> getFollwers(String userId);
 
     /**
-     * @param followerId
+     * @param userId
      * @return a list of followees' id
      */
-    List<Long> getFollwees(String followerId);
+    Collection<String> getFollwees(String userId);
 
     /**
      * @param userId
      * @return the number of followers per userId
      */
-    Long getNumberOfFollower(String userId);
+    int getNumberOfFollower(String userId);
 
     /**
      * @param userId

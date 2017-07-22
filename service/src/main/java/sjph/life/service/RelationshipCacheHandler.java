@@ -55,7 +55,16 @@ public class RelationshipCacheHandler {
      * @return a collection of followers of the user
      */
     public Collection<String> getFollowers(String userId) {
-        return covertUserIdToNames(KeyUtils.followers(userId));
+        //return covertUserIdToNames(KeyUtils.followers(userId));
+        return getUserfollowersSet(userId);
+    }
+
+    /**
+     * @param userId the user id of user
+     * @return the number of followers
+     */
+    public int getFollowersNumber(String userId) {
+        return getUserfollowersSet(KeyUtils.followers(userId)).size();
     }
 
     /**
@@ -63,7 +72,16 @@ public class RelationshipCacheHandler {
      * @return a collection of following of the user
      */
     public Collection<String> getFollowing(String userId) {
-        return covertUserIdToNames(KeyUtils.following(userId));
+        //return covertUserIdToNames(KeyUtils.following(userId));
+        return getUserfollowingSet(userId);
+    }
+
+    /**
+     * @param userId the user id of user
+     * @return the number of following
+     */
+    public int getFollowingNumber(String userId) {
+        return getUserfollowingSet(KeyUtils.following(userId)).size();
     }
 
     /**
@@ -115,8 +133,7 @@ public class RelationshipCacheHandler {
     }
 
     private List<String> covertUserIdToNames(String key) {
-        return template.sort(SortQueryBuilder.sort(key).noSort().get("uid:*->userName").build(),
-                new Jackson2JsonRedisSerializer<>(String.class));
+        return template.sort(SortQueryBuilder.sort(key).noSort().get("uid:*->userName").build());
     }
 
     private RedisSet<String> getUserfollowingSet(String userId) {

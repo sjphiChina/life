@@ -33,7 +33,7 @@ public interface RelationshipDao {
      * @param userId
      * @return the number of followers per userId
      */
-    Long getNumberOfFollower(Long userId);
+    int getNumberOfFollower(Long userId);
 
     /**
      * @param userId

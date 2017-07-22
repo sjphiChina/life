@@ -31,7 +31,6 @@ import sjph.life.platform.util.algorithm.MergeSort;
 import sjph.life.service.PostCacheHandler;
 import sjph.life.service.PostService;
 import sjph.life.service.Range;
-import sjph.life.service.RelationshipCacheHandler;
 import sjph.life.service.RelationshipService;
 import sjph.life.service.dto.PostDto;
 import sjph.life.service.exception.PostNotFoundException;
@@ -50,8 +49,6 @@ public class PostServiceImpl implements PostService {
     private RelationshipService      relationshipService;
     @Autowired(required = true)
     private PostCacheHandler         postCacheHandler;
-    @Autowired(required = true)
-    private RelationshipCacheHandler relationshipCacheHandler;
 
     @Override
     public Long createPost(Post post) {
@@ -116,16 +113,25 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Collection<PostDto> listUserPosts(String userId, Range range) {
+        // TODO need more robust logic: lots of null pointer checking
         Collection<PostDto> postDtoList = postCacheHandler.getUserTimeline(userId, range);
-        Collection<String> followingList = relationshipCacheHandler.getFollowing(userId);
-        if ((postDtoList != null && followingList != null)
-                && (!postDtoList.isEmpty() || !followingList.isEmpty())) {
+        if (postDtoList == null || postDtoList.isEmpty()) {
+            Collection<Post> list = postDao.listPosts(Long.valueOf(userId), true);
+            postDtoList = convertPostToPostDto(list);
+            postCacheHandler.loadPosts(postDtoList);
+        }
+        Collection<String> followeeList = relationshipService.getFollwees(userId);
+        if (followeeList != null && !followeeList.isEmpty()) {
+            // There are two ways to this merge:
+            // 1. PriorityQueue, merge the head of each list and traverse
+            // 2. Merge all sorted list
+            // Now use the 2.
             @SuppressWarnings("unchecked")
-            Collection<PostDto>[] postDtoArray = new ArrayList[followingList.size() + 1];
+            Collection<PostDto>[] postDtoArray = new ArrayList[followeeList.size() + 1];
             int index = 0;
             postDtoArray[index++] = postDtoList;
-            for (String followingId : followingList) {
-                Collection<PostDto> tempList = postCacheHandler.getUserTimeline(followingId, range);
+            for (String followingId : followeeList) {
+                Collection<PostDto> tempList = listUserTimeline(followingId, range);
                 postDtoArray[index++] = tempList;
             }
             MergeSort<PostDto> mergeSortPostDto = new MergeSort<>(new Comparator<PostDto>() {
@@ -141,32 +147,7 @@ public class PostServiceImpl implements PostService {
             Collection<PostDto> result = mergeSortPostDto.mergeKLists(postDtoArray);
             return result;
         }
-        Collection<Post> list = postDao.listPosts(Long.valueOf(userId), true);
-        Collection<Long> followeeList = relationshipService.getFollwees(userId);
-        @SuppressWarnings("unchecked")
-        Collection<Post>[] arrayList = new ArrayList[followeeList.size() + 1];
-        // There are two ways to this merge:
-        // 1. PriorityQueue, merge the head of each list and traverse
-        // 2. Merge all sorted list
-        // Now use the 2.
-        int index = 0;
-        arrayList[index++] = list;
-        for (long followeeId : followeeList) {
-            Collection<Post> followerPostList = postDao.listPosts(followeeId, true);
-            arrayList[index++] = followerPostList;
-        }
-        MergeSort<Post> mergeSortPost = new MergeSort<>(new Comparator<Post>() {
-            @Override
-            public int compare(Post a, Post b) {
-                long diff = b.getCreatedDate().getTime() - a.getCreatedDate().getTime();
-                if (diff >= 0) {
-                    return 1;
-                }
-                return -1;
-            }
-        });
-        Collection<PostDto> result = convertPostToPostDto(mergeSortPost.mergeKLists(arrayList));
-        return result;
+        return postDtoList;
     }
 
     @Override
@@ -179,7 +160,7 @@ public class PostServiceImpl implements PostService {
         return false;
     }
 
-    // TODO will do displaying remove in the future
+    // TODO will do displaying remove in the future, no need to really remove the post from db
     @Override
     public boolean deletePost(PostDto postDto) {
         postCacheHandler.deletePost(postDto);

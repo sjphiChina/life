@@ -110,9 +110,9 @@ public class RelationshipDaoImpl implements RelationshipDao {
     }
 
     @Override
-    public Long getNumberOfFollower(Long userId) {
+    public int getNumberOfFollower(Long userId) {
         return jdbcTemplate.queryForObject(COUNT_FOLLOWER_NUMBER_SQL, new Object[] { userId },
-                Long.class);
+                Integer.class);
     }
 
     @Override

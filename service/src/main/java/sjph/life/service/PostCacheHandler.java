@@ -60,6 +60,7 @@ public class PostCacheHandler {
 //    @SuppressWarnings({ "rawtypes", "unchecked" })
 //    private final HashMapper<PostDto, String, String> postMapper = new DecoratingStringHashMapper(
 //            new Jackson2HashMapper(true));
+    @SuppressWarnings("unused")
     private final HashMapper<PostDto, String, String> postMapper = new DecoratingStringHashMapper<PostDto>(
             new JacksonHashMapperWarpper<PostDto>(PostDto.class));
 
@@ -199,7 +200,7 @@ public class PostCacheHandler {
 
     private Collection<PostDto> convertPidsToPosts(String key, Range range) {
         String pid = "pid:*->";
-        final String pidKey = "#";
+        //final String pidKey = "#";
         final String id = PostDtoSchema.ID.getDescription();
         final String content = PostDtoSchema.CONTENT.getDescription();
         final String userId = PostDtoSchema.USER_ID.getDescription();
