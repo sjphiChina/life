@@ -18,6 +18,7 @@ package sjph.life.service.impl;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.LinkedList;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -126,13 +127,22 @@ public class PostServiceImpl implements PostService {
             // 1. PriorityQueue, merge the head of each list and traverse
             // 2. Merge all sorted list
             // Now use the 2.
+            // TODO all just for temp change
             @SuppressWarnings("unchecked")
-            Collection<PostDto>[] postDtoArray = new ArrayList[followeeList.size() + 1];
+            // avoid it for -1.
+            //Collection<PostDto>[] postDtoArray = new ArrayList[followeeList.size() + 1];
+            Collection<PostDto>[] postDtoArray = new ArrayList[followeeList.size()];
             int index = 0;
-            postDtoArray[index++] = postDtoList;
+            if (postDtoList != null && !postDtoList.isEmpty()) {
+                postDtoArray[index++] = postDtoList;
+            } else {
+                postDtoArray[index++] = new LinkedList<>(); 
+            }
             for (String followingId : followeeList) {
                 Collection<PostDto> tempList = listUserTimeline(followingId, range);
-                postDtoArray[index++] = tempList;
+                if (tempList != null && !tempList.isEmpty()) {
+                    postDtoArray[index++] = tempList;
+                }
             }
             MergeSort<PostDto> mergeSortPostDto = new MergeSort<>(new Comparator<PostDto>() {
                 @Override

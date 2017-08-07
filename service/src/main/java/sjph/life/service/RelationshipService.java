@@ -57,16 +57,16 @@ public interface RelationshipService {
     int deleteFollwer(String userId, String followerId);
 
     /**
+     * @param userId 
      * @param followingId
-     * @param followerId
      * @return the affected rows
      */
-    int unFollow(String followingId, String followerId);
+    int unFollow(String userId, String followingId);
 
     /**
      * @param userId
-     * @param followerId
-     * @return true if userId is following followerID
+     * @param followingId
+     * @return true if userId is following followingId
      */
-    boolean isFollowUser(String userId, String followerId);
+    boolean isFollowUser(String userId, String followingId);
 }

@@ -58,8 +58,7 @@ public class UserController {
             //model.addAttribute("loginedUser", loginedUserDto);
             UserDto following = userService.findUser(userId);
             model.addAttribute("user", following);
-            relationshipService.follow(userId,
-                    String.valueOf(loginedUser.getId()));
+            relationshipService.follow(String.valueOf(loginedUser.getId()), userId);
             model.addAttribute("followed", true);
             return "redirect:/" + following.getUserName();
         }
@@ -77,8 +76,7 @@ public class UserController {
             //model.addAttribute("loginedUser", loginedUserDto);
             UserDto followingDto = userService.findUser(userId);
             //model.addAttribute("user", userDto);
-            relationshipService.unFollow(userId,
-                    String.valueOf(loginedUser.getId()));
+            relationshipService.unFollow(String.valueOf(loginedUser.getId()), userId);
             model.addAttribute("followed", false);
             return "redirect:/" + followingDto.getUserName();
         }

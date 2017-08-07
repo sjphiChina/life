@@ -1,3 +1,18 @@
+/*
+ * Copyright 2017 the original author or authors.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package sjph.life.website.controller.user;
 
 import java.util.Collection;
@@ -44,7 +59,7 @@ public class UserTimelineController {
     public String showProfile(@PathVariable String username, Model model) {
         UserDto userDto = getUser(username);
         model.addAttribute("user", userDto);
-        Collection<PostDto> list = postService.listUserPosts(userDto.getId(), new Range());
+        Collection<PostDto> list = postService.listUserTimeline(userDto.getId(), new Range());
         model.addAttribute("posts", list);
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof AuthenticatedUser) {
@@ -55,8 +70,8 @@ public class UserTimelineController {
             long numberOfFollower = relationshipService.getNumberOfFollower(userDto.getId());
             model.addAttribute("numberOfFollower", numberOfFollower);
             if (loginedUser.getId() != Long.valueOf(userDto.getId())) {
-                boolean followed = relationshipService.isFollowUser(userDto.getId(),
-                        String.valueOf(loginedUser.getId()));
+                boolean followed = relationshipService
+                        .isFollowUser(String.valueOf(loginedUser.getId()), userDto.getId());
                 LOGGER.warn("Check if followed: " + followed);
                 model.addAttribute("followed", followed);
             }
