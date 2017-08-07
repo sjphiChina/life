@@ -1,8 +1,24 @@
+/*
+ * Copyright 2017 the original author or authors.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package sjph.life.service.impl;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Comparator;
-import java.util.List;
+import java.util.LinkedList;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -13,39 +29,49 @@ import org.springframework.stereotype.Service;
 import sjph.life.model.Post;
 import sjph.life.model.dao.PostDao;
 import sjph.life.platform.util.algorithm.MergeSort;
+import sjph.life.service.PostCacheHandler;
 import sjph.life.service.PostService;
+import sjph.life.service.Range;
 import sjph.life.service.RelationshipService;
+import sjph.life.service.dto.PostDto;
 import sjph.life.service.exception.PostNotFoundException;
 
 /**
- * @author shaohuiguo
+ * @author Shaohui Guo
  *
  */
 @Service
 public class PostServiceImpl implements PostService {
-    private static final Logger LOGGER = LogManager.getLogger(PostServiceImpl.class);
+    private static final Logger      LOGGER = LogManager.getLogger(PostServiceImpl.class);
 
     @Autowired(required = true)
-    private PostDao             postDao;
+    private PostDao                  postDao;
     @Autowired(required = true)
-    private RelationshipService relationshipService;
+    private RelationshipService      relationshipService;
+    @Autowired(required = true)
+    private PostCacheHandler         postCacheHandler;
 
     @Override
-    public long createPost(Post post) {
+    public Long createPost(Post post) {
         LOGGER.info("Create Post: " + post.toString());
         // post.setContent(encodeText(post.getContent()));
         long id = postDao.createPost(post);
         post.setId(id);
+        postCacheHandler.addPost(new PostDto(post));
         LOGGER.info("Created Post: " + post.toString());
-        return id;
+        return post.getId();
     }
 
     @Override
-    public Post findPost(long postId) {
+    public PostDto findPost(String postId) {
         try {
-            Post post = postDao.findPost(postId);
+            if (postCacheHandler.isPostValid(postId)) {
+                return postCacheHandler.getPost(postId);
+            }
+            Post post = postDao.findPost(Long.valueOf(postId));
+            postCacheHandler.addPost(new PostDto(post));
             // post.setContent(decodeText(post.getContent()));
-            return post;
+            return new PostDto(post);
         }
         catch (EmptyResultDataAccessException e) {
             throw new PostNotFoundException("No post found.", e);
@@ -53,51 +79,90 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<Post> listPosts() {
-        List<Post> list = postDao.listPosts(true);
+    public Collection<PostDto> listPosts(Range range) {
+        Collection<PostDto> postDtoList = postCacheHandler.getTimeline(range);
+        if (postDtoList != null && !postDtoList.isEmpty()) {
+            return postDtoList;
+        }
+        Collection<Post> postList = postDao.listPosts(true);
+        if (postList != null && !postList.isEmpty()) {
+            postDtoList = convertPostToPostDto(postList);
+            postCacheHandler.loadPosts(postDtoList);
+        }
         // for (Post post : list) {
         // post.setContent(decodeText(post.getContent()));
         // }
-        return list;
+        return postDtoList;
     }
 
     @Override
-    public List<Post> listPosts(Long userId) {
-        return postDao.listPosts(userId, true);
-    }
-
-    @Override
-    public List<Post> listPostsAll(Long userId) {
-        List<Post> list = postDao.listPosts(userId, true);
-        List<Long> followeeList = relationshipService.getFollwees(userId);
-        @SuppressWarnings("unchecked")
-        List<Post>[] arrayList = new ArrayList[followeeList.size() + 1];
-        // There are two ways to this merge:
-        // 1. PriorityQueue, merge the head of each list and traverse
-        // 2. Merge all sorted list
-        // Now use the 2.
-        int index = 0;
-        arrayList[index++] = list;
-        for (long followeeId : followeeList) {
-            List<Post> followerPostList = postDao.listPosts(followeeId, true);
-            arrayList[index++] = followerPostList;
+    public Collection<PostDto> listUserTimeline(String userId, Range range) {
+        Collection<PostDto> postDtoList = postCacheHandler.getUserTimeline(userId, range);
+        if (postDtoList != null && !postDtoList.isEmpty()) {
+            return postDtoList;
         }
-        MergeSort<Post> mergeSort = new MergeSort<>(new Comparator<Post>() {
-            @Override
-            public int compare(Post a, Post b) {
-                long diff = b.getCreatedDate().getTime() - a.getCreatedDate().getTime();
-                if (diff >= 0) {
-                    return 1;
-                }
-                return -1;
+        Collection<Post> postList = postDao.listPosts(Long.valueOf(userId), true);
+        if (postList != null && !postList.isEmpty()) {
+            postDtoList = convertPostToPostDto(postList);
+            postCacheHandler.loadPosts(postDtoList);
+        }
+        // for (Post post : list) {
+        // post.setContent(decodeText(post.getContent()));
+        // }
+        return postDtoList;
+    }
+
+    @Override
+    public Collection<PostDto> listUserPosts(String userId, Range range) {
+        // TODO need more robust logic: lots of null pointer checking
+        Collection<PostDto> postDtoList = postCacheHandler.getUserTimeline(userId, range);
+        if (postDtoList == null || postDtoList.isEmpty()) {
+            Collection<Post> list = postDao.listPosts(Long.valueOf(userId), true);
+            postDtoList = convertPostToPostDto(list);
+            postCacheHandler.loadPosts(postDtoList);
+        }
+        Collection<String> followeeList = relationshipService.getFollwees(userId);
+        if (followeeList != null && !followeeList.isEmpty()) {
+            // There are two ways to this merge:
+            // 1. PriorityQueue, merge the head of each list and traverse
+            // 2. Merge all sorted list
+            // Now use the 2.
+            // TODO all just for temp change
+            @SuppressWarnings("unchecked")
+            // avoid it for -1.
+            //Collection<PostDto>[] postDtoArray = new ArrayList[followeeList.size() + 1];
+            Collection<PostDto>[] postDtoArray = new ArrayList[followeeList.size()];
+            int index = 0;
+            if (postDtoList != null && !postDtoList.isEmpty()) {
+                postDtoArray[index++] = postDtoList;
+            } else {
+                postDtoArray[index++] = new LinkedList<>(); 
             }
-        });
-        List<Post> result = mergeSort.mergeKLists(arrayList);
-        return result;
+            for (String followingId : followeeList) {
+                Collection<PostDto> tempList = listUserTimeline(followingId, range);
+                if (tempList != null && !tempList.isEmpty()) {
+                    postDtoArray[index++] = tempList;
+                }
+            }
+            MergeSort<PostDto> mergeSortPostDto = new MergeSort<>(new Comparator<PostDto>() {
+                @Override
+                public int compare(PostDto a, PostDto b) {
+                    long diff = Long.valueOf(b.getCreatedDate()) - Long.valueOf(a.getCreatedDate());
+                    if (diff >= 0) {
+                        return 1;
+                    }
+                    return -1;
+                }
+            });
+            Collection<PostDto> result = mergeSortPostDto.mergeKLists(postDtoArray);
+            return result;
+        }
+        return postDtoList;
     }
 
     @Override
     public boolean updatePost(Post post) {
+        postCacheHandler.deletePost(new PostDto(post));
         // post.setContent(encodeText(post.getContent()));
         if (postDao.updatePost(post) == 1) {
             return true;
@@ -105,20 +170,32 @@ public class PostServiceImpl implements PostService {
         return false;
     }
 
+    // TODO will do displaying remove in the future, no need to really remove the post from db
     @Override
-    public boolean deletePost(Long postId) {
-        if (postDao.deletePost(postId) == 1) {
+    public boolean deletePost(PostDto postDto) {
+        postCacheHandler.deletePost(postDto);
+        if (postDao.deletePost(Long.valueOf(postDto.getId())) == 1) {
             return true;
         }
         return false;
     }
 
     @Override
-    public boolean deletePosts(Long userId) {
-        if (postDao.deletePosts(userId) >= 1) {
-            return true;
+    public boolean deletePosts(String userId) {
+        postCacheHandler.deletePost(userId);
+        return true;
+        // if (postDao.deletePosts(Long.valueOf(userId)) >= 1) {
+        // return true;
+        // }
+        // return false;
+    }
+
+    private Collection<PostDto> convertPostToPostDto(Collection<Post> postList) {
+        Collection<PostDto> postDtoList = new ArrayList<>(postList.size());
+        for (Post post : postList) {
+            postDtoList.add(new PostDto(post));
         }
-        return false;
+        return postDtoList;
     }
 
     // private String encodeText(String text) {

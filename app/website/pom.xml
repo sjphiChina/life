@@ -39,13 +39,12 @@
   <dependencies>
     <!-- war dependencies -->
     <dependency>
-      <groupId>sjph.life.model</groupId>
-      <artifactId>sjph-life-model</artifactId>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
       <groupId>sjph.life.platform</groupId>
       <artifactId>sjph-life-platform</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>sjph.life.model</groupId>
+      <artifactId>sjph-life-model</artifactId>
       <scope>runtime</scope>
     </dependency>
     <dependency>
@@ -73,10 +72,6 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-webmvc</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-jdbc</artifactId>
     </dependency>
     <dependency>
       <groupId>javax.servlet</groupId>

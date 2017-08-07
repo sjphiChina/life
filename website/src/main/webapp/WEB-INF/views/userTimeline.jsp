@@ -124,7 +124,7 @@
 
               <!--Post Date-->
               <div class="post-date hidden-xs hidden-sm">
-                <h5>${post.userName}</h5>
+                <h5>${post.userNameDisplaying}</h5>
                 <p class="text-grey">${post.createdDate}</p>
               </div>
               <!--Post Date End-->
@@ -136,7 +136,7 @@
                 <div class="post-detail">
                   <div class="user-info">
                     <h5>
-                      <a href="timeline.html" class="profile-link">${post.userName}</a> <span
+                      <a href="timeline.html" class="profile-link">${post.userNameDisplaying}</a> <span
                         class="following">following</span>
                     </h5>
                     <p class="text-muted">${post.createdDate}</p>

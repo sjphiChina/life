@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import sjph.life.model.User;
 import sjph.life.service.UserService;
+import sjph.life.service.dto.UserDto;
 import sjph.life.service.exception.UserNotFoundException;
 
 /**
@@ -29,15 +29,15 @@ public class UserAboutController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String showAbout(@PathVariable String username, Model model) {
-        User user = getUser(username);
+        UserDto user = getUser(username);
         model.addAttribute("user", user);
         return "userAbout";
     }
 
-    private User getUser(String username) {
+    private UserDto getUser(String username) {
         try {
-            User user = userService.findUserByUserName(username);
-            return user;
+            UserDto userDto = userService.findUserByUserName(username);
+            return userDto;
         }
         catch (UserNotFoundException e) {
             // TODO right now just return null, in future, add security check logic

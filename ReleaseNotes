@@ -1,3 +1,8 @@
+20170806_release/0.6:
+1. introduce redis cache for post, user, friendship
+2. introduce basic cassandra db for friendship
+3. fix bugs 
+
 20170708_release/0.5:
 1. Split the original project into multiple sub projects based on domain
 2. Refactor structure and naming of projects

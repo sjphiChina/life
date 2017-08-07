@@ -1,10 +1,28 @@
+/*
+ * Copyright 2017 the original author or authors.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package sjph.life.service;
 
 import sjph.life.model.User;
+import sjph.life.service.dto.UserDto;
 import sjph.life.service.exception.UserNotFoundException;
 
 /**
- * @author shaohuiguo
+ * Provides services for {@link UserDto}.
+ * 
+ * @author Shaohui Guo
  *
  */
 public interface UserService {
@@ -13,28 +31,28 @@ public interface UserService {
      * @param user
      * @return the ID of {@link User} table record created
      */
-    long createUser(User user);
+    Long createUser(User user);
 
     /**
      * @param userId
      * @return the User requested
-     * @throws UserNotFoundException 
+     * @throws UserNotFoundException
      */
-    User findUser(long userId) throws UserNotFoundException;
+    UserDto findUser(String userId) throws UserNotFoundException;
 
     /**
      * @param email
      * @return the User requested
-     * @throws UserNotFoundException 
+     * @throws UserNotFoundException
      */
     User findUserByEmail(String email) throws UserNotFoundException;
 
     /**
      * @param userName
      * @return the User requested
-     * @throws UserNotFoundException 
+     * @throws UserNotFoundException
      */
-    User findUserByUserName(String userName) throws UserNotFoundException;
+    UserDto findUserByUserName(String userName) throws UserNotFoundException;
 
     /**
      * @param user
@@ -46,5 +64,5 @@ public interface UserService {
      * @param userId
      * @return true if the user specified was updated successfully else false
      */
-    boolean deleteUser(long userId);
+    boolean deleteUser(String userId);
 }

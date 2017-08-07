@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -88,6 +89,7 @@ public class RelationshipDaoImpl implements RelationshipDao {
     private final FollowerIdRowMapper followerIdRowMapper       = new FollowerIdRowMapper();
     private final FolloweeIdRowMapper followeeIdRowMapper       = new FolloweeIdRowMapper();
     @Autowired(required = true)
+    @Qualifier("mysqlJdbcTemplate")
     private JdbcTemplate              jdbcTemplate;
 
     @Override
@@ -108,9 +110,9 @@ public class RelationshipDaoImpl implements RelationshipDao {
     }
 
     @Override
-    public Long getNumberOfFollower(Long userId) {
+    public int getNumberOfFollower(Long userId) {
         return jdbcTemplate.queryForObject(COUNT_FOLLOWER_NUMBER_SQL, new Object[] { userId },
-                Long.class);
+                Integer.class);
     }
 
     @Override

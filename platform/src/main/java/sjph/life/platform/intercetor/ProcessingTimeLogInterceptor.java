@@ -1,4 +1,4 @@
-package sjph.life.app.website.interceptor;
+package sjph.life.platform.intercetor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

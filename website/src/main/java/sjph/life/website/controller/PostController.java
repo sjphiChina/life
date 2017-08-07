@@ -1,8 +1,23 @@
+/*
+ * Copyright 2017 the original author or authors.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package sjph.life.website.controller;
 
 import java.io.File;
+import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -24,19 +39,23 @@ import sjph.life.model.Post;
 import sjph.life.model.User;
 import sjph.life.security.authentication.AuthenticatedUser;
 import sjph.life.service.PostService;
+import sjph.life.service.Range;
 import sjph.life.service.RelationshipService;
+import sjph.life.service.dto.PostDto;
 import sjph.life.website.exception.PostNotFoundException;
 import sjph.life.website.exception.RequestFailedException;
 
 /**
- * @author shaohuiguo
+ * Controller for {@link PostDto} operations.
+ * 
+ * @author Shaohui Guo
  *
  */
 @Controller
 @RequestMapping("posts")
 public class PostController {
 
-    private static final Logger LOGGER   = LogManager.getLogger(PostController.class);
+    private static final Logger LOGGER = LogManager.getLogger(PostController.class);
 
     @Autowired(required = true)
     private PostService         postService;
@@ -49,18 +68,19 @@ public class PostController {
      */
     @RequestMapping("/list")
     public String showPosts(Model model) {
-        List<Post> list = null;
+        Collection<PostDto> list = null;
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof AuthenticatedUser) {
             User user = ((AuthenticatedUser) principal).getUserOfLife();
             model.addAttribute("loginedUser", user);
-            list = postService.listPostsAll(user.getId());
+            list = postService.listUserPosts(String.valueOf(user.getId()), new Range());
             // TODO need to refine this, add it to user object
-            long numberOfFollower = relationshipService.getNumberOfFollower(user.getId());
+            long numberOfFollower = relationshipService
+                    .getNumberOfFollower(String.valueOf(user.getId()));
             model.addAttribute("numberOfFollower", numberOfFollower);
         }
         else {
-            list = postService.listPosts();
+            list = postService.listPosts(new Range());
         }
         LOGGER.info("The size of all posts is " + list.size());
         model.addAttribute("posts", list);
@@ -76,8 +96,7 @@ public class PostController {
      */
     @RequestMapping("/list/{user}")
     public String showPosts(@RequestParam("id") String userId, Model model) {
-        Long userIdLong = Long.valueOf(userId);
-        List<Post> list = postService.listPosts(userIdLong);
+        Collection<PostDto> list = postService.listUserTimeline(userId, new Range());
         LOGGER.info("The size of all posts is " + list.size());
         model.addAttribute("posts", list);
         return "posts";
@@ -89,6 +108,7 @@ public class PostController {
      */
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String getAddPostForm(Model model) {
+        // TODO will switch to PostDto later
         // command is a reserved request attribute name, now use <form> tag to show object data
         Post post = new Post();
         model.addAttribute("post", post);
@@ -146,7 +166,7 @@ public class PostController {
      */
     @RequestMapping("/post")
     public String getPost(@RequestParam("id") String postId, Model model) {
-        model.addAttribute("post", postService.findPost(Long.valueOf(postId)));
+        model.addAttribute("post", postService.findPost(postId));
         return "post";
     }
 
@@ -158,7 +178,7 @@ public class PostController {
     @ExceptionHandler(PostNotFoundException.class)
     public ModelAndView handleError(HttpServletRequest reqest, PostNotFoundException exception) {
         ModelAndView mav = new ModelAndView();
-        //mav.addObject("invalidProductId", exception.getPostId());
+        // mav.addObject("invalidProductId", exception.getPostId());
         mav.addObject("exception", exception);
         mav.addObject("url", reqest.getRequestURL() + "?" + reqest.getQueryString());
         mav.setViewName("postNotFound");
