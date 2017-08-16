@@ -1,19 +1,63 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
+    <groupId>sjph.life</groupId>
+    <version>1.0-SNAPSHOT</version>
+    <artifactId>life-parent-pom</artifactId>
+    <packaging>pom</packaging>
+    <name>Life Application Root Module Configuration</name>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.0.0.M3</version>
+    </parent>
+
+    <modules>
+        <module>service-friendship</module>
+        <module>service-post</module>
+    </modules>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>1.0.0</version>
+                <configuration>
+                    <baseImage>java</baseImage>
+                    <imageName>example</imageName>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <repositories>
+        <repository>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>https://repo.spring.io/libs-milestone</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+<!--
     <groupId>sjph.life.build</groupId>
     <artifactId>sjph-life-build-release-base</artifactId>
     <packaging>pom</packaging>
     <name>Life Application Root Module Configuration</name>
     <version>1.0-SNAPSHOT</version>
-    
+
     <parent>
         <groupId>sjph.life.build</groupId>
         <artifactId>sjph-life-build-maven-config</artifactId>
         <version>1.0</version>
         <relativePath>build/greatgrandparent</relativePath>
     </parent>
-    
+
     <properties>
         <spring.version>5.0.0.RC3</spring.version>
         <spring.security.version>5.0.0.M3</spring.security.version>
@@ -21,7 +65,7 @@
         <slf4j.version>1.7.25</slf4j.version>
         <log4j.version>2.8.2</log4j.version>
     </properties>
-    
+
     <profiles>
         <profile>
             <id>full</id>
@@ -40,7 +84,7 @@
             </activation>
         </profile>
     </profiles>
-    
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -83,7 +127,7 @@
                 <artifactId>app-rest</artifactId>
                 <version>${project.version}</version>
             </dependency>
-            <!-- Spring framwork -->
+            <!-- Spring framwork
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-core</artifactId>
@@ -124,7 +168,7 @@
                 <artifactId>spring-security-core</artifactId>
                 <version>${spring.security.version}</version>
             </dependency>
-            <!-- Redis -->
+            <!-- Redis
             <dependency>
                 <groupId>org.springframework.data</groupId>
                 <artifactId>spring-data-redis</artifactId>
@@ -135,12 +179,12 @@
                 <artifactId>jedis</artifactId>
                 <version>2.9.0</version>
             </dependency>
-            <!-- Cassandra -->
+            <!-- Cassandra
             <dependency>
                 <groupId>org.springframework.data</groupId>
                 <artifactId>spring-data-cassandra</artifactId>
                 <version>2.0.0.RC2</version>
-<!--                <version>1.5.6.RELEASE</version>-->
+<!--                <version>1.5.6.RELEASE</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.commons</groupId>
@@ -199,7 +243,7 @@
                 <artifactId>slf4j-simple</artifactId>
                 <version>${slf4j.version}</version>
             </dependency>
-            <!-- Test -->
+            <!-- Test
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-test</artifactId>
@@ -212,7 +256,7 @@
                 <version>4.12</version>
                 <scope>test</scope>
             </dependency>
-            <!-- Log4j -->
+            <!-- Log4j
             <dependency>
                 <groupId>org.apache.logging.log4j</groupId>
                 <artifactId>log4j-core</artifactId>
@@ -234,5 +278,5 @@
                 <enabled>false</enabled>
             </snapshots>
         </repository>
-    </repositories>
+    </repositories>-->
 </project>

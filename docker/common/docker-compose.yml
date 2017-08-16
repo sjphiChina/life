@@ -1,0 +1,6 @@
+version: '1'
+services:
+  licensingservice:
+      image: sjphiChina/life-friendship-service:life
+      ports:
+        - "8080:8080"
