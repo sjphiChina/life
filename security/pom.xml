@@ -4,6 +4,9 @@
   <groupId>sjph.life.security</groupId>
   <artifactId>sjph-life-security</artifactId>
   <name>security group pom</name>
+  <description>Life Security</description>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
   <parent>
     <groupId>sjph.life.build</groupId>

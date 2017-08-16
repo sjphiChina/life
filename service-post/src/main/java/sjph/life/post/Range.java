@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package sjph.life.user;
+package sjph.life.post;
 
 /**
  * Basic object indicating a range of objects to retrieve. Default is 10 objects (starting at zero).

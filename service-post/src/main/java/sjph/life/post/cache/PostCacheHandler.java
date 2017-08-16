@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package sjph.life.service;
+package sjph.life.post.cache;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -37,9 +37,7 @@ import org.springframework.data.redis.support.collections.RedisList;
 import org.springframework.data.redis.support.collections.RedisMap;
 import org.springframework.stereotype.Service;
 
-import sjph.life.platform.cache.redis.JacksonHashMapperWarpper;
-import sjph.life.service.dto.PostDto;
-import sjph.life.service.dto.PostDtoSchema;
+
 
 /**
  * A place to handle all cache operations to {@link PostDto}.

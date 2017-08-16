@@ -4,9 +4,9 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>sjph.life.service</groupId>
-    <artifactId>life-service-user</artifactId>
-    <name>service user group pom</name>
-    <description>Life User Service</description>
+    <artifactId>life-service-post</artifactId>
+    <name>service post group pom</name>
+    <description>Life Post Service</description>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     
@@ -32,7 +32,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
         <start-class>sjph.life.friendship.Application</start-class>
-        <docker.image.name>sjphiChina/life-service-user</docker.image.name>
+        <docker.image.name>sjphiChina/life-service-post</docker.image.name>
         <docker.image.tag>sjph-life</docker.image.tag>
     </properties>
     

@@ -13,28 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package sjph.life.service.impl;
+package sjph.life.post.service.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.LinkedList;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
-import sjph.life.model.Post;
-import sjph.life.model.dao.PostDao;
 import sjph.life.platform.util.algorithm.MergeSort;
-import sjph.life.service.PostCacheHandler;
-import sjph.life.service.PostService;
-import sjph.life.service.Range;
+import sjph.life.post.Range;
+import sjph.life.post.cache.PostCacheHandler;
+import sjph.life.post.database.dao.PostDao;
+import sjph.life.post.dto.PostDto;
+import sjph.life.post.exception.PostNotFoundException;
+import sjph.life.post.model.Post;
+import sjph.life.post.service.PostService;
 import sjph.life.service.RelationshipService;
-import sjph.life.service.dto.PostDto;
-import sjph.life.service.exception.PostNotFoundException;
 
 /**
  * @author Shaohui Guo

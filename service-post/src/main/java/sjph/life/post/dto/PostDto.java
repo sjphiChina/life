@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package sjph.life.service.dto;
+package sjph.life.post.dto;
 
 import java.io.Serializable;
 
-import sjph.life.model.Post;
+import sjph.life.post.model.Post;
 
 /**
  * DTO for {@link Post}. It is also used by cache.

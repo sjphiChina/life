@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package sjph.life.service.impl;
+package sjph.life.friendship.service.impl;
 
 import java.util.Collection;
 import java.util.LinkedList;
@@ -22,10 +22,12 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import sjph.life.model.cassandra.Friendship;
-import sjph.life.model.cassandra.FriendshipRepository;
-import sjph.life.service.RelationshipCacheHandler;
-import sjph.life.service.RelationshipService;
+import sjph.life.friendship.cache.RelationshipCacheHandler;
+import sjph.life.friendship.database.dao.FriendshipRepository;
+import sjph.life.friendship.model.Friendship;
+import sjph.life.friendship.service.RelationshipService;
+
+
 
 /**
  * @author Shaohui Guo

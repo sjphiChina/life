@@ -13,12 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package sjph.life.service;
+package sjph.life.post.service;
 
 import java.util.Collection;
 
-import sjph.life.model.Post;
-import sjph.life.service.dto.PostDto;
+import sjph.life.post.Range;
+import sjph.life.post.dto.PostDto;
+import sjph.life.post.model.Post;
 
 /**
  * Provides services for {@link PostDto}.

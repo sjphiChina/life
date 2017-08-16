@@ -1,4 +1,4 @@
-package sjph.life.service.exception;
+package sjph.life.post.exception;
 
 /**
  * @author shaohuiguo

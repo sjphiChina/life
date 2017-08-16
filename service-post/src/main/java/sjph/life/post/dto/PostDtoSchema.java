@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package sjph.life.service.dto;
+package sjph.life.post.dto;
 
 /**
  * Contains all properties of {@link PostDto}.

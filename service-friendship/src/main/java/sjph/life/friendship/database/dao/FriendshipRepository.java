@@ -13,7 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package sjph.life.model.cassandra;
+package sjph.life.friendship.database.dao;
+
+import sjph.life.friendship.model.Friendship;
 
 /**
  * For test: 1. cassandra; 2 new pattern

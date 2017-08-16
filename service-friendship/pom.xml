@@ -2,14 +2,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>sjph.life.friendship</groupId>
-    <artifactId>sjph-life-friendship</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <packaging>jar</packaging>
-
-    <name>Friendship-Service</name>
-    <description>Sjph Life Friendship Service</description>
+         <modelVersion>4.0.0</modelVersion>
+         <groupId>sjph.life.service</groupId>
+         <artifactId>life-service-friendship</artifactId>
+         <name>service friendship group pom</name>
+         <description>Life Friendship Service</description>
+         <version>1.0-SNAPSHOT</version>
+         <packaging>jar</packaging>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -32,10 +31,9 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <start-class>sjph.life.friendship.Application</start-class>
-        <docker.image.name>sjphiChina/life-friendship-service</docker.image.name>
-        <docker.image.tag>life</docker.image.tag>
+        <docker.image.name>sjphiChina/life-service-friendship</docker.image.name>
+        <docker.image.tag>sjph-life</docker.image.tag>
     </properties>
 
     <repositories>
