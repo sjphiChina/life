@@ -33,6 +33,9 @@ import org.springframework.data.cassandra.core.mapping.CassandraMappingContext;
 import org.springframework.data.cassandra.core.mapping.SimpleUserTypeResolver;
 import org.springframework.data.cassandra.repository.config.EnableCassandraRepositories;
 
+import sjph.life.friendship.database.schema.FriendshipReadConverter;
+import sjph.life.friendship.database.schema.FriendshipWriteConverter;
+
 /**
  * temp config: will move the principle configs to platform in release/0.7.
  * 

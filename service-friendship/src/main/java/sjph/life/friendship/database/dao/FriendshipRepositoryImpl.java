@@ -26,6 +26,8 @@ import org.springframework.stereotype.Repository;
 import com.datastax.driver.core.querybuilder.QueryBuilder;
 import com.datastax.driver.core.querybuilder.Select;
 
+import sjph.life.friendship.model.Friendship;
+
 /**
  * Current test
  * 

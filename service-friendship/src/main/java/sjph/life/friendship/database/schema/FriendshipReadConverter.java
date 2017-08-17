@@ -16,14 +16,16 @@
 package sjph.life.friendship.database.schema;
 
 import java.io.IOException;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.convert.ReadingConverter;
 import org.springframework.util.StringUtils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import sjph.life.friendship.model.Friendship;
 
 /**
  * This doesn't work due to current spring cassandra api. Will revisit to it once api is matual.

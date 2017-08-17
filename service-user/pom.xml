@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+<!--     <modelVersion>4.0.0</modelVersion>
     <groupId>sjph.life.service</groupId>
     <artifactId>life-service-user</artifactId>
     <name>service user group pom</name>
@@ -49,14 +49,14 @@
     
     <build>
         <plugins>
-            <!-- We use the Resources plugin to filer Dockerfile and run.sh, it inserts actual JAR filename -->
-            <!-- The final Dockerfile will be created in target/dockerfile/Dockerfile -->
+            We use the Resources plugin to filer Dockerfile and run.sh, it inserts actual JAR filename
+            The final Dockerfile will be created in target/dockerfile/Dockerfile
             <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
                 <executions>
                     <execution>
                         <id>copy-resources</id>
-                        <!-- here the phase you need -->
+                        here the phase you need
                         <phase>validate</phase>
                         <goals>
                             <goal>copy-resources</goal>
@@ -94,5 +94,5 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
-    </build>
+    </build> -->
 </project>

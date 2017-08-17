@@ -1,0 +1,6 @@
+version: ¡®1¡¯
+services:
+  friendshipservice:
+      image: sjphiChina/life-service-friendship:sjph-life
+      ports:
+        - "8080:8080"
