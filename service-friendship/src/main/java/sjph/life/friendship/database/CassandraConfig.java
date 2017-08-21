@@ -26,12 +26,12 @@ import org.springframework.data.cassandra.config.CassandraSessionFactoryBean;
 import org.springframework.data.cassandra.config.SchemaAction;
 import org.springframework.data.cassandra.core.CassandraOperations;
 import org.springframework.data.cassandra.core.CassandraTemplate;
-import org.springframework.data.cassandra.core.convert.CassandraConverter;
-import org.springframework.data.cassandra.core.convert.CassandraCustomConversions;
-import org.springframework.data.cassandra.core.convert.MappingCassandraConverter;
-import org.springframework.data.cassandra.core.mapping.CassandraMappingContext;
-import org.springframework.data.cassandra.core.mapping.SimpleUserTypeResolver;
+import org.springframework.data.cassandra.mapping.CassandraMappingContext;
+import org.springframework.data.cassandra.mapping.BasicCassandraMappingContext;
+import org.springframework.data.cassandra.mapping.SimpleUserTypeResolver;
+import org.springframework.data.cassandra.convert.CassandraConverter;
 import org.springframework.data.cassandra.repository.config.EnableCassandraRepositories;
+import org.springframework.data.cassandra.convert.MappingCassandraConverter;
 
 import sjph.life.friendship.database.schema.FriendshipReadConverter;
 import sjph.life.friendship.database.schema.FriendshipWriteConverter;
@@ -43,7 +43,7 @@ import sjph.life.friendship.database.schema.FriendshipWriteConverter;
  *
  */
 @Configuration
-@EnableCassandraRepositories(basePackages = { "sjph.life.model.cassandra" })
+@EnableCassandraRepositories(basePackages = { "sjph.life.friendship" })
 public class CassandraConfig {
 
     @Bean
@@ -58,13 +58,17 @@ public class CassandraConfig {
     @Bean
     public CassandraMappingContext mappingContext() {
 
-        CassandraMappingContext mappingContext = new CassandraMappingContext();
-        mappingContext.setUserTypeResolver(
-                new SimpleUserTypeResolver(cluster().getObject(), "life_user"));
+//        CassandraMappingContext mappingContext = new CassandraMappingContext();
+//        mappingContext.setUserTypeResolver(
+//                new SimpleUserTypeResolver(cluster().getObject(), "life_user"));
         // TODO This doesn't work due to current spring cassandra api. 
         // Couldn't find PersistentEntity for type sjph.life.model.cassandra.Friendship
         // Will revisit to it once api is matual.
         //mappingContext.setCustomConversions(customConversions());
+        
+        BasicCassandraMappingContext mappingContext =  new BasicCassandraMappingContext();
+        mappingContext.setUserTypeResolver(new SimpleUserTypeResolver(cluster().getObject(), "life_user"));
+        
         return mappingContext;
     }
 
@@ -89,13 +93,13 @@ public class CassandraConfig {
         return new CassandraTemplate(session().getObject(), converter());
     }
 
-    @Bean
-    public CassandraCustomConversions customConversions() {
-
-        List<Converter<?, ?>> converters = new ArrayList<Converter<?, ?>>();
-        converters.add(new FriendshipReadConverter());
-        converters.add(new FriendshipWriteConverter());
-
-        return new CassandraCustomConversions(converters);
-    }
+//    @Bean
+//    public CassandraCustomConversions customConversions() {
+//
+//        List<Converter<?, ?>> converters = new ArrayList<Converter<?, ?>>();
+//        converters.add(new FriendshipReadConverter());
+//        converters.add(new FriendshipWriteConverter());
+//
+//        return new CassandraCustomConversions(converters);
+//    }
 }

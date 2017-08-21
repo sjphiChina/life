@@ -17,6 +17,10 @@
     </parent>
 
     <dependencies>
+    <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -28,34 +32,44 @@
         <dependency>
                 <groupId>org.springframework.data</groupId>
                 <artifactId>spring-data-redis</artifactId>
-                <version>1.8.4.RELEASE</version>
             </dependency>
             <dependency>
                 <groupId>redis.clients</groupId>
                 <artifactId>jedis</artifactId>
-                <version>2.9.0</version>
             </dependency>
             <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-core</artifactId>
-      <version>2.8.2</version>
     </dependency>
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-api</artifactId>
-      <version>2.8.2</version>
     </dependency>
     <dependency>
-                <groupId>org.springframework.data</groupId>
-                <artifactId>spring-data-cassandra</artifactId>
-<!--                 <version>2.0.0.RC2</version> -->
-                <version>1.5.6.RELEASE</version>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-jdbc</artifactId>
             </dependency>
+    <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-cassandra</artifactId>
+        </dependency>
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-databind</artifactId>
-                <version>2.9.0</version>
             </dependency>
+            <!-- JPA Data (We are going to use Repositories, Entities, Hibernate, etc...) -->
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+        <!-- Use MySQL Connector-J -->
+
+<!--         <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency> -->
     </dependencies>
 
     <properties>
@@ -106,6 +120,36 @@
                             <include>${project.build.finalName}.jar</include>
                         </resource>
                     </resources>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>reserve-cassandra-port</id>
+                        <goals>
+                            <goal>reserve-network-port</goal>
+                        </goals>
+                        <phase>process-resources</phase>
+                        <configuration>
+                            <portNames>
+                                <portName>cassandra.port.native-transport</portName>
+                                <portName>cassandra.port.storage</portName>
+                            </portNames>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <systemPropertyVariables>
+                        <spring.data.cassandra.port>${cassandra.port.native-transport}</spring.data.cassandra.port>
+                        <cassandra.native_transport_port>${cassandra.port.native-transport}</cassandra.native_transport_port>
+                        <cassandra.storage_port>${cassandra.port.storage}</cassandra.storage_port>
+                    </systemPropertyVariables>
                 </configuration>
             </plugin>
             <plugin>

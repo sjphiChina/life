@@ -1,4 +1,4 @@
-package sjph.life.platform.database;
+package sjph.life.friendship.database;
 
 /**
  * Database access constants.

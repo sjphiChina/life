@@ -26,10 +26,10 @@ import java.util.Collection;
 public interface RelationshipService {
 
     /**
+     * @param userId
      * @param followingId
-     * @param followerId
      */
-    void follow(String followingId, String followerId);
+    void follow(String userId, String followingId);
 
     /**
      * @param userId

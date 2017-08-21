@@ -22,7 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.cassandra.core.CassandraOperations;
 import org.springframework.stereotype.Repository;
-
+//
 import com.datastax.driver.core.querybuilder.QueryBuilder;
 import com.datastax.driver.core.querybuilder.Select;
 
@@ -37,22 +37,52 @@ import sjph.life.friendship.model.Friendship;
 @Repository
 public class FriendshipRepositoryImpl implements FriendshipRepository {
 
+//    @Override
+//    public Friendship findById(String userId) {
+//        // TODO Auto-generated method stub
+//        return null;
+//    }
+//
+//    @Override
+//    public void save(Friendship friendship) {
+//        // TODO Auto-generated method stub
+//        
+//    }
+//
+//    @Override
+//    public void update(Friendship friendship) {
+//        // TODO Auto-generated method stub
+//        
+//    }
+//
+//    @Override
+//    public void addFollowing(String userId, String followingId) {
+//        // TODO Auto-generated method stub
+//        
+//    }
+//
+//    @Override
+//    public void unFollow(String userId, String followingId) {
+//        // TODO Auto-generated method stub
+//        
+//    }
+
     @Autowired
     @Qualifier("cassandraOperations")
     private CassandraOperations cassandraOperations;
 
-    // @Override
-    // public Friendship findOne(String id) {
-    // // TODO Auto-generated method stub
-    // Select select = QueryBuilder.select().from("friendship");
-    // select.where(QueryBuilder.eq("id", id));
-    // Friendship friendship = cassandraOperations.selectOne(select, Friendship.class);
-    // if (friendship != null) {
-    // return friendship;
-    // }
-    // friendship = new Friendship(id, new HashSet<>(), new HashSet<>());
-    // return save(friendship);
-    // }
+//     @Override
+//     public Friendship findOne(String id) {
+//     // TODO Auto-generated method stub
+//     Select select = QueryBuilder.select().from("friendship");
+//     select.where(QueryBuilder.eq("id", id));
+//     Friendship friendship = cassandraOperations.selectOne(select, Friendship.class);
+//     if (friendship != null) {
+//     return friendship;
+//     }
+//     friendship = new Friendship(id, new HashSet<>(), new HashSet<>());
+//     return save(friendship);
+//     }
 
     @Override
     public void addFollowing(String userId, String followingId) {

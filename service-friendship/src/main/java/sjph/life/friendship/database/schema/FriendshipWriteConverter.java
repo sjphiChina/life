@@ -16,8 +16,8 @@
 package sjph.life.friendship.database.schema;
 
 import java.io.IOException;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.convert.WritingConverter;
@@ -34,7 +34,7 @@ import sjph.life.friendship.model.Friendship;
  */
 @WritingConverter
 public class FriendshipWriteConverter implements Converter<Friendship, String> {
-
+//    public class FriendshipWriteConverter {
     private static final Logger LOGGER = LogManager.getLogger(FriendshipWriteConverter.class);
 
     @Override

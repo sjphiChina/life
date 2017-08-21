@@ -15,12 +15,18 @@
  */
 package sjph.life.friendship;
 
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+
 /**
  * Spring Boot application for friendship service.
  *
  * @author Shaohui Guo
  */
 @SpringBootApplication
+@EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class})
 public class Application {
 
     public static void main(String[] args) {
