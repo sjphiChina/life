@@ -36,6 +36,8 @@ import org.springframework.data.cassandra.convert.MappingCassandraConverter;
 import sjph.life.friendship.database.schema.FriendshipReadConverter;
 import sjph.life.friendship.database.schema.FriendshipWriteConverter;
 
+
+import javax.sql.DataSource;
 /**
  * temp config: will move the principle configs to platform in release/0.7.
  * 

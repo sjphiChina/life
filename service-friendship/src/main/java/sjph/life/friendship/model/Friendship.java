@@ -17,8 +17,8 @@ package sjph.life.friendship.model;
 
 import java.util.Set;
 
-//import org.springframework.data.cassandra.core.mapping.PrimaryKey;
-//import org.springframework.data.cassandra.core.mapping.Table;
+import org.springframework.data.cassandra.mapping.PrimaryKey;
+import org.springframework.data.cassandra.mapping.Table;
 
 /**
  * Model friendship table in Cassandra's life_user key space.
@@ -26,11 +26,11 @@ import java.util.Set;
  * @author Shaohui Guo
  *
  */
-//@Table("friendship")
+@Table("friendship")
 @SuppressWarnings("javadoc")
 public class Friendship {
 
-  //  @PrimaryKey
+    @PrimaryKey
     private final String      user_id;
 
     private final Set<String> followings;
