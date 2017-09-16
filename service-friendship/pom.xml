@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>sjph.life.service</groupId>
+  <groupId>sjph.life</groupId>
   <artifactId>service-friendship</artifactId>
   <name>service friendship group pom</name>
   <description>Life Friendship Service</description>
@@ -14,6 +14,18 @@
     <artifactId>spring-boot-starter-parent</artifactId>
     <version>1.5.6.RELEASE</version>
   </parent>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-dependencies</artifactId>
+        <version>Camden.SR5</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
   <dependencies>
     <dependency>
@@ -28,6 +40,12 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-actuator</artifactId>
     </dependency>
+
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-config-client</artifactId>
+    </dependency>
+
 
     <dependency>
       <groupId>org.springframework.data</groupId>
@@ -64,8 +82,8 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <java.version>1.8</java.version>
     <start-class>sjph.life.friendship.Application</start-class>
-    <docker.image.name>sjphiChina/life-service-friendship</docker.image.name>
-    <docker.image.tag>sjph-life</docker.image.tag>
+    <docker.image.name>sjphichina/friendship</docker.image.name>
+    <docker.image.tag>life</docker.image.tag>
   </properties>
 
   <build>
@@ -97,10 +115,12 @@
       <plugin>
         <groupId>com.spotify</groupId>
         <artifactId>docker-maven-plugin</artifactId>
-        <version>1.0.0</version>
+        <version>0.4.10</version>
         <configuration>
           <imageName>${docker.image.name}:${docker.image.tag}</imageName>
           <dockerDirectory>${basedir}/target/dockerfile</dockerDirectory>
+<!--           <dockerHost>https://192.168.99.100:2376</dockerHost>
+                    <dockerCertPath>/Users/shaohuiguo/.docker/machine/machines/default</dockerCertPath> -->
           <resources>
             <resource>
               <targetPath>/</targetPath>

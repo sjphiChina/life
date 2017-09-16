@@ -1,6 +1,45 @@
-version: '1'
+version: '3'
 services:
-  licensingservice:
-      image: sjphiChina/life-friendship-service:life
-      ports:
-        - "8080:8080"
+  lifecassandra:
+    image: cassandra/life:latest
+    ports:
+      - "9042:9042"
+    networks:
+      - db_cassandra
+  liferedis:
+    image: redis:alpine
+    ports:
+      - 6379:6379
+    networks:
+      - cache_redis
+  lifeconfsvr:
+    image: sjphichina/confsvr:life
+    ports:
+      - "9888:9888"
+    environment:
+      ENCRYPT_KEY:       "IMSYMMETRIC"
+    networks:
+      - app
+  lifefriendship:
+    image: sjphichina/friendship:life
+    ports:
+      - "9080:9080"
+    depends_on:
+      - "lifeconfsvr"
+      - "lifecassandra"
+      - "liferedis"
+    environment:
+      PROFILE: "default"
+      CONFIGSERVER_URI: "http://lifeconfsvr:9888"
+      CONFIGSERVER_PORT:   "9888"
+      DB_CASSANDRA_PORT: "9042"
+      ENCRYPT_KEY:       "IMSYMMETRIC"
+    networks:
+      - app
+      - db_cassandra
+      - cache_redis
+networks:
+  app:
+  db_cassandra:
+  cache_redis:
+

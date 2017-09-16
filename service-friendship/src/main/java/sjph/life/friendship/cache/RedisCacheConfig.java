@@ -15,6 +15,7 @@
  */
 package sjph.life.friendship.cache;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
@@ -22,6 +23,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 
 import redis.clients.jedis.JedisPoolConfig;
+import sjph.life.friendship.config.ServiceConfig;
 
 /**
  * @author Shaohui Guo
@@ -45,6 +47,9 @@ public class RedisCacheConfig {
     private static final Long    MAX_WAIT          = 60000l;
     //private static final Integer TIME_OUT          = 6000000;
 
+    @Autowired
+    ServiceConfig config;
+    
     /**
      * @return a customized {@link JedisPoolConfig}
      */
@@ -64,6 +69,7 @@ public class RedisCacheConfig {
     public JedisConnectionFactory getJedisConnectionFactory() {
         JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory();
         jedisConnectionFactory.setUsePool(true);
+        jedisConnectionFactory.setHostName(config.getRedisIp());
         // TODO just use temp name right now, will use config later
         jedisConnectionFactory.setClientName(CACHE_CLIENT_NAME + "test-01");
         jedisConnectionFactory.setPoolConfig(getJedisPoolConfig());

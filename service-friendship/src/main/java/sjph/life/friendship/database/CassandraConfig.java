@@ -15,29 +15,24 @@
  */
 package sjph.life.friendship.database;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.cassandra.config.CassandraClusterFactoryBean;
 import org.springframework.data.cassandra.config.CassandraSessionFactoryBean;
 import org.springframework.data.cassandra.config.SchemaAction;
+import org.springframework.data.cassandra.convert.CassandraConverter;
+import org.springframework.data.cassandra.convert.MappingCassandraConverter;
 import org.springframework.data.cassandra.core.CassandraOperations;
 import org.springframework.data.cassandra.core.CassandraTemplate;
-import org.springframework.data.cassandra.mapping.CassandraMappingContext;
 import org.springframework.data.cassandra.mapping.BasicCassandraMappingContext;
+import org.springframework.data.cassandra.mapping.CassandraMappingContext;
 import org.springframework.data.cassandra.mapping.SimpleUserTypeResolver;
-import org.springframework.data.cassandra.convert.CassandraConverter;
 import org.springframework.data.cassandra.repository.config.EnableCassandraRepositories;
-import org.springframework.data.cassandra.convert.MappingCassandraConverter;
 
-import sjph.life.friendship.database.schema.FriendshipReadConverter;
-import sjph.life.friendship.database.schema.FriendshipWriteConverter;
-
-
-import javax.sql.DataSource;
+import sjph.life.friendship.config.ServiceConfig;
 /**
  * temp config: will move the principle configs to platform in release/0.7.
  * 
@@ -48,11 +43,17 @@ import javax.sql.DataSource;
 @EnableCassandraRepositories(basePackages = { "sjph.life.friendship" })
 public class CassandraConfig {
 
+    private static final Logger LOGGER = LogManager.getLogger(CassandraConfig.class);
+    @Autowired
+    ServiceConfig config;
+    
     @Bean
     public CassandraClusterFactoryBean cluster() {
 
+       
+        LOGGER.debug(config.getExampleProperty());
         CassandraClusterFactoryBean cluster = new CassandraClusterFactoryBean();
-        cluster.setContactPoints("localhost");
+        cluster.setContactPoints(config.getDatabaseIp());
 
         return cluster;
     }

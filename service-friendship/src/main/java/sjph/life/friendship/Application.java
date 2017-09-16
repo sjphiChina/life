@@ -17,6 +17,7 @@ package sjph.life.friendship;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 
 /**
  * Spring Boot application for friendship service.
@@ -24,6 +25,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author Shaohui Guo
  */
 @SpringBootApplication
+@RefreshScope
 public class Application {
 
     public static void main(String[] args) {

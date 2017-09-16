@@ -1,5 +1,6 @@
 package sjph.life.friendship.controller;
 
+import sjph.life.friendship.config.ServiceConfig;
 import sjph.life.friendship.service.RelationshipService;
 
 import java.util.Collection;
@@ -22,6 +23,9 @@ public class FriendshipServiceController {
 
     @Autowired
     private RelationshipService relationshipService;
+    
+    @Autowired
+    ServiceConfig config;
 
     @RequestMapping(value="/follow/{followingId}",method = RequestMethod.GET)
     public void follow( @PathVariable("userId") String userId,
@@ -39,7 +43,10 @@ public class FriendshipServiceController {
     
     @RequestMapping(value="/getfollowers",method = RequestMethod.GET)
     public Collection<String> getFollowers( @PathVariable("userId") String userId) {
-        return relationshipService.getFollwers(userId);
+        //return relationshipService.getFollwers(userId);
+        Collection<String> list = relationshipService.getFollwers(userId);
+        list.add(config.getExampleProperty());
+        return list;
     }
     
     @RequestMapping(value="/getfollowings",method = RequestMethod.GET)

@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: lifefriendship
+  profiles:
+    active:
+      default
+  cloud:
+    config:
+      uri: http://localhost:9888
