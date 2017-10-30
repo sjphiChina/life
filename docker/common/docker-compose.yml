@@ -1,13 +1,21 @@
 version: '3'
 services:
+  lifeeurekaserver:
+    image: sjphichina/life-service-eureka:0.7
+    ports:
+      - "8761:8761"
+    networks:
+      - app
   lifecassandra:
-    image: cassandra/life:latest
+#    image: cassandra/life:latest
+    image: cassandra:latest
     ports:
       - "9042:9042"
     networks:
       - db_cassandra
   liferedis:
-    image: redis:alpine
+#   image: redis:alpine
+    image: redis:latest
     ports:
       - 6379:6379
     networks:
@@ -16,7 +24,11 @@ services:
     image: sjphichina/confsvr:life
     ports:
       - "9888:9888"
+    depends_on:
+      - "lifeeurekaserver"
     environment:
+      EUREKASERVER_URI: "http://lifeeurekaserver:8761/eureka/"
+      EUREKASERVER_PORT: "8761"
       ENCRYPT_KEY:       "IMSYMMETRIC"
     networks:
       - app
@@ -25,11 +37,15 @@ services:
     ports:
       - "9080:9080"
     depends_on:
+      - "lifeeurekaserver"
       - "lifeconfsvr"
       - "lifecassandra"
       - "liferedis"
     environment:
       PROFILE: "default"
+      SERVER_PORT: "9080"
+      EUREKASERVER_URI: "http://lifeeurekaserver:8761/eureka/"
+      EUREKASERVER_PORT:   "8761"
       CONFIGSERVER_URI: "http://lifeconfsvr:9888"
       CONFIGSERVER_PORT:   "9888"
       DB_CASSANDRA_PORT: "9042"
@@ -39,7 +55,7 @@ services:
       - db_cassandra
       - cache_redis
 networks:
-  app:
   db_cassandra:
   cache_redis:
+  app:
 

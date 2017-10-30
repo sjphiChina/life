@@ -2,4 +2,4 @@
 echo "********************************************************"
 echo "Starting Configuration Server"
 echo "********************************************************"
-java -jar /usr/local/life/confsvr/@project.build.finalName@.jar
+java -Deureka.client.serviceUrl.defaultZone=$EUREKASERVER_URI -jar /usr/local/life/confsvr/@project.build.finalName@.jar

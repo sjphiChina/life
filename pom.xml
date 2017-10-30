@@ -23,6 +23,7 @@
 <!--</dependencies>-->
 
     <modules>
+        <module>platform-eureka</module>
         <module>service-confsvr</module>
         <module>service-friendship</module>
 <!--        <module>life-service-post</module>-->
