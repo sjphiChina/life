@@ -10,4 +10,8 @@ echo ">>>>>>>>>>>> Configuration Server has started"
 echo "********************************************************"
 echo "Starting Life Friendship Server via Eureka"
 echo "********************************************************"
-java -Dspring.cloud.config.uri=$CONFIGSERVER_URI -Dspring.profiles.active=$PROFILE -jar /usr/local/life/friendship/@project.build.finalName@.jar
+java -Djava.security.egd=file:/dev/./urandom -Dserver.port=$SERVER_PORT   \
+     -Deureka.client.serviceUrl.defaultZone=$EUREKASERVER_URI             \
+     -Dspring.cloud.config.uri=$CONFIGSERVER_URI                          \
+     -Dspring.profiles.active=$PROFILE                                    \
+     -jar /usr/local/life/friendship/@project.build.finalName@.jar

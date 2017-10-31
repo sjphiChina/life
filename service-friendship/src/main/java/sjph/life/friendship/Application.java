@@ -18,6 +18,7 @@ package sjph.life.friendship;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
 /**
  * Spring Boot application for friendship service.
@@ -26,6 +27,7 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
  */
 @SpringBootApplication
 @RefreshScope
+@EnableEurekaClient
 public class Application {
 
     public static void main(String[] args) {
