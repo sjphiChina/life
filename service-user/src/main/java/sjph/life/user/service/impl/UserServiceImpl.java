@@ -13,20 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package sjph.life.user.impl;
+package sjph.life.user.service.impl;
 
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import sjph.life.user.UserCacheHandler;
-import sjph.life.user.UserService;
+import sjph.life.user.cache.UserCacheHandler;
 import sjph.life.user.database.dao.UserDao;
 import sjph.life.user.dto.UserDto;
 import sjph.life.user.exception.UserNotFoundException;
 import sjph.life.user.model.User;
+import sjph.life.user.service.UserService;
 
 /**
  * @author shaohuiguo

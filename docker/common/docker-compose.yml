@@ -6,6 +6,12 @@ services:
       - "8761:8761"
     networks:
       - app
+  lifemysql:
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+    networks:
+      - db_mysql
   lifecassandra:
 #    image: cassandra/life:latest
     image: cassandra:latest
@@ -110,7 +116,30 @@ services:
       - app
       - db_cassandra
       - cache_redis
+  lifeuser:
+    image: sjphichina/life-service-user:0.7
+    ports:
+      - "9090:9090"
+    depends_on:
+      - "lifeeurekaserver"
+      - "lifeconfsvr"
+      - "lifemysql"
+      - "liferedis"
+    environment:
+      PROFILE: "default"
+      SERVER_PORT: "9090"
+      EUREKASERVER_URI: "http://lifeeurekaserver:8761/eureka/"
+      EUREKASERVER_PORT:   "8761"
+      CONFIGSERVER_URI: "http://lifeconfsvr:9888"
+      CONFIGSERVER_PORT:   "9888"
+      DB_CASSANDRA_PORT: "9042"
+      ENCRYPT_KEY:       "IMSYMMETRIC"
+    networks:
+      - app
+      - db_mysql
+      - cache_redis
 networks:
+  db_mysql:
   db_cassandra:
   cache_redis:
   app:
