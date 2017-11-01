@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package sjph.life.user;
+package sjph.life.user.cache;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -34,9 +34,8 @@ import org.springframework.data.redis.support.collections.RedisList;
 import org.springframework.data.redis.support.collections.RedisMap;
 import org.springframework.stereotype.Service;
 
-import sjph.life.platform.cache.redis.JacksonHashMapperWarpper;
-import sjph.life.service.dto.UserDtoSchema;
 import sjph.life.user.dto.UserDto;
+import sjph.life.user.dto.UserDtoSchema;
 
 /**
  * A place to handle all cache operations to {@link UserDto}.

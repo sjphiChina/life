@@ -1,7 +1,7 @@
 /**
  * 
  */
-package sjph.life.model.dao.impl;
+package sjph.life.user.database.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,10 +21,11 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-import sjph.life.model.User;
-import sjph.life.model.dao.UserDao;
-import sjph.life.model.dao.schema.UserSchema;
-import sjph.life.model.state.UserState;
+import sjph.life.user.database.dao.UserDao;
+import sjph.life.user.database.schema.UserSchema;
+import sjph.life.user.model.User;
+import sjph.life.user.model.state.UserState;
+
 
 /**
  * @author shaoguo

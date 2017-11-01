@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package sjph.life.user;
+package sjph.life.user.cache;
 
 /**
  * Simple class keeping all the key patterns to avoid the proliferation of

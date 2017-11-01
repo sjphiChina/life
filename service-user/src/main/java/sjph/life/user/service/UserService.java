@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package sjph.life.service;
+package sjph.life.user.service;
 
-import sjph.life.model.User;
-import sjph.life.service.dto.UserDto;
-import sjph.life.service.exception.UserNotFoundException;
+import sjph.life.user.dto.UserDto;
+import sjph.life.user.exception.UserNotFoundException;
+import sjph.life.user.model.User;
 
 /**
  * Provides services for {@link UserDto}.
