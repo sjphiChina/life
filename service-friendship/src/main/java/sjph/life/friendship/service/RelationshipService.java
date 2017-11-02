@@ -17,6 +17,8 @@ package sjph.life.friendship.service;
 
 import java.util.Collection;
 
+import sjph.life.friendship.model.Friendship;
+
 /**
  * Provides services for relationship.
  * 
@@ -69,4 +71,10 @@ public interface RelationshipService {
      * @return true if userId is following followingId
      */
     boolean isFollowUser(String userId, String followingId);
+
+    /**
+     * @param userId
+     * @return the {@link Friendship} object
+     */
+    Friendship getNetwork(String userId);
 }

@@ -154,4 +154,10 @@ public class RelationshipServiceImpl implements RelationshipService {
         return relationshipCacheHandler.isFollowing(userId, followingId);
         // return relationshipDao.isFollowUser(Long.valueOf(userId), Long.valueOf(followerId));
     }
+
+    @Override
+    public Friendship getNetwork(String userId) {
+        Friendship friendship = friendshipRepository.findById(userId);
+        return friendship;
+    }
 }

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import sjph.life.user.client.PersonRestTemplateClient;
 import sjph.life.user.dto.UserDto;
 import sjph.life.user.service.UserService;
 
@@ -35,11 +36,15 @@ public class UserController {
 
     @Autowired(required = true)
     private UserService         userService;
+    
+    @Autowired(required = true)
+    private PersonRestTemplateClient         personRestTemplateClient;
 
     @RequestMapping(value="/info",method = RequestMethod.GET)
     public String showUser(@PathVariable("userId") String userId) {
         UserDto user = userService.findUser(userId);
-        return user.toString();
+        String network = personRestTemplateClient.getNetwork(userId);
+        return user.toString() + " " + network;
     }
 
 //    @RequestMapping(value = "/follow", method = RequestMethod.GET)
