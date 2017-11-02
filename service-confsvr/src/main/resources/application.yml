@@ -19,7 +19,7 @@ spring:
         encrypt.enabled: false
         git:
           uri: https://github.com/sjphiChina/config-repo
-          searchPaths: lifefriendship
+          searchPaths: lifefriendship, lifeuser
           username: native-cloud-apps
           password: 0ffended
 

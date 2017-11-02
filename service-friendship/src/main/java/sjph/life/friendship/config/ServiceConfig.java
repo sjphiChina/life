@@ -3,6 +3,10 @@ package sjph.life.friendship.config;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+/**
+ * @author Shaohui Guo
+ *
+ */
 @Component
 public class ServiceConfig {
 

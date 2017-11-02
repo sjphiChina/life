@@ -6,7 +6,6 @@ echo "********************************************************"
 while ! `nc -z lifeconfsvr $CONFIGSERVER_PORT `; do sleep 3; done
 echo ">>>>>>>>>>>> Configuration Server has started"
 
-
 echo "********************************************************"
 echo "Starting Life User Server via Eureka"
 echo "********************************************************"
