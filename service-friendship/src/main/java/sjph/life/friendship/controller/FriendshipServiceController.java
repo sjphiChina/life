@@ -52,7 +52,7 @@ public class FriendshipServiceController {
         return relationshipService.getFollwees(userId);
     }
 
-    @RequestMapping(value = "/getNetwork", method = RequestMethod.GET)
+    @RequestMapping(value = "/getnetwork", method = RequestMethod.GET)
     public String getNetwork(@PathVariable("userId") String userId) {
         return relationshipService.getNetwork(userId).toString();
     }

@@ -72,28 +72,28 @@ services:
       - app
       - db_cassandra
       - cache_redis
-  lifefriendship2:
-    image: sjphichina/friendship:life
-    ports:
-      - "9081:9081"
-    depends_on:
-      - "lifeeurekaserver"
-      - "lifeconfsvr"
-      - "lifecassandra"
-      - "liferedis"
-    environment:
-      PROFILE: "default"
-      SERVER_PORT: "9081"
-      EUREKASERVER_URI: "http://lifeeurekaserver:8761/eureka/"
-      EUREKASERVER_PORT:   "8761"
-      CONFIGSERVER_URI: "http://lifeconfsvr:9888"
-      CONFIGSERVER_PORT:   "9888"
-      DB_CASSANDRA_PORT: "9042"
-      ENCRYPT_KEY:       "IMSYMMETRIC"
-    networks:
-      - app
-      - db_cassandra
-      - cache_redis
+#  lifefriendship2:
+#    image: sjphichina/friendship:life
+#    ports:
+#      - "9081:9081"
+#    depends_on:
+#      - "lifeeurekaserver"
+#      - "lifeconfsvr"
+#      - "lifecassandra"
+#      - "liferedis"
+#    environment:
+#      PROFILE: "default"
+#      SERVER_PORT: "9081"
+#      EUREKASERVER_URI: "http://lifeeurekaserver:8761/eureka/"
+#      EUREKASERVER_PORT:   "8761"
+#      CONFIGSERVER_URI: "http://lifeconfsvr:9888"
+#      CONFIGSERVER_PORT:   "9888"
+#      DB_CASSANDRA_PORT: "9042"
+#      ENCRYPT_KEY:       "IMSYMMETRIC"
+#    networks:
+#      - app
+#      - db_cassandra
+#      - cache_redis
 #  lifefriendship3:
 #    image: sjphichina/friendship:life
 #    ports:

@@ -26,8 +26,8 @@
 <!--        <module>platform-eureka</module>-->
 <!--        <module>service-confsvr</module>-->
         <module>service-friendship</module>
-<!--        <module>life-service-post</module>-->
        <module>service-user</module>
+<!--       <module>life-service-post</module>-->
     </modules>
 
     <build>

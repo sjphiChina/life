@@ -27,7 +27,7 @@ public class PersonRestTemplateClient {
 
         try {
             ResponseEntity<String> restExchange = networkRestTemplate.exchange(
-                    "http://lifefriendship/v1/friendship/{userId}/getNetwork", HttpMethod.GET, null,
+                    "http://lifefriendship/v1/friendship/{userId}/getnetwork", HttpMethod.GET, null,
                     String.class, userId);
 
             return restExchange.getBody();
