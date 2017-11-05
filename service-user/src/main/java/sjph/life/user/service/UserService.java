@@ -65,4 +65,11 @@ public interface UserService {
      * @return true if the user specified was updated successfully else false
      */
     boolean deleteUser(String userId);
+    
+    /**
+     * @param userId
+     * @return the Person's network
+     * @throws UserNotFoundException
+     */
+    String findPersonNetwork(String userId) throws UserNotFoundException;
 }

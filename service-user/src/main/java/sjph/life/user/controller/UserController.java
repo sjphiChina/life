@@ -36,14 +36,11 @@ public class UserController {
 
     @Autowired(required = true)
     private UserService         userService;
-    
-    @Autowired(required = true)
-    private PersonRestTemplateClient         personRestTemplateClient;
 
     @RequestMapping(value="/info",method = RequestMethod.GET)
     public String showUser(@PathVariable("userId") String userId) {
         UserDto user = userService.findUser(userId);
-        String network = personRestTemplateClient.getNetwork(userId);
+        String network = userService.findPersonNetwork(userId);
         return user.toString() + " " + network;
     }
 

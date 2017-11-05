@@ -23,7 +23,7 @@ public class PersonRestTemplateClient {
     @Autowired
     RestTemplate networkRestTemplate;
 
-    public String getNetwork(String userId) {
+     public String getNetwork(String userId) {
 
         try {
             ResponseEntity<String> restExchange = networkRestTemplate.exchange(

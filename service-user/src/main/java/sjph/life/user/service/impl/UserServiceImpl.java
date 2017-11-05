@@ -16,12 +16,17 @@
 package sjph.life.user.service.impl;
 
 
+import java.util.Random;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+
 import sjph.life.user.cache.UserCacheHandler;
+import sjph.life.user.client.PersonRestTemplateClient;
 import sjph.life.user.database.dao.UserDao;
 import sjph.life.user.dto.UserDto;
 import sjph.life.user.exception.UserNotFoundException;
@@ -41,6 +46,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired(required = true)
     private UserCacheHandler    userCacheHandler;
+    
+    @Autowired(required = true)
+    private PersonRestTemplateClient         personRestTemplateClient;
 
     @Override
     public Long createUser(User user) {
@@ -125,5 +133,31 @@ public class UserServiceImpl implements UserService {
             return true;
         }
         return false;
+    }
+
+    @HystrixCommand
+    @Override
+    public String findPersonNetwork(String userId) throws UserNotFoundException {
+        //randomlyRunLong();
+        return personRestTemplateClient.getNetwork(userId);
+    }
+
+    // for test
+    private void randomlyRunLong() {
+        Random rand = new Random();
+
+        int randomNum = rand.nextInt((3 - 1) + 1) + 1;
+
+        if (randomNum == 3)
+            sleep();
+    }
+
+    private void sleep() {
+        try {
+            Thread.sleep(11000);
+        }
+        catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
