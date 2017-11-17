@@ -1,0 +1,29 @@
+server:
+  port: 5555
+
+  #Setting logging levels
+logging:
+    level:
+      com.netflix: DEBUG
+      org.springframework.web: DEBUG
+      sjph.life: DEBUG
+
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+        defaultZone: http://localhost:8761/eureka
+
+#
+zuul:
+  ignored-services: '*'
+  debug:
+    request: true
+  prefix:  /api
+  routes:
+    lifeconfsvr: /confsvr/**
+    lifefriendship: /friendship/**
+    lifeuser: /user/**

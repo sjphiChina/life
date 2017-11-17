@@ -38,6 +38,22 @@ services:
       ENCRYPT_KEY:       "IMSYMMETRIC"
     networks:
       - app
+  lifezuul:
+    image: sjphichina/life-service-zuul:0.7
+    ports:
+      - "5555:5555"
+    depends_on:
+      - "lifeeurekaserver"
+      - "lifeconfsvr"
+    environment:
+      PROFILE: "default"
+      SERVER_PORT: "5555"
+      CONFIGSERVER_URI: "http://lifeconfsvr:9888"
+      EUREKASERVER_URI: "http://lifeeurekaserver:8761/eureka/"
+      EUREKASERVER_PORT:        "8761"
+      CONFIGSERVER_PORT:   "9888"
+    networks:
+      - app
 #  lifeconfsvr2:
 #    image: sjphichina/confsvr:life
 #    ports:
