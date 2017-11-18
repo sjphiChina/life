@@ -24,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 
 import sjph.life.user.cache.UserCacheHandler;
 import sjph.life.user.client.PersonRestTemplateClient;
@@ -135,11 +136,20 @@ public class UserServiceImpl implements UserService {
         return false;
     }
 
-    @HystrixCommand
     @Override
+    @HystrixCommand(fallbackMethod = "buildFallbackPersonNetwork",
+            commandProperties={
+                     @HystrixProperty(name="execution.isolation.thread.timeoutInMillisecondes", value="1000")}
+    )
     public String findPersonNetwork(String userId) throws UserNotFoundException {
-        //randomlyRunLong();
+        randomlyRunLong();
         return personRestTemplateClient.getNetwork(userId);
+    }
+
+    @SuppressWarnings("unused")
+    private String buildFallbackPersonNetwork(String userId){
+        String message = "We see connection timeout and no network detail of userId="+userId+" is returned.";
+        return message;
     }
 
     // for test
