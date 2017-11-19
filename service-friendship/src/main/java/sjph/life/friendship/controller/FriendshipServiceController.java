@@ -25,14 +25,14 @@ public class FriendshipServiceController {
     @Autowired
     ServiceConfig               config;
 
-    @RequestMapping(value = "/follow/{followingId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/follow/{followingId}", method = RequestMethod.PUT)
     public void follow(@PathVariable("userId") String userId,
             @PathVariable("followingId") String followingId) {
         relationshipService.follow(userId, followingId);
 
     }
 
-    @RequestMapping(value = "/unfollow/{followingId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/unfollow/{followingId}", method = RequestMethod.PUT)
     public void unfollow(@PathVariable("userId") String userId,
             @PathVariable("followingId") String followingId) {
         relationshipService.unFollow(userId, followingId);

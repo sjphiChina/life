@@ -9,6 +9,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
+
 import sjph.life.user.controller.UserController;
 
 /**
@@ -23,6 +26,10 @@ public class PersonRestTemplateClient {
     @Autowired
     RestTemplate networkRestTemplate;
 
+    @HystrixCommand(fallbackMethod = "buildFallbackNetwork",
+            commandProperties={
+                     @HystrixProperty(name="execution.isolation.thread.timeoutInMillisecondes", value="3000")}
+    )
      public String getNetwork(String userId) {
 
         try {
@@ -40,5 +47,11 @@ public class PersonRestTemplateClient {
             LOGGER.error("Cannot finish the request: ", e);
             return "";
         }
+    }
+    
+    @SuppressWarnings("unused")
+    private String buildFallbackNetwork(String userId){
+        String message = "We see connection timeout and no network detail of userId="+userId+" is returned.";
+        return message;
     }
 }

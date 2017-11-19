@@ -139,7 +139,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @HystrixCommand(fallbackMethod = "buildFallbackPersonNetwork",
             commandProperties={
-                     @HystrixProperty(name="execution.isolation.thread.timeoutInMillisecondes", value="1000")}
+                     @HystrixProperty(name="execution.isolation.thread.timeoutInMillisecondes", value="5000")}
     )
     public String findPersonNetwork(String userId) throws UserNotFoundException {
         randomlyRunLong();
