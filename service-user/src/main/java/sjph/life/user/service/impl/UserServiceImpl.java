@@ -139,16 +139,17 @@ public class UserServiceImpl implements UserService {
     @Override
     @HystrixCommand(fallbackMethod = "buildFallbackPersonNetwork",
             commandProperties={
-                     @HystrixProperty(name="execution.isolation.thread.timeoutInMillisecondes", value="5000")}
+                     @HystrixProperty(name="execution.isolation.thread.timeoutInMilliseconds", value="15000")}
     )
     public String findPersonNetwork(String userId) throws UserNotFoundException {
-        randomlyRunLong();
+        //randomlyRunLong();
         return personRestTemplateClient.getNetwork(userId);
     }
 
     @SuppressWarnings("unused")
     private String buildFallbackPersonNetwork(String userId){
-        String message = "We see connection timeout and no network detail of userId="+userId+" is returned.";
+        String message = "We see connection timeout, and no network detail of userId="+userId+" is returned.";
+        LOGGER.debug(message);
         return message;
     }
 
@@ -156,7 +157,7 @@ public class UserServiceImpl implements UserService {
     private void randomlyRunLong() {
         Random rand = new Random();
 
-        int randomNum = rand.nextInt((3 - 1) + 1) + 1;
+        int randomNum = rand.nextInt((13 - 1) + 1) + 1;
 
         if (randomNum == 3)
             sleep();

@@ -26,10 +26,10 @@ public class PersonRestTemplateClient {
     @Autowired
     RestTemplate networkRestTemplate;
 
-    @HystrixCommand(fallbackMethod = "buildFallbackNetwork",
-            commandProperties={
-                     @HystrixProperty(name="execution.isolation.thread.timeoutInMillisecondes", value="3000")}
-    )
+//    @HystrixCommand(fallbackMethod = "buildFallbackNetwork",
+//            commandProperties={
+//                     @HystrixProperty(name="execution.isolation.thread.timeoutInMillisecondes", value="15000")}
+//    )
      public String getNetwork(String userId) {
 
         try {
@@ -51,7 +51,8 @@ public class PersonRestTemplateClient {
     
     @SuppressWarnings("unused")
     private String buildFallbackNetwork(String userId){
-        String message = "We see connection timeout and no network detail of userId="+userId+" is returned.";
+        String message = "We see connection timeout to friendship and no network detail of userId="+userId+" is returned.";
+        LOGGER.debug(message);
         return message;
     }
 }
