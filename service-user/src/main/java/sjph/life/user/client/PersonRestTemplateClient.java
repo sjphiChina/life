@@ -21,7 +21,7 @@ import sjph.life.user.controller.UserController;
 @Component
 public class PersonRestTemplateClient {
 
-    private static final Logger LOGGER = LogManager.getLogger(UserController.class);
+    private static final Logger LOGGER = LogManager.getLogger(PersonRestTemplateClient.class);
     
     @Autowired
     RestTemplate networkRestTemplate;
@@ -41,12 +41,11 @@ public class PersonRestTemplateClient {
         }
         catch (RestClientException e) {
             LOGGER.error("Cannot finish the request: ", e);
-            return "";
         }
         catch (IllegalStateException e) {
             LOGGER.error("Cannot finish the request: ", e);
-            return "";
         }
+        return "Person's network info is unavailable.";
     }
     
     @SuppressWarnings("unused")

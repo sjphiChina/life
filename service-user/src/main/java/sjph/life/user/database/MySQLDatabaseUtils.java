@@ -44,7 +44,8 @@ public class MySQLDatabaseUtils {
     public DataSource dataSource() {
         DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
         driverManagerDataSource.setDriverClassName(config.getDatabaseDriverClassName());
-        driverManagerDataSource.setUrl(config.getDatasourceUrl());
+        //driverManagerDataSource.setUrl(config.getDatasourceUrl());
+        driverManagerDataSource.setUrl("127.0.0.1");
         driverManagerDataSource.setUsername(config.getDatasourceUsername());
         driverManagerDataSource.setPassword(config.getDatasourcePassword());
         return driverManagerDataSource;

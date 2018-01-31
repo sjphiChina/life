@@ -1,8 +1,30 @@
+spring:
+  cloud:
+    stream:
+      bindings:
+        input:
+          destination: networkChangeTopic
+          content-type: application/json
+          group: userGroup
+      kafka:
+        binder:
+          zkNodes: localhost
+          brokers: localhost
+
 eureka:
   instance:
     preferIpAddress: true
+    ipAddress: 172.19.0.6
   client:
     registerWithEureka: true
     fetchRegistry: true
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
+
+      
+#Setting logging levels
+logging:
+  level:
+    com.netflix: WARN
+    org.springframework.web: WARN
+    sjph.life.user: DEBUG

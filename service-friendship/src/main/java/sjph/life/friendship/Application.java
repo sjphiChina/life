@@ -23,6 +23,8 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 //import org.springframework.context.annotation.Bean;
 //import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
+import org.springframework.cloud.stream.annotation.EnableBinding;
+import org.springframework.cloud.stream.messaging.Source;
 
 /**
  * Spring Boot application for friendship service.
@@ -32,6 +34,7 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 @SpringBootApplication
 @RefreshScope
 @EnableEurekaClient
+@EnableBinding(Source.class)
 //@EnableResourceServer
 public class Application {
 

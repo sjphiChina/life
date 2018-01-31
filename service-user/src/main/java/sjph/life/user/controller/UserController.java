@@ -29,7 +29,7 @@ import sjph.life.user.service.UserService;
  */
 @SuppressWarnings("javadoc")
 @RestController
-@RequestMapping(value="v1/user/{userId}/")
+@RequestMapping(value="v1/user/{userId}")
 public class UserController {
 
     private static final Logger LOGGER = LogManager.getLogger(UserController.class);
@@ -37,8 +37,14 @@ public class UserController {
     @Autowired(required = true)
     private UserService         userService;
 
-    @RequestMapping(value="/info",method = RequestMethod.GET)
+    @RequestMapping(value="/",method = RequestMethod.GET)
     public String showUser(@PathVariable("userId") String userId) {
+        UserDto user = userService.findUser(userId);
+        return user.toString();
+    }
+    
+    @RequestMapping(value="/info",method = RequestMethod.GET)
+    public String showUserInfo(@PathVariable("userId") String userId) {
         UserDto user = userService.findUser(userId);
         String network = userService.findPersonNetwork(userId);
         return user.toString() + " " + network;

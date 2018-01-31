@@ -72,7 +72,7 @@ public class RedisCacheConfig {
         //jedisConnectionFactory.setHostName(config.getRedisIp());
         jedisConnectionFactory.setHostName(config.getRedisIp());
         // TODO just use temp name right now, will use config later
-        jedisConnectionFactory.setClientName(CACHE_CLIENT_NAME + "test-01");
+        //jedisConnectionFactory.setClientName(CACHE_CLIENT_NAME + "test-01");
         jedisConnectionFactory.setPoolConfig(getJedisPoolConfig());
         return jedisConnectionFactory;
     }
