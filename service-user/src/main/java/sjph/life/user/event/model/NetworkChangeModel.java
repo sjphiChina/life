@@ -6,6 +6,20 @@ package sjph.life.user.event.model;
  */
 public class NetworkChangeModel {
 
+    /**
+     * 
+     *
+     */
+    public static enum ACTION{
+        FOLLOW,
+        UNFOLLOW,
+        GET_FOLLOWERS,
+        GET_FOLLOWINGS,
+        GET_NETWORK,
+        GET_NUMBER_OF_FOLLOWERS,
+        DELETE_FOLLOWER;
+    }
+    
     private String type;
     private String action;
     private String networkId;

@@ -6,6 +6,10 @@ spring:
           destination: networkChangeTopic
           content-type: application/json
           group: userGroup
+        inboundNetworkChanges:
+          destination: networkChangeTopic
+          content-type: application/json
+          group: usersGroup
       kafka:
         binder:
           zkNodes: localhost

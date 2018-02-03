@@ -24,6 +24,7 @@ import org.springframework.stereotype.Service;
 
 import sjph.life.friendship.cache.RelationshipCacheHandler;
 import sjph.life.friendship.database.dao.FriendshipRepository;
+import sjph.life.friendship.event.model.NetworkChangeModel;
 import sjph.life.friendship.event.source.NetworkSourceBean;
 import sjph.life.friendship.model.Friendship;
 import sjph.life.friendship.service.RelationshipService;
@@ -52,7 +53,7 @@ public class RelationshipServiceImpl implements RelationshipService {
         //relationshipDao.createRelationship(Long.valueOf(userId), Long.valueOf(followerId));
         friendshipRepository.addFollowing(userId, followingId);
         relationshipCacheHandler.follow(userId, followingId);
-        networkSourceBean.publishNetworkChange("follow", userId);
+        networkSourceBean.publishNetworkChange(NetworkChangeModel.ACTION.FOLLOW.name(), userId);
     }
 
     @Override
@@ -151,7 +152,7 @@ public class RelationshipServiceImpl implements RelationshipService {
 //        following_followersSet.remove(userId);
         friendshipRepository.unFollow(userId, followingId);
         relationshipCacheHandler.stopFollowing(userId, followingId);
-        networkSourceBean.publishNetworkChange("unFollow", userId);
+        networkSourceBean.publishNetworkChange(NetworkChangeModel.ACTION.UNFOLLOW.name(), userId);
         return 1;
     }
 
