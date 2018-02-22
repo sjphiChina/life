@@ -5,8 +5,8 @@ import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import sjph.life.user.client.PersonRestTemplateClient;
 import sjph.life.user.dto.UserDto;
 import sjph.life.user.service.UserService;
+import sjph.life.user.utils.UserContextHolder;
 
 
 /**
@@ -32,7 +33,7 @@ import sjph.life.user.service.UserService;
 @RequestMapping(value="v1/user/{userId}")
 public class UserController {
 
-    private static final Logger LOGGER = LogManager.getLogger(UserController.class);
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @Autowired(required = true)
     private UserService         userService;
@@ -45,6 +46,8 @@ public class UserController {
     
     @RequestMapping(value="/info",method = RequestMethod.GET)
     public String showUserInfo(@PathVariable("userId") String userId) {
+        logger.debug("user access, correlationId: {}", UserContextHolder.getContext().getCorrelationId());
+        
         UserDto user = userService.findUser(userId);
         String network = userService.findPersonNetwork(userId);
         return user.toString() + " " + network;

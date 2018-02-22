@@ -9,6 +9,7 @@ import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Component;
 
 import sjph.life.friendship.event.model.NetworkChangeModel;
+import sjph.life.friendship.utils.UserContextHolder;
 
 @Component
 public class NetworkSourceBean {
@@ -24,14 +25,15 @@ public class NetworkSourceBean {
 
     public void publishNetworkChange(String action,String userId){
        logger.debug("Sending Kafka message {} for User Id: {}", action, userId);
+       String correlationId = UserContextHolder.getContext().getCorrelationId();
        NetworkChangeModel change =  new NetworkChangeModel(
                NetworkChangeModel.class.getTypeName(),
                 action,
                 userId,
-                "test");
+                correlationId);
 
        MessageChannel messageChannel = source.output();
        messageChannel.send(MessageBuilder.withPayload(change).build());
-       logger.debug("Sent Kafka message {} for User Id: {}, Action: {}", change.toString(), userId, action);
+       logger.debug("Sent Kafka message {} for User Id: {}, Action: {}", change.toString(), userId, action, correlationId);
     }
 }

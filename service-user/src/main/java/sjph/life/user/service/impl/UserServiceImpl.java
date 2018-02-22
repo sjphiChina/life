@@ -18,8 +18,8 @@ package sjph.life.user.service.impl;
 
 import java.util.Random;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +33,7 @@ import sjph.life.user.dto.UserDto;
 import sjph.life.user.exception.UserNotFoundException;
 import sjph.life.user.model.User;
 import sjph.life.user.service.UserService;
+import sjph.life.user.utils.UserContextHolder;
 
 /**
  * @author shaohuiguo
@@ -40,7 +41,7 @@ import sjph.life.user.service.UserService;
  */
 @Service
 public class UserServiceImpl implements UserService {
-    private static final Logger LOGGER = LogManager.getLogger(UserServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
 
     @Autowired(required = true)
     private UserDao             userDao;
@@ -65,6 +66,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto findUser(String userId) throws UserNotFoundException {
+        LOGGER.debug("findUser, correlationId: {}, threadId: {}", UserContextHolder.getContext().getCorrelationId(), Thread.currentThread().getId());
         UserDto userDto = userCacheHandler.findUser(userId);
         if (userDto != null) {
             LOGGER.info("Using cache to get UserDto: " + userDto.toString());
@@ -136,12 +138,17 @@ public class UserServiceImpl implements UserService {
         return false;
     }
 
+    //currently we use SEMAPHORE strategy for hystrix, since with default THREAD strategy, 
+    //the userContext cannot be passed into children thread somehow, will dig it when debug is 
+    //enabled later.
     @Override
     @HystrixCommand(fallbackMethod = "buildFallbackPersonNetwork",
             commandProperties={
+                    @HystrixProperty(name="execution.isolation.strategy", value="SEMAPHORE"),
                      @HystrixProperty(name="execution.isolation.thread.timeoutInMilliseconds", value="15000")}
     )
     public String findPersonNetwork(String userId) throws UserNotFoundException {
+        LOGGER.debug("findPersonNetwork, correlationId: {}, threadId: {}", UserContextHolder.getContext().getCorrelationId(), Thread.currentThread().getId());
         //randomlyRunLong();
         return personRestTemplateClient.getNetwork(userId);
     }

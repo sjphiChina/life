@@ -49,20 +49,20 @@ public class FilterUtils {
 //        ctx.addZuulRequestHeader(ORG_ID,  orgId);
 //    }
 
-//    public final String getUserId(){
-//        RequestContext ctx = RequestContext.getCurrentContext();
-//        if (ctx.getRequest().getHeader(USER_ID) !=null) {
-//            return ctx.getRequest().getHeader(USER_ID);
-//        }
-//        else{
-//            return  ctx.getZuulRequestHeaders().get(USER_ID);
-//        }
-//    }
-//
-//    public void setUserId(String userId){
-//        RequestContext ctx = RequestContext.getCurrentContext();
-//        ctx.addZuulRequestHeader(USER_ID,  userId);
-//    }
+    public final String getUserId(){
+        RequestContext ctx = RequestContext.getCurrentContext();
+        if (ctx.getRequest().getHeader(USER_ID) !=null) {
+            return ctx.getRequest().getHeader(USER_ID);
+        }
+        else{
+            return  ctx.getZuulRequestHeaders().get(USER_ID);
+        }
+    }
+
+    public void setUserId(String userId){
+        RequestContext ctx = RequestContext.getCurrentContext();
+        ctx.addZuulRequestHeader(USER_ID,  userId);
+    }
 //
 //    public final String getAuthToken(){
     
