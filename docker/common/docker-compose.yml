@@ -191,6 +191,12 @@ services:
       - db_mysql
       - cache_redis
       - message_kafka
+  logspout:
+    image: gliderlabs/logspout
+    command: syslog://logs2.papertrailapp.com:14280
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
 networks:
   db_mysql:
   db_cassandra:
