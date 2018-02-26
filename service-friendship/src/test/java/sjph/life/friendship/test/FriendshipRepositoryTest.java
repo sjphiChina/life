@@ -1,4 +1,4 @@
-package sjph.life.model.cassandra;
+package sjph.life.friendship.test;
 
 //@RunWith(SpringJUnit4ClassRunner.class)
 public class FriendshipRepositoryTest {
