@@ -1,0 +1,11 @@
+#Default port is 8761
+server:
+  port: 9411
+
+
+#Setting logging levels
+logging:
+  level:
+    com.netflix: DEBUG
+    org.springframework.web: DEBUG
+    sjph.life: DEBUG

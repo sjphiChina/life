@@ -6,6 +6,18 @@ services:
       - "8761:8761"
     networks:
       - app
+  lifeconfsvr:
+    image: sjphichina/confsvr:life
+    ports:
+      - "9888:9888"
+    depends_on:
+      - "lifeeurekaserver"
+    environment:
+      EUREKASERVER_URI: "http://lifeeurekaserver:8761/eureka/"
+      EUREKASERVER_PORT: "8761"
+      ENCRYPT_KEY:       "IMSYMMETRIC"
+    networks:
+      - app
   lifemysql:
     image: mysql:latest
     ports:
@@ -33,18 +45,6 @@ services:
       - 9092:9092
     networks:
        - message_kafka
-  lifeconfsvr:
-    image: sjphichina/confsvr:life
-    ports:
-      - "9888:9888"
-    depends_on:
-      - "lifeeurekaserver"
-    environment:
-      EUREKASERVER_URI: "http://lifeeurekaserver:8761/eureka/"
-      EUREKASERVER_PORT: "8761"
-      ENCRYPT_KEY:       "IMSYMMETRIC"
-    networks:
-      - app
   lifezuul:
     image: sjphichina/life-service-zuul:0.7
     ports:
@@ -59,6 +59,8 @@ services:
       EUREKASERVER_URI: "http://lifeeurekaserver:8761/eureka/"
       EUREKASERVER_PORT:        "8761"
       CONFIGSERVER_PORT:   "9888"
+      ZIPKIN_URI: "http://lifezipkin:9411"
+      ZIPKIN_PORT:         "9411"
     networks:
       - app
 #  lifeauthentication:
@@ -112,6 +114,8 @@ services:
       KAFKASERVER_URI: "lifekafka"
       ZKSERVER_URI: "lifekafka"
       KAFKASERVER_PORT:    "2181"
+      ZIPKIN_URI: "http://lifezipkin:9411"
+      ZIPKIN_PORT:         "9411"
       ENCRYPT_KEY:       "IMSYMMETRIC"
     networks:
       - app
@@ -185,12 +189,25 @@ services:
       KAFKASERVER_URI: "lifekafka"
       ZKSERVER_URI: "lifekafka"
       KAFKASERVER_PORT:    "2181"
+      ZIPKIN_URI: "http://lifezipkin:9411"
+      ZIPKIN_PORT:         "9411"
       ENCRYPT_KEY:       "IMSYMMETRIC"
     networks:
       - app
       - db_mysql
       - cache_redis
       - message_kafka
+  lifezipkin:
+    image: sjphichina/life-util-zipkin:0.7
+    ports:
+      - "9411:9411"
+    depends_on:
+      - "lifeuser"
+    environment:
+      ZIPKIN_URI: "http://lifezipkin:9411"
+      SERVER_PORT: "9411"
+    networks:
+      - app
   logspout:
     image: gliderlabs/logspout
     command: syslog://logs2.papertrailapp.com:14280

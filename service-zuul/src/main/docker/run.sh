@@ -17,4 +17,5 @@ echo "Starting Zuul Service with $CONFIGSERVER_URI"
 echo "********************************************************"
 java -Djava.security.egd=file:/dev/./urandom -Dserver.port=$SERVER_PORT   \
      -Deureka.client.serviceUrl.defaultZone=$EUREKASERVER_URI   \
+     -Dspring.zipkin.baseUrl=$ZIPKIN_URI                                  \
      -jar /usr/local/life/service-zuul/@project.build.finalName@.jar
