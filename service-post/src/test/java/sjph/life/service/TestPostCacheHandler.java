@@ -15,45 +15,30 @@
  */
 package sjph.life.service;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.hamcrest.core.Is;
-import org.junit.AfterClass;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.BulkMapper;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.query.SortQuery;
 import org.springframework.data.redis.core.query.SortQueryBuilder;
-import org.springframework.data.redis.hash.DecoratingStringHashMapper;
 import org.springframework.data.redis.hash.HashMapper;
-import org.springframework.data.redis.support.collections.DefaultRedisList;
-import org.springframework.data.redis.support.collections.DefaultRedisMap;
 import org.springframework.data.redis.support.collections.RedisList;
-import org.springframework.data.redis.support.collections.RedisMap;
 
-import sjph.life.platform.cache.redis.JacksonHashMapperWarpper;
-import sjph.life.service.dto.PostDto;
-import sjph.life.service.dto.PostDtoSchema;
+import sjph.life.post.Range;
+import sjph.life.post.dto.PostDto;
+import sjph.life.post.dto.PostDtoSchema;
 
 /**
  * @author Shaohui Guo
  *
  */
-@RunWith(Parameterized.class)
+//@RunWith(Parameterized.class)
 public class TestPostCacheHandler {
 
     RedisTemplate<String, String>             template;
@@ -80,34 +65,34 @@ public class TestPostCacheHandler {
     /**
      * @return Collection <RedisConnectionFactory>
      */
-    @Parameters
-    public static Collection<RedisConnectionFactory> params() {
-
-        return Arrays.<RedisConnectionFactory> asList(new JedisConnectionFactory());
-    }
-
-    /**
-     * 
-     */
-    @AfterClass
-    public static void cleanUp() {
-        ConnectionFactoryTracker.cleanUp();
-    }
-
-    /**
-     * 
-     */
-    @Before
-    public void setUp() {
-
-        this.template = new StringRedisTemplate();
-        this.template.setConnectionFactory(factory);
-        template.afterPropertiesSet();
-        timeline = new DefaultRedisList<>(KeyUtils.timeline(), template);
-        //this.mapper = new Jackson2HashMapper(true);
-        postMapper = new DecoratingStringHashMapper<PostDto>(
-                new JacksonHashMapperWarpper<PostDto>(PostDto.class));
-    }
+//    @Parameters
+//    public static Collection<RedisConnectionFactory> params() {
+//
+//        return Arrays.<RedisConnectionFactory> asList(new JedisConnectionFactory());
+//    }
+//
+//    /**
+//     * 
+//     */
+//    @AfterClass
+//    public static void cleanUp() {
+//        ConnectionFactoryTracker.cleanUp();
+//    }
+//
+//    /**
+//     * 
+//     */
+//    @Before
+//    public void setUp() {
+//
+//        this.template = new StringRedisTemplate();
+//        this.template.setConnectionFactory(factory);
+//        template.afterPropertiesSet();
+//        timeline = new DefaultRedisList<>(KeyUtils.timeline(), template);
+//        //this.mapper = new Jackson2HashMapper(true);
+//        postMapper = new DecoratingStringHashMapper<PostDto>(
+//                new JacksonHashMapperWarpper<PostDto>(PostDto.class));
+//    }
 
 //    /**
 //     * 
@@ -151,34 +136,34 @@ public class TestPostCacheHandler {
 //        PostDto result_1 = iterator.next();
 //        Assert.assertThat(result_1, Is.is(post_1));
 //    }
-    @Test // DATAREDIS-423
-    public void testQuerySort() {
-
-        String content_1 = "test wish with luck";
-        String userId_1 = "Shaohui";
-        String id_1 = "postid_1";
-        String createdDate = "20170721";
-        String userNameDisplaying = "sjphiChina";
-        PostDto post_1 = new PostDto(content_1, userId_1, userNameDisplaying);
-        post_1.setId(id_1);
-        post_1.setCreatedDate(createdDate);
-        Map<String, String> postHash_1 = postMapper.toHash(post_1);
-        RedisMap<String, String> map = new DefaultRedisMap<>(KeyUtils.post(post_1.getId()), template);
-        map.putAll(postHash_1);
-
-        getUserTimelineList(post_1.getUserId()).addFirst(post_1.getId());
-//      PostDto result = postMapper.fromHash(template.<String, String> opsForHash().entries(KeyUtils.post(post_1.getId())));
-//Assert.assertThat(result, Is.is(post_1));
-         
-        Collection<PostDto> collection = convertPidsToPosts(KeyUtils.timeline(post_1.getUserId()), new Range());
-        Iterator<PostDto> iterator = collection.iterator();
-        PostDto result_1 = iterator.next();
-        Assert.assertThat(result_1, Is.is(post_1));
-    }
-
-    private RedisList<String> getUserTimelineList(String userId) {
-        return new DefaultRedisList<>(KeyUtils.timeline(userId), template);
-    }
+//    @Test // DATAREDIS-423
+//    public void testQuerySort() {
+//
+//        String content_1 = "test wish with luck";
+//        String userId_1 = "Shaohui";
+//        String id_1 = "postid_1";
+//        String createdDate = "20170721";
+//        String userNameDisplaying = "sjphiChina";
+//        PostDto post_1 = new PostDto(content_1, userId_1, userNameDisplaying);
+//        post_1.setId(id_1);
+//        post_1.setCreatedDate(createdDate);
+//        Map<String, String> postHash_1 = postMapper.toHash(post_1);
+//        RedisMap<String, String> map = new DefaultRedisMap<>(KeyUtils.post(post_1.getId()), template);
+//        map.putAll(postHash_1);
+//
+//        getUserTimelineList(post_1.getUserId()).addFirst(post_1.getId());
+////      PostDto result = postMapper.fromHash(template.<String, String> opsForHash().entries(KeyUtils.post(post_1.getId())));
+////Assert.assertThat(result, Is.is(post_1));
+//         
+//        Collection<PostDto> collection = convertPidsToPosts(KeyUtils.timeline(post_1.getUserId()), new Range());
+//        Iterator<PostDto> iterator = collection.iterator();
+//        PostDto result_1 = iterator.next();
+//        Assert.assertThat(result_1, Is.is(post_1));
+//    }
+//
+//    private RedisList<String> getUserTimelineList(String userId) {
+//        return new DefaultRedisList<>(KeyUtils.timeline(userId), template);
+//    }
     
     private Collection<PostDto> convertPidsToPosts(String key, Range range) {
         String pid = "pid:*->";

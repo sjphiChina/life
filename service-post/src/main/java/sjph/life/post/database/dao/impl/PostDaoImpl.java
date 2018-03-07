@@ -21,7 +21,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-import javax.swing.tree.RowMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -31,9 +30,10 @@ import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+import org.springframework.jdbc.core.RowMapper;
 
-import sjph.life.model.dao.schema.PostSchema;
 import sjph.life.post.database.dao.PostDao;
+import sjph.life.post.database.schema.PostSchema;
 import sjph.life.post.model.Post;
 
 /**

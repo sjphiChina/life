@@ -19,14 +19,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.LinkedList;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
-import sjph.life.platform.util.algorithm.MergeSort;
 import sjph.life.post.Range;
 import sjph.life.post.cache.PostCacheHandler;
 import sjph.life.post.database.dao.PostDao;
@@ -34,7 +33,7 @@ import sjph.life.post.dto.PostDto;
 import sjph.life.post.exception.PostNotFoundException;
 import sjph.life.post.model.Post;
 import sjph.life.post.service.PostService;
-import sjph.life.service.RelationshipService;
+import sjph.life.post.service.SocialNetworkService;
 
 /**
  * @author Shaohui Guo
@@ -42,12 +41,12 @@ import sjph.life.service.RelationshipService;
  */
 @Service
 public class PostServiceImpl implements PostService {
-    private static final Logger      LOGGER = LogManager.getLogger(PostServiceImpl.class);
+    private static final Logger      LOGGER = LoggerFactory.getLogger(PostServiceImpl.class);
 
     @Autowired(required = true)
     private PostDao                  postDao;
     @Autowired(required = true)
-    private RelationshipService      relationshipService;
+    private SocialNetworkService      socialNetworkService;
     @Autowired(required = true)
     private PostCacheHandler         postCacheHandler;
 
@@ -121,7 +120,7 @@ public class PostServiceImpl implements PostService {
             postDtoList = convertPostToPostDto(list);
             postCacheHandler.loadPosts(postDtoList);
         }
-        Collection<String> followeeList = relationshipService.getFollwees(userId);
+        Collection<String> followeeList = socialNetworkService.getFollowing(userId);
         if (followeeList != null && !followeeList.isEmpty()) {
             // There are two ways to this merge:
             // 1. PriorityQueue, merge the head of each list and traverse

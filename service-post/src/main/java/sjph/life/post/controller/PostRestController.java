@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package sjph.life.rest.controller;
+package sjph.life.post.controller;
 
 import java.util.Collection;
 import java.util.Date;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,10 +29,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import sjph.life.model.Post;
-import sjph.life.service.PostService;
-import sjph.life.service.Range;
-import sjph.life.service.dto.PostDto;
+import sjph.life.post.Range;
+import sjph.life.post.dto.PostDto;
+import sjph.life.post.model.Post;
+import sjph.life.post.service.PostService;
 
 /**
  * Rest controller for {@link PostDto} operations.
@@ -41,10 +41,10 @@ import sjph.life.service.dto.PostDto;
  *
  */
 @RestController
-@RequestMapping(value = "rest/posts")
+@RequestMapping(value = "v1/post")
 public class PostRestController {
 
-    private static final Logger LOGGER   = LogManager.getLogger(PostRestController.class);
+    private static final Logger LOGGER   = LoggerFactory.getLogger(PostRestController.class);
 
     Long                        userId   = 1l;
     String                      userName = "sjph";
@@ -76,6 +76,15 @@ public class PostRestController {
     /**
      * @return a list of {@link PostDto}
      */
+    @RequestMapping(value = "/index", method = RequestMethod.GET)
+    public String index() {
+        return "Work hard, Good luck!";
+    }
+    
+    
+    /**
+     * @return a list of {@link PostDto}
+     */
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public Collection<PostDto> showPosts() {
         Collection<PostDto> list = postService.listPosts(new Range());
@@ -87,8 +96,8 @@ public class PostRestController {
      * @param id the user id of user
      * @return a list of {@link PostDto}
      */
-    @RequestMapping(value = "/list/{user}", method = RequestMethod.GET)
-    public Collection<PostDto> showUserPosts(@PathVariable("id") String id) {
+    @RequestMapping(value = "/list/{userId}", method = RequestMethod.GET)
+    public Collection<PostDto> showUserPosts(@PathVariable("userId") String id) {
         Collection<PostDto> list = postService.listUserTimeline(id, new Range());
         LOGGER.info("The size of all posts is " + list.size());
         return list;
@@ -114,15 +123,15 @@ public class PostRestController {
         postService.updatePost(post);
     }
 
-    /**
-     * @param postId the id of {@link Post} to be deleted
-     */
-    @RequestMapping(value = "/{postId}", method = RequestMethod.DELETE)
-    @ResponseStatus(value = HttpStatus.OK)
-    public void deletePost(@PathVariable(value = "postId") String postId) {
-        PostDto postDto = postService.findPost(postId);
-        postService.deletePost(postDto);
-    }
+//    /**
+//     * @param postId the id of {@link Post} to be deleted
+//     */
+//    @RequestMapping(value = "/{postId}", method = RequestMethod.DELETE)
+//    @ResponseStatus(value = HttpStatus.OK)
+//    public void deletePost(@PathVariable(value = "postId") String postId) {
+//        PostDto postDto = postService.findPost(postId);
+//        postService.deletePost(postDto);
+//    }
 
     // private String encodeText(String text, String encodingSet) {
     // try {

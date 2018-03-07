@@ -15,8 +15,6 @@
  */
 package sjph.life.post.database.schema;
 
-import sjph.life.platform.database.DatabaseConstants;
-
 /**
  * @author Shaohui Guo
  *

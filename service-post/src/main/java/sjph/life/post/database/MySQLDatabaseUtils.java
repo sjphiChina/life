@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package sjph.life.user.database;
+package sjph.life.post.database;
 
 import javax.sql.DataSource;
 
@@ -23,7 +23,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
-import sjph.life.user.config.ServiceConfig;
+import sjph.life.post.config.ServiceConfig;
 
 /**
  * Connection configuration for MySQL database.
@@ -34,8 +34,8 @@ import sjph.life.user.config.ServiceConfig;
 @Configuration
 public class MySQLDatabaseUtils {
 
-    @Autowired
-    ServiceConfig config;
+//    @Autowired
+//    ServiceConfig config;
 
     /**
      * @return a {@link DataSource} of MySQL
@@ -43,11 +43,14 @@ public class MySQLDatabaseUtils {
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
-        driverManagerDataSource.setDriverClassName(config.getDatabaseDriverClassName());
+        //driverManagerDataSource.setDriverClassName(config.getDatabaseDriverClassName());
+        driverManagerDataSource.setDriverClassName("com.mysql.jdbc.Driver");
         //driverManagerDataSource.setUrl(config.getDatasourceUrl());
         driverManagerDataSource.setUrl("jdbc:mysql://172.18.0.2:3306/life_common");
-        driverManagerDataSource.setUsername(config.getDatasourceUsername());
-        driverManagerDataSource.setPassword(config.getDatasourcePassword());
+//        driverManagerDataSource.setUsername(config.getDatasourceUsername());
+//        driverManagerDataSource.setPassword(config.getDatasourcePassword());
+        driverManagerDataSource.setUsername("root");
+        driverManagerDataSource.setPassword("admin");
         return driverManagerDataSource;
     }
 

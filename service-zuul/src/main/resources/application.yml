@@ -11,6 +11,7 @@ logging:
 eureka:
   instance:
     preferIpAddress: true
+    ipAddress: 172.20.0.4
   client:
     registerWithEureka: true
     fetchRegistry: true
@@ -35,3 +36,4 @@ zuul:
     lifeconfsvr: /confsvr/**
     lifefriendship: /friendship/**
     lifeuser: /user/**
+    lifepost: /post/**

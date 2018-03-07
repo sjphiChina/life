@@ -25,12 +25,13 @@
     <modules>
 <!--                      <module>service-authentication</module>-->
 <!--        <module>platform-eureka</module>-->
-        <module>service-confsvr</module>
-        <module>service-friendship</module>
-       <module>service-user</module>
-              <module>service-zuul</module>
-       <module>util-zipkin</module>
-<!--       <module>life-service-post</module>-->
+<!--        <module>service-confsvr</module>-->
+<!--        <module>service-friendship</module>-->
+<!--       <module>service-user</module>-->
+       <module>service-post</module>
+<!--              <module>service-zuul</module>-->
+<!--       <module>util-zipkin</module>-->
+
     </modules>
 
     <build>

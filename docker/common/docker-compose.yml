@@ -33,7 +33,7 @@ services:
     networks:
       - db_cassandra
   liferedis:
-    image: redis:latest
+    image: redis:alpine
     ports:
       - 6379:6379
     networks:
@@ -103,6 +103,7 @@ services:
       - "lifeconfsvr"
       - "lifecassandra"
       - "liferedis"
+      - "lifepost"
     environment:
       PROFILE: "default"
       SERVER_PORT: "9080"
@@ -177,7 +178,7 @@ services:
       - "lifeconfsvr"
       - "lifemysql"
       - "liferedis"
-      - "lifefriendship"
+      - "lifezuul"
     environment:
       PROFILE: "default"
       SERVER_PORT: "9090"
@@ -197,12 +198,34 @@ services:
       - db_mysql
       - cache_redis
       - message_kafka
+  lifepost:
+    image: sjphichina/life-service-post:0.7
+    ports:
+      - "9070:9070"
+    depends_on:
+      - "lifeeurekaserver"
+      - "lifeconfsvr"
+      - "lifemysql"
+      - "liferedis"
+      - "lifeuser"
+    environment:
+      PROFILE: "default"
+      SERVER_PORT: "9070"
+      EUREKASERVER_URI: "http://lifeeurekaserver:8761/eureka/"
+      EUREKASERVER_PORT:   "8761"
+      ZIPKIN_URI: "http://lifezipkin:9411"
+      DB_MYSQL_PORT: "3306"
+      ENCRYPT_KEY:       "IMSYMMETRIC"
+    networks:
+      - app
+      - db_mysql
+      - cache_redis
   lifezipkin:
     image: sjphichina/life-util-zipkin:0.7
     ports:
       - "9411:9411"
     depends_on:
-      - "lifeuser"
+      - "lifefriendship"
     environment:
       ZIPKIN_URI: "http://lifezipkin:9411"
       SERVER_PORT: "9411"

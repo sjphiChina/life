@@ -37,6 +37,10 @@ import org.springframework.data.redis.support.collections.RedisList;
 import org.springframework.data.redis.support.collections.RedisMap;
 import org.springframework.stereotype.Service;
 
+import sjph.life.post.Range;
+import sjph.life.post.dto.PostDto;
+import sjph.life.post.dto.PostDtoSchema;
+
 
 
 /**
