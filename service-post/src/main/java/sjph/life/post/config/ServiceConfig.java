@@ -7,11 +7,8 @@ import org.springframework.stereotype.Component;
  * @author Shaohui Guo
  *
  */
-//@Component
+@Component
 public class ServiceConfig {
-
-    @Value("${example.property}")
-    private String exampleProperty;
 
     @Value("${database.ip}")
     private String databaseIp;
@@ -45,10 +42,6 @@ public class ServiceConfig {
 
     @Value("${redis.port}")
     private String redisPort;
-
-    public String getExampleProperty() {
-        return exampleProperty;
-    }
 
     public String getDatabaseIp() {
         return databaseIp;

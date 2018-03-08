@@ -213,6 +213,8 @@ services:
       SERVER_PORT: "9070"
       EUREKASERVER_URI: "http://lifeeurekaserver:8761/eureka/"
       EUREKASERVER_PORT:   "8761"
+      CONFIGSERVER_URI: "http://lifeconfsvr:9888"
+      CONFIGSERVER_PORT:   "9888"
       ZIPKIN_URI: "http://lifezipkin:9411"
       DB_MYSQL_PORT: "3306"
       ENCRYPT_KEY:       "IMSYMMETRIC"

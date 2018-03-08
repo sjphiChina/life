@@ -34,8 +34,8 @@ import sjph.life.post.config.ServiceConfig;
 @Configuration
 public class MySQLDatabaseUtils {
 
-//    @Autowired
-//    ServiceConfig config;
+    @Autowired
+    ServiceConfig config;
 
     /**
      * @return a {@link DataSource} of MySQL
@@ -43,14 +43,11 @@ public class MySQLDatabaseUtils {
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
-        //driverManagerDataSource.setDriverClassName(config.getDatabaseDriverClassName());
-        driverManagerDataSource.setDriverClassName("com.mysql.jdbc.Driver");
+        driverManagerDataSource.setDriverClassName(config.getDatabaseDriverClassName());
         //driverManagerDataSource.setUrl(config.getDatasourceUrl());
         driverManagerDataSource.setUrl("jdbc:mysql://172.18.0.2:3306/life_common");
-//        driverManagerDataSource.setUsername(config.getDatasourceUsername());
-//        driverManagerDataSource.setPassword(config.getDatasourcePassword());
-        driverManagerDataSource.setUsername("root");
-        driverManagerDataSource.setPassword("admin");
+        driverManagerDataSource.setUsername(config.getDatasourceUsername());
+        driverManagerDataSource.setPassword(config.getDatasourcePassword());
         return driverManagerDataSource;
     }
 

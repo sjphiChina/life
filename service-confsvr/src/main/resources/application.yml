@@ -21,7 +21,7 @@ spring:
         encrypt.enabled: false
         git:
           uri: https://github.com/sjphiChina/config-repo
-          searchPaths: lifefriendship, lifeuser
+          searchPaths: lifefriendship, lifeuser, lifepost
           username: native-cloud-apps
           password: 0ffended
 eureka:
