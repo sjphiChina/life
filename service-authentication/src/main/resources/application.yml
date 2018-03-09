@@ -2,12 +2,13 @@
 logging:
   level:
     com.netflix: WARN
-    org.springframework.web: WARN
+    org.springframework: WARN
     sjph.life: DEBUG
 
 eureka:
   instance:
     preferIpAddress: true
+    ipAddress: 172.20.0.9
   client:
     registerWithEureka: true
     fetchRegistry: true

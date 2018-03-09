@@ -63,25 +63,23 @@ services:
       ZIPKIN_PORT:         "9411"
     networks:
       - app
-#  lifeauthentication:
-#    image: sjphichina/life-service-authentication:0.7
-#   ports:
-#     - "8901:8901"
-#   environment:
-#     PROFILE: "default"
-#     SERVER_PORT: "8901"
-#     DATABASE_PORT:     3306
-#     CONFIGSERVER_PORT: 9888
-#     EUREKASERVER_PORT: 8761
-#     CONFIGSERVER_URI: "http://lifeconfsvr:9888"
-#     EUREKASERVER_URI: "http://lifeeurekaserver:8761/eureka/"
-#     ENCRYPT_KEY:       "IMSYMMETRIC"
-#   networks:
-#     - app
-#   depends_on:
-#     - "lifeeurekaserver"
-#     - "lifeconfsvr"
-#     - "lifemysql"
+  lifeauthentication:
+    image: sjphichina/life-service-authentication:0.7
+    ports:
+      - "8901:8901"
+    environment:
+      PROFILE: "default"
+      SERVER_PORT: "8901"
+      DATABASE_PORT:     3306
+      CONFIGSERVER_PORT: 9888
+      EUREKASERVER_PORT: 8761
+      CONFIGSERVER_URI: "http://lifeconfsvr:9888"
+      EUREKASERVER_URI: "http://lifeeurekaserver:8761/eureka/"
+      ENCRYPT_KEY:       "IMSYMMETRIC"
+    networks:
+      - app
+    depends_on:
+      - "lifezipkin"
 #  lifeconfsvr2:
 #    image: sjphichina/confsvr:life
 #    ports:

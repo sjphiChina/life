@@ -4,8 +4,8 @@ server:
   #Setting logging levels
 logging:
     level:
-      com.netflix: DEBUG
-      org.springframework.web: DEBUG
+      com.netflix: WARN
+      org.springframework.web: WARN
       sjph.life: DEBUG
 
 eureka:
@@ -28,6 +28,7 @@ hystrix:
 
 #
 zuul:
+  sensitiveHeaders: Cookie, Set-Cookie
   ignored-services: '*'
   debug:
     request: true
