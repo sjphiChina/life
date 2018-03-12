@@ -21,8 +21,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import sjph.life.user.model.state.UserState;
-
 /**
  * Model for user object.
  * 

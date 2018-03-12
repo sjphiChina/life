@@ -1,4 +1,4 @@
-package sjph.life.security.authentication;
+package sjph.life.user.security.authentication;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -15,8 +15,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import sjph.life.model.state.UserState;
-import sjph.life.service.UserService;
+import sjph.life.user.model.UserState;
+import sjph.life.user.model.UserRole;
+import sjph.life.user.service.UserService;
 
 /**
  * @author shaohuiguo
@@ -32,7 +33,7 @@ public class LifeUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        sjph.life.model.User user = userService.findUserByEmail(email);
+        sjph.life.user.model.User user = userService.findUserByEmail(email);
         if (user != null) {
             LOGGER.info("Found User: " + user.toString());
             LOGGER.info("USER role: " + UserRole.Role.USER.toString());
@@ -67,7 +68,7 @@ public class LifeUserDetailsService implements UserDetailsService {
         return authorities;
     }
 
-    private AuthenticatedUser buildUserForAuthentication(sjph.life.model.User user,
+    private AuthenticatedUser buildUserForAuthentication(sjph.life.user.model.User user,
             List<GrantedAuthority> result) {
         boolean enabled = true;
         boolean accountNonExpired = true;

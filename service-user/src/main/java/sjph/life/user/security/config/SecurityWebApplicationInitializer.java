@@ -1,4 +1,4 @@
-package sjph.life.security.config;
+package sjph.life.user.security.config;
 
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 

@@ -24,7 +24,7 @@ import org.springframework.stereotype.Repository;
 import sjph.life.user.database.dao.UserDao;
 import sjph.life.user.database.schema.UserSchema;
 import sjph.life.user.model.User;
-import sjph.life.user.model.state.UserState;
+import sjph.life.user.model.UserState;
 
 
 /**

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package sjph.life.security.authentication;
+package sjph.life.user.security.authentication;
 
 import java.util.Collection;
 
@@ -16,7 +16,7 @@ import org.springframework.security.core.userdetails.User;
 public class AuthenticatedUser extends User {
 
     private static final long          serialVersionUID = 6151222121443498098L;
-    private final sjph.life.model.User user;
+    private final sjph.life.user.model.User user;
 
     /**
      * @param username
@@ -30,13 +30,13 @@ public class AuthenticatedUser extends User {
      */
     public AuthenticatedUser(String username, String password, boolean enabled,
             boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked,
-            Collection<? extends GrantedAuthority> authorities, sjph.life.model.User user) {
+            Collection<? extends GrantedAuthority> authorities, sjph.life.user.model.User user) {
         super(username, password, enabled, accountNonExpired, credentialsNonExpired,
                 accountNonLocked, authorities);
         this.user = user;
     }
 
-    public sjph.life.model.User getUserOfLife() {
+    public sjph.life.user.model.User getUserOfLife() {
         return this.user;
     }
 
