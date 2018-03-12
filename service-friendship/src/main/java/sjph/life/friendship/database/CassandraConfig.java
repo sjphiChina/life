@@ -54,7 +54,7 @@ public class CassandraConfig {
         LOGGER.debug(config.getExampleProperty());
         CassandraClusterFactoryBean cluster = new CassandraClusterFactoryBean();
         //cluster.setContactPoints(config.getDatabaseIp());
-        cluster.setContactPoints("172.22.0.2");
+        cluster.setContactPoints("172.23.0.2");
         return cluster;
     }
 

@@ -11,11 +11,25 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
 
     @Override
     public void configure(HttpSecurity http) throws Exception{
+        http.authorizeRequests().antMatchers(HttpMethod.GET).anonymous();
         http
         .authorizeRequests()
           .antMatchers(HttpMethod.DELETE, "/v1/post/**")
-          .hasRole("ADMIN")
-          .anyRequest()
-          .authenticated();
+          .hasRole("ADMIN");
+        http
+        .authorizeRequests()
+          .antMatchers(HttpMethod.POST, "/v1/post/**").authenticated();
+        http
+        .authorizeRequests()
+          .antMatchers(HttpMethod.GET, "/v1/post/**").authenticated();
+        http
+        .authorizeRequests()
+          .antMatchers(HttpMethod.PUT, "/v1/post/**").authenticated();
+//        http
+//        .authorizeRequests()
+//          .antMatchers(HttpMethod.DELETE, "/v1/post/**")
+//          .hasRole("ADMIN")
+//          .anyRequest()
+//          .authenticated();
     }
 }
