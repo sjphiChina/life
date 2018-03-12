@@ -66,8 +66,6 @@ public class PostRestController {
         // encodeText(post.getContent(), WebConfig.CHARACTER_ENCODING_SET);
         // Here I still use the original content, the code above is just for checking.
         // end
-        post.setUserId(userId);
-        post.setUserName(userName);
         post.setCreatedDate(new Date());
         post.setModifiedDate(new Date());
         return postService.createPost(post);
