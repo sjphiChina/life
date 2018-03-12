@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import sjph.life.user.client.PersonRestTemplateClient;
 import sjph.life.user.dto.UserDto;
+import sjph.life.user.model.User;
 import sjph.life.user.service.UserService;
 import sjph.life.user.utils.UserContextHolder;
 
@@ -30,7 +31,7 @@ import sjph.life.user.utils.UserContextHolder;
  */
 @SuppressWarnings("javadoc")
 @RestController
-@RequestMapping(value="v1/user/authentication/{userId}")
+@RequestMapping(value="v1/user/authentication/{email}")
 public class UserAuthenticationController {
 
     private static final Logger logger = LoggerFactory.getLogger(UserAuthenticationController.class);
@@ -39,11 +40,12 @@ public class UserAuthenticationController {
     private UserService         userService;
 
     @RequestMapping(value="/",method = RequestMethod.GET)
-    public String showUser(@PathVariable("userId") String userId) {
-        UserDto user = userService.findUser(userId);
-        return user.toString();
+    public User findUser(@PathVariable("email") String email) {
+        User user = userService.findUserByEmail(email);
+        logger.info("<<<<Find user: " + user.toString());
+        return user;
     }
-    
+
     @RequestMapping(value="/info",method = RequestMethod.GET)
     public String showUserInfo(@PathVariable("userId") String userId) {
         logger.debug("user access, correlationId: {}", UserContextHolder.getContext().getCorrelationId());

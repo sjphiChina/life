@@ -1,12 +1,10 @@
 /**
  * 
  */
-package sjph.life.user.model;
+package sjph.life.authentication.user;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import sjph.life.user.model.User;
 
 /**
  * @author shaohuiguo
