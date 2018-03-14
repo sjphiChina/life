@@ -5,10 +5,10 @@ import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
+//import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -17,13 +17,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import sjph.life.model.User;
-import sjph.life.model.state.UserState;
-import sjph.life.security.authentication.AuthenticatedUser;
-import sjph.life.service.RelationshipService;
-import sjph.life.service.UserService;
-import sjph.life.service.dto.UserDto;
 import sjph.life.website.exception.UserNotFoundException;
+import sjph.life.website.model.User;
+import sjph.life.website.model.UserDto;
+import sjph.life.website.model.UserState;
+import sjph.life.website.service.RelationshipService;
+import sjph.life.website.service.UserService;
 
 /**
  * @author shaohuiguo
@@ -34,7 +33,7 @@ import sjph.life.website.exception.UserNotFoundException;
 @RequestMapping("user")
 public class UserController {
 
-    private static final Logger LOGGER = LogManager.getLogger(UserController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
     @Autowired(required = true)
     private UserService         userService;
@@ -51,17 +50,17 @@ public class UserController {
     @RequestMapping(value = "/follow", method = RequestMethod.GET)
     public String followUser(@RequestParam("userId") String userId, Model model) {
         // command is a reserved request attribute name, now use <form> tag to show object data
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (principal instanceof AuthenticatedUser) {
-            User loginedUser = ((AuthenticatedUser) principal).getUserOfLife();
-            //UserDto loginedUserDto = new UserDto(loginedUser);
-            //model.addAttribute("loginedUser", loginedUserDto);
-            UserDto following = userService.findUser(userId);
-            model.addAttribute("user", following);
-            relationshipService.follow(String.valueOf(loginedUser.getId()), userId);
-            model.addAttribute("followed", true);
-            return "redirect:/" + following.getUserName();
-        }
+//        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        if (principal instanceof AuthenticatedUser) {
+//            User loginedUser = ((AuthenticatedUser) principal).getUserOfLife();
+//            //UserDto loginedUserDto = new UserDto(loginedUser);
+//            //model.addAttribute("loginedUser", loginedUserDto);
+//            UserDto following = userService.findUser(userId);
+//            model.addAttribute("user", following);
+//            relationshipService.follow(String.valueOf(loginedUser.getId()), userId);
+//            model.addAttribute("followed", true);
+//            return "redirect:/" + following.getUserName();
+//        }
         LOGGER.error("Cannot found user, userId=" + userId);
         throw new UserNotFoundException("Cannot found user, userId=" + userId);
     }
@@ -69,17 +68,17 @@ public class UserController {
     @RequestMapping(value = "/unfollow", method = RequestMethod.GET)
     public String unfollowUser(@RequestParam("userId") String userId, Model model) {
         //UserDto userDto = null;
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (principal instanceof AuthenticatedUser) {
-            User loginedUser = ((AuthenticatedUser) principal).getUserOfLife();
-            //UserDto loginedUserDto = new UserDto(loginedUser);
-            //model.addAttribute("loginedUser", loginedUserDto);
-            UserDto followingDto = userService.findUser(userId);
-            //model.addAttribute("user", userDto);
-            relationshipService.unFollow(String.valueOf(loginedUser.getId()), userId);
-            model.addAttribute("followed", false);
-            return "redirect:/" + followingDto.getUserName();
-        }
+//        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        if (principal instanceof AuthenticatedUser) {
+//            User loginedUser = ((AuthenticatedUser) principal).getUserOfLife();
+//            //UserDto loginedUserDto = new UserDto(loginedUser);
+//            //model.addAttribute("loginedUser", loginedUserDto);
+//            UserDto followingDto = userService.findUser(userId);
+//            //model.addAttribute("user", userDto);
+//            relationshipService.unFollow(String.valueOf(loginedUser.getId()), userId);
+//            model.addAttribute("followed", false);
+//            return "redirect:/" + followingDto.getUserName();
+//        }
         LOGGER.error("Cannot found user, userId=" + userId);
         throw new UserNotFoundException("Cannot found user, userId=" + userId);
     }

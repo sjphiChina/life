@@ -1,7 +1,7 @@
 package sjph.life.website.controller.user;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import sjph.life.service.UserService;
-import sjph.life.service.dto.UserDto;
-import sjph.life.service.exception.UserNotFoundException;
+import sjph.life.website.exception.UserNotFoundException;
+import sjph.life.website.model.UserDto;
+import sjph.life.website.service.UserService;
 
 /**
  * @author shaohuiguo
@@ -22,7 +22,7 @@ import sjph.life.service.exception.UserNotFoundException;
 @RequestMapping("{username}/about")
 public class UserAboutController {
 
-    private static final Logger LOGGER = LogManager.getLogger(UserAboutController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserAboutController.class);
 
     @Autowired(required = true)
     private UserService         userService;

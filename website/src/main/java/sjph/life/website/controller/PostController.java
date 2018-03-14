@@ -15,16 +15,14 @@
  */
 package sjph.life.website.controller;
 
-import java.io.File;
 import java.util.Collection;
-import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
+//import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -32,18 +30,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import sjph.life.model.Post;
-import sjph.life.model.User;
-import sjph.life.security.authentication.AuthenticatedUser;
-import sjph.life.service.PostService;
-import sjph.life.service.Range;
-import sjph.life.service.RelationshipService;
-import sjph.life.service.dto.PostDto;
 import sjph.life.website.exception.PostNotFoundException;
 import sjph.life.website.exception.RequestFailedException;
+import sjph.life.website.model.Post;
+import sjph.life.website.model.PostDto;
+import sjph.life.website.service.PostService;
+import sjph.life.website.service.Range;
+import sjph.life.website.service.RelationshipService;
 
 /**
  * Controller for {@link PostDto} operations.
@@ -55,7 +50,7 @@ import sjph.life.website.exception.RequestFailedException;
 @RequestMapping("posts")
 public class PostController {
 
-    private static final Logger LOGGER = LogManager.getLogger(PostController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(PostController.class);
 
     @Autowired(required = true)
     private PostService         postService;
@@ -69,19 +64,19 @@ public class PostController {
     @RequestMapping("/list")
     public String showPosts(Model model) {
         Collection<PostDto> list = null;
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (principal instanceof AuthenticatedUser) {
-            User user = ((AuthenticatedUser) principal).getUserOfLife();
-            model.addAttribute("loginedUser", user);
-            list = postService.listUserPosts(String.valueOf(user.getId()), new Range());
-            // TODO need to refine this, add it to user object
-            long numberOfFollower = relationshipService
-                    .getNumberOfFollower(String.valueOf(user.getId()));
-            model.addAttribute("numberOfFollower", numberOfFollower);
-        }
-        else {
+        //Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        if (principal instanceof AuthenticatedUser) {
+//            User user = ((AuthenticatedUser) principal).getUserOfLife();
+//            model.addAttribute("loginedUser", user);
+//            list = postService.listUserPosts(String.valueOf(user.getId()), new Range());
+//            // TODO need to refine this, add it to user object
+//            long numberOfFollower = relationshipService
+//                    .getNumberOfFollower(String.valueOf(user.getId()));
+//            model.addAttribute("numberOfFollower", numberOfFollower);
+//        }
+//        else {
             list = postService.listPosts(new Range());
-        }
+//        }
         LOGGER.info("The size of all posts is " + list.size());
         model.addAttribute("posts", list);
         Post post = new Post();
@@ -123,38 +118,38 @@ public class PostController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String processAddPostForm(@ModelAttribute("post") Post post,
             HttpServletRequest request) {
-        if (LOGGER.isDebugEnabled()) {
-            LOGGER.info("HttpServletRequest content: ", request.getPathInfo());
-        }
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = null;
-        if (principal instanceof AuthenticatedUser) {
-            user = ((AuthenticatedUser) principal).getUserOfLife();
-        }
-        else {
-            throw new RequestFailedException("Cannot find user.");
-        }
-        // encodeText(post.getContent(), WebConfig.CHARACTER_ENCODING_SET);
-        // Here I still use the original content, the code above is just for checking.
-        post.setUserId(user.getId());
-        post.setUserName(user.getUserName());
-        post.setCreatedDate(new Date());
-        post.setModifiedDate(new Date());
-        long postId = postService.createPost(post);
-        MultipartFile contentImage = post.getContentImage();
-        // String rootDirectory = request.getSession().getServletContext().getRealPath("/");
-
-        if (contentImage != null && !contentImage.isEmpty()) {
-            try {
-                // contentImage.transferTo(
-                // new File(rootDirectory + "resources/images/" + postId + ".png"));
-                contentImage.transferTo(
-                        new File("/data/local/life/data/images/posts/" + postId + ".png"));
-            }
-            catch (Exception e) {
-                throw new RuntimeException("Product Image saving failed", e);
-            }
-        }
+//        if (LOGGER.isDebugEnabled()) {
+//            LOGGER.info("HttpServletRequest content: ", request.getPathInfo());
+//        }
+//        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        User user = null;
+//        if (principal instanceof AuthenticatedUser) {
+//            user = ((AuthenticatedUser) principal).getUserOfLife();
+//        }
+//        else {
+//            throw new RequestFailedException("Cannot find user.");
+//        }
+//        // encodeText(post.getContent(), WebConfig.CHARACTER_ENCODING_SET);
+//        // Here I still use the original content, the code above is just for checking.
+//        post.setUserId(user.getId());
+//        post.setUserName(user.getUserName());
+//        post.setCreatedDate(new Date());
+//        post.setModifiedDate(new Date());
+//        long postId = postService.createPost(post);
+//        MultipartFile contentImage = post.getContentImage();
+//        // String rootDirectory = request.getSession().getServletContext().getRealPath("/");
+//
+//        if (contentImage != null && !contentImage.isEmpty()) {
+//            try {
+//                // contentImage.transferTo(
+//                // new File(rootDirectory + "resources/images/" + postId + ".png"));
+//                contentImage.transferTo(
+//                        new File("/data/local/life/data/images/posts/" + postId + ".png"));
+//            }
+//            catch (Exception e) {
+//                throw new RuntimeException("Product Image saving failed", e);
+//            }
+//        }
 
         return "redirect:/posts/list";
     }

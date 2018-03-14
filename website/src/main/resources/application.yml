@@ -1,0 +1,5 @@
+#Setting logging levels
+logging:
+  level:
+    org.springframework.web: WARN
+    sjph.life.website: DEBUG
