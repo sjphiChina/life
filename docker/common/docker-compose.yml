@@ -231,11 +231,11 @@ services:
       SERVER_PORT: "9411"
     networks:
       - app
-  logspout:
-    image: gliderlabs/logspout
-    command: syslog://logs2.papertrailapp.com:14280
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+#  logspout:
+#    image: gliderlabs/logspout
+#    command: syslog://logs2.papertrailapp.com:14280
+#    volumes:
+#      - /var/run/docker.sock:/var/run/docker.sock
   lifewebstie:
     image: sjphichina/life-portal-website:0.7
     ports:
@@ -245,6 +245,13 @@ services:
     environment:
       PROFILE: "default"
       SERVER_PORT: "8080"
+      CONFIGSERVER_PORT: 9888
+      CONFIGSERVER_URI: "http://lifeconfsvr:9888"
+      EUREKASERVER_PORT: 8761
+      EUREKASERVER_URI: "http://lifeeurekaserver:8761/eureka/"
+      ZIPKIN_URI: "http://lifezipkin:9411"
+      ZIPKIN_PORT:         "9411"
+      ENCRYPT_KEY:       "IMSYMMETRIC"
     networks:
       - app
 

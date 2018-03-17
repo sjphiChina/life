@@ -16,6 +16,7 @@
 package sjph.life.website.controller;
 
 import java.util.Collection;
+import java.util.LinkedList;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -77,8 +78,13 @@ public class PostController {
 //        else {
             list = postService.listPosts(new Range());
 //        }
-        LOGGER.info("The size of all posts is " + list.size());
-        model.addAttribute("posts", list);
+            if (list != null && list.size() != 0) {
+
+                LOGGER.info("The size of all posts is " + list.size());
+                model.addAttribute("posts", list);
+            } else {
+                model.addAttribute("posts", new LinkedList<PostDto>());
+            }
         Post post = new Post();
         model.addAttribute("post", post);
         return "posts";

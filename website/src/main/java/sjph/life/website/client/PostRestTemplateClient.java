@@ -1,11 +1,16 @@
 package sjph.life.website.client;
 
 import java.util.Collection;
+import java.util.LinkedList;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import sjph.life.website.model.Post;
@@ -22,7 +27,7 @@ public class PostRestTemplateClient {
     private static final Logger LOGGER = LoggerFactory.getLogger(PostRestTemplateClient.class);
 
     @Autowired
-    RestTemplate                networkRestTemplate;
+    RestTemplate                postRestTemplate;
 
     public Long createPost(Post post) {
         return null;
@@ -33,6 +38,18 @@ public class PostRestTemplateClient {
     }
 
     public Collection<PostDto> listPosts(Range range) {
+        try {
+            ResponseEntity<Collection<PostDto>> restExchange = postRestTemplate.exchange(
+                    "http://lifepost/v1/post/list", HttpMethod.GET, null,new ParameterizedTypeReference<Collection<PostDto>>(){});
+
+            return restExchange.getBody();
+        }
+        catch (RestClientException e) {
+            LOGGER.error("Cannot finish the request: ", e);
+        }
+        catch (IllegalStateException e) {
+            LOGGER.error("Cannot finish the request: ", e);
+        }
         return null;
     }
 
