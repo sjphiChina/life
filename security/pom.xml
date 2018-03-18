@@ -1,29 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-<!--   <groupId>sjph.life.security</groupId>
-  <artifactId>sjph-life-security</artifactId>
+  <groupId>sjph.life.module</groupId>
+  <artifactId>life-module-security</artifactId>
   <name>security group pom</name>
   <description>Life Security</description>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
   <parent>
-    <groupId>sjph.life.build</groupId>
-    <artifactId>sjph-life-build-release-base</artifactId>
+    <groupId>sjph.life</groupId>
+    <artifactId>life-parent-pom</artifactId>
     <version>1.0-SNAPSHOT</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
 
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+  </properties>
+
+
   <dependencies>
     <dependency>
-      <groupId>sjph.life.model</groupId>
-      <artifactId>sjph-life-model</artifactId>
+      <groupId>sjph.life.module</groupId>
+      <artifactId>life-module-model</artifactId>
     </dependency>
-    <dependency>
+    <!-- <dependency>
       <groupId>sjph.life.service</groupId>
       <artifactId>sjph-life-service</artifactId>
-    </dependency>
+    </dependency> -->
     <dependency>
       <groupId>org.springframework.security</groupId>
       <artifactId>spring-security-config</artifactId>
@@ -37,9 +45,17 @@
       <artifactId>spring-security-core</artifactId>
     </dependency>
     <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+        </dependency>
+    <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>javax.servlet-api</artifactId>
       <scope>provided</scope>
     </dependency>
-  </dependencies> -->
+  </dependencies>
 </project>

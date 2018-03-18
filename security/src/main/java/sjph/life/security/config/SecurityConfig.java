@@ -1,4 +1,4 @@
-package sjph.life.user.security.config;
+package sjph.life.security.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -10,8 +10,7 @@ import org.springframework.context.annotation.Configuration;
 //import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 //import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
-import sjph.life.user.security.authentication.LifeUserDetailsService;
-import sjph.life.user.model.UserRole;
+
 
 /**
  * @author shaohuiguo
