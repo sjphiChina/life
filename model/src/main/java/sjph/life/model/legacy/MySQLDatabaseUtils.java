@@ -13,14 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package sjph.life.platform.database;
+package sjph.life.model.legacy;
 
-import javax.sql.DataSource;
-
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 /**
  * Connection configuration for MySQL database.
@@ -28,27 +22,27 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
  * @author Shaohui Guo
  *
  */
-@Configuration
+//@Configuration
 public class MySQLDatabaseUtils {
 
     /**
      * @return a {@link DataSource} of MySQL
      */
-    @Bean
-    public DataSource dataSource() {
-        DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
-        driverManagerDataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        driverManagerDataSource.setUrl("jdbc:mysql://localhost:3306/life_common");
-        driverManagerDataSource.setUsername("root");
-        driverManagerDataSource.setPassword("admin");
-        return driverManagerDataSource;
-    }
-
-    /**
-     * @return a {@link JdbcTemplate} for MySQL {@link DataSource}
-     */
-    @Bean("mysqlJdbcTemplate")
-    public JdbcTemplate getJdbcTemplate() {
-        return new JdbcTemplate(dataSource());
-    }
+//    @Bean
+//    public DataSource dataSource() {
+//        DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
+//        driverManagerDataSource.setDriverClassName("com.mysql.jdbc.Driver");
+//        driverManagerDataSource.setUrl("jdbc:mysql://localhost:3306/life_common");
+//        driverManagerDataSource.setUsername("root");
+//        driverManagerDataSource.setPassword("admin");
+//        return driverManagerDataSource;
+//    }
+//
+//    /**
+//     * @return a {@link JdbcTemplate} for MySQL {@link DataSource}
+//     */
+//    @Bean("mysqlJdbcTemplate")
+//    public JdbcTemplate getJdbcTemplate() {
+//        return new JdbcTemplate(dataSource());
+//    }
 }

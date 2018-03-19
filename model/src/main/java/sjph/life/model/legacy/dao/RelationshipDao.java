@@ -1,7 +1,7 @@
 /**
  * 
  */
-package sjph.life.model.dao;
+package sjph.life.model.legacy.dao;
 
 import java.util.List;
 

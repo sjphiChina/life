@@ -1,4 +1,4 @@
-package sjph.life.authentication.user;
+package sjph.life.model.user;
 
 public class UserSerialization {
 

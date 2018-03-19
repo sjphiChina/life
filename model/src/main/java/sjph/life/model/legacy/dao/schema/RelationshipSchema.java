@@ -1,9 +1,9 @@
 /**
  * 
  */
-package sjph.life.model.dao.schema;
+package sjph.life.model.legacy.dao.schema;
 
-import sjph.life.platform.database.DatabaseConstants;
+//import sjph.life.platform.database.DatabaseConstants;
 
 /**
  * @author shaohuiguo
@@ -15,5 +15,5 @@ public enum RelationshipSchema {
     USER_ID,
     FOLLOWER_ID;
 
-    public static final String tableName = DatabaseConstants.SCHEMA_OBJECT_PREFIX + "relationship";
+    //public static final String tableName = DatabaseConstants.SCHEMA_OBJECT_PREFIX + "relationship";
 }

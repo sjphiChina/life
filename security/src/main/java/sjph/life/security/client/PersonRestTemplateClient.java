@@ -1,4 +1,4 @@
-package sjph.life.authentication.user;
+package sjph.life.security.client;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
+
+import sjph.life.model.user.User;
 
 /**
  * @author Shaohui Guo
@@ -25,7 +27,7 @@ public class PersonRestTemplateClient {
     // commandProperties={
     // @HystrixProperty(name="execution.isolation.thread.timeoutInMillisecondes", value="15000")}
     // )
-    public User getUser(String email) {
+    public User findUserByEmail(String email) {
         LOGGER.info("<<<< The requested user email is: " + email);
         try {
             ResponseEntity<User> restExchange = networkRestTemplate.exchange(

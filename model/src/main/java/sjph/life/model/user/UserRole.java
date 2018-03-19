@@ -1,7 +1,7 @@
 /**
  * 
  */
-package sjph.life.authentication.user;
+package sjph.life.model.user;
 
 import java.util.HashMap;
 import java.util.Map;

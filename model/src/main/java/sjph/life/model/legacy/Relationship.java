@@ -1,7 +1,7 @@
 /**
  * 
  */
-package sjph.life.model;
+package sjph.life.model.legacy;
 
 /**
  * Currently I just use sql to implement this logic and related, will switch to nosql later.

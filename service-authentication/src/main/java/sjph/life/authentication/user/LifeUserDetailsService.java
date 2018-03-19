@@ -15,6 +15,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import sjph.life.security.client.PersonRestTemplateClient;
+import sjph.life.model.user.User;
+import sjph.life.model.user.UserRole;
+import sjph.life.model.user.UserState;
+
 
 /**
  * @author shaohuiguo
@@ -30,7 +35,7 @@ public class LifeUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = personRestTemplateClient.getUser(email);
+        User user = personRestTemplateClient.findUserByEmail(email);
         if (user != null) {
             logger.info("Found User: " + user.toString());
             logger.info("USER role: " + UserRole.Role.USER.toString());

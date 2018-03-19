@@ -15,8 +15,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import sjph.life.model.UserRole;
-import sjph.life.model.UserState;
+import sjph.life.model.user.UserRole;
+import sjph.life.model.user.UserState;
 import sjph.life.security.service.UserService;
 
 /**
@@ -33,7 +33,7 @@ public class LifeUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        sjph.life.model.User user = userService.findUserByEmail(email);
+        sjph.life.model.user.User user = userService.findUserByEmail(email);
         if (user != null) {
             LOGGER.info("Found User: " + user.toString());
             LOGGER.info("USER role: " + UserRole.Role.USER.toString());
@@ -68,7 +68,7 @@ public class LifeUserDetailsService implements UserDetailsService {
         return authorities;
     }
 
-    private AuthenticatedUser buildUserForAuthentication(sjph.life.model.User user,
+    private AuthenticatedUser buildUserForAuthentication(sjph.life.model.user.User user,
             List<GrantedAuthority> result) {
         boolean enabled = true;
         boolean accountNonExpired = true;

@@ -21,9 +21,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import sjph.life.model.User;
-import sjph.life.model.UserDto;
-import sjph.life.model.UserNotFoundException;
+import sjph.life.model.user.User;
+import sjph.life.model.user.UserNotFoundException;
 import sjph.life.security.client.PersonRestTemplateClient;
 
 
@@ -38,15 +37,15 @@ public class UserService {
     @Autowired(required = true)
     private PersonRestTemplateClient         personRestTemplateClient;
 
-    public UserDto findUser(String userId) throws UserNotFoundException {
-        UserDto userDto = personRestTemplateClient.findUser(userId);
-        if (userDto != null) {
-            LOGGER.info("Using cache to get UserDto: " + userDto.toString());
-            return userDto;
-        }
-        
-        throw new UserNotFoundException("Cannot find user: userId=" + userId);
-    }
+//    public UserDto findUser(String userId) throws UserNotFoundException {
+//        UserDto userDto = personRestTemplateClient.findUser(userId);
+//        if (userDto != null) {
+//            LOGGER.info("Using cache to get UserDto: " + userDto.toString());
+//            return userDto;
+//        }
+//        
+//        throw new UserNotFoundException("Cannot find user: userId=" + userId);
+//    }
 
     public User findUserByEmail(String email) throws UserNotFoundException {
         User user = personRestTemplateClient.findUserByEmail(email);
@@ -56,14 +55,14 @@ public class UserService {
         throw new UserNotFoundException("Cannot find user: email=" + email);
     }
 
-    public UserDto findUserByUserName(String userName) throws UserNotFoundException {
-        UserDto userDto = personRestTemplateClient.findUserByUserName(userName);
-        if (userDto != null) {
-            LOGGER.info("Using cache to get UserDto: " + userDto.toString());
-            return userDto;
-        }
-        throw new UserNotFoundException("Cannot find user: userName=" + userName);
-    }
+//    public UserDto findUserByUserName(String userName) throws UserNotFoundException {
+//        UserDto userDto = personRestTemplateClient.findUserByUserName(userName);
+//        if (userDto != null) {
+//            LOGGER.info("Using cache to get UserDto: " + userDto.toString());
+//            return userDto;
+//        }
+//        throw new UserNotFoundException("Cannot find user: userName=" + userName);
+//    }
 
 
 }
