@@ -1,11 +1,11 @@
-package sjph.life.security.config;
+package sjph.life.website.security;
 
-//import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
+import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 
 /**
  * @author shaohuiguo
  *
  */
-//public class SecurityWebApplicationInitializer extends AbstractSecurityWebApplicationInitializer {
-public class SecurityWebApplicationInitializer{
+public class SecurityWebApplicationInitializer extends AbstractSecurityWebApplicationInitializer {
+
 }

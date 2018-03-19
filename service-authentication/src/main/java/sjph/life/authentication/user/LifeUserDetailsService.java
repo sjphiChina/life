@@ -25,13 +25,13 @@ import sjph.life.model.user.UserState;
  * @author shaohuiguo
  *
  */
-@Service("lifeUserDetailsService")
+//@Service("lifeUserDetailsService")
 public class LifeUserDetailsService implements UserDetailsService {
 
     private static final Logger logger = LoggerFactory.getLogger(LifeUserDetailsService.class);
 
-    @Autowired(required = true)
-    private PersonRestTemplateClient         personRestTemplateClient;
+    //@Autowired(required = true)
+    private PersonRestTemplateClient         personRestTemplateClient;                                                                                                                                                                                                                                                                                                                                                         
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {

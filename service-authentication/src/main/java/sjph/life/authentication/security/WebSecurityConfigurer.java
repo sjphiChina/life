@@ -10,7 +10,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
-import sjph.life.authentication.user.LifeUserDetailsService;
+import sjph.life.security.authentication.LifeUserDetailsService;
 
 /**
  * @author Shaohui guo

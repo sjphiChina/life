@@ -7,4 +7,12 @@ services:
     environment:
       PROFILE: "default"
       SERVER_PORT: "8080"
+      CONFIGSERVER_PORT: 9888
+      CONFIGSERVER_URI: "http://lifeconfsvr:9888"
+      EUREKASERVER_PORT: 8761
+      EUREKASERVER_URI: "http://lifeeurekaserver:8761/eureka/"
+      ZIPKIN_URI: "http://lifezipkin:9411"
+      ZIPKIN_PORT:         "9411"
+      ENCRYPT_KEY:       "IMSYMMETRIC"
+
 

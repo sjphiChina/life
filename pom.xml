@@ -18,9 +18,8 @@
 
 
 <properties>
-    <spring.version>5.0.4.RELEASE</spring.version>
-    <spring.security.version>5.0.3.RELEASE</spring.security.version>
-    <log4j.version>2.8.2</log4j.version>
+<!--    <spring.version>5.0.4.RELEASE</spring.version>-->
+<!--    <spring.security.version>5.0.3.RELEASE</spring.security.version>-->
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -33,7 +32,7 @@
 <!--    </dependency>-->
 <!--</dependencies>-->
 
-    <modules>
+<!--    <modules>-->
 <!--       <module>service-authentication</module>-->
 <!--       <module>platform-eureka</module>-->
 <!--       <module>service-confsvr</module>-->
@@ -44,8 +43,8 @@
 <!--              <module>service-zuul</module>-->
 <!--       <module>util-zipkin</module>-->
 <!--<module>model</module>-->
-    </modules>
-    
+<!--    </modules>-->
+
     <profiles>
         <profile>
             <id>full</id>
@@ -53,7 +52,7 @@
                 <module>model</module>
                 <module>security</module>
                 <module>website</module>
-                <module>service-authentication</module>
+<!--                <module>service-authentication</module>-->
             </modules>
             <activation>
                 <activeByDefault>true</activeByDefault>
@@ -83,33 +82,33 @@
         </dependency>
         
         <!-- Spring framwork -->
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-config</artifactId>
-            <version>${spring.security.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-web</artifactId>
-            <version>${spring.security.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-core</artifactId>
-            <version>${spring.security.version}</version>
-        </dependency>
-        
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.security</groupId>-->
+<!--            <artifactId>spring-security-config</artifactId>-->
+<!--            <version>${spring.security.version}</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.security</groupId>-->
+<!--            <artifactId>spring-security-web</artifactId>-->
+<!--            <version>${spring.security.version}</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.security</groupId>-->
+<!--            <artifactId>spring-security-core</artifactId>-->
+<!--            <version>${spring.security.version}</version>-->
+<!--        </dependency>-->
+
         <!-- Log4j -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>${slf4j.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <version>${slf4j.version}</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.slf4j</groupId>-->
+<!--            <artifactId>slf4j-log4j12</artifactId>-->
+<!--            <version>${slf4j.version}</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.slf4j</groupId>-->
+<!--            <artifactId>slf4j-simple</artifactId>-->
+<!--            <version>${slf4j.version}</version>-->
+<!--        </dependency>-->
     </dependencies>
 </dependencyManagement>
 
