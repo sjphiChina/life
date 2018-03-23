@@ -21,10 +21,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import sjph.life.model.user.User;
+import sjph.life.model.user.UserDto;
 import sjph.life.website.client.PersonRestTemplateClient;
 import sjph.life.website.exception.UserNotFoundException;
-import sjph.life.website.model.User;
-import sjph.life.website.model.UserDto;
 import sjph.life.website.service.UserService;
 
 /**

@@ -53,6 +53,7 @@
                 <module>security</module>
                 <module>website</module>
 <!--                <module>service-authentication</module>-->
+<!--<module>service-zuul</module>-->
             </modules>
             <activation>
                 <activeByDefault>true</activeByDefault>

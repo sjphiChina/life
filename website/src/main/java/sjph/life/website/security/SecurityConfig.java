@@ -4,15 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.DependsOn;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import sjph.life.model.user.UserRole;
-import sjph.life.security.authentication.LifeUserDetailsService;
 
 
 /**
@@ -23,11 +22,9 @@ import sjph.life.security.authentication.LifeUserDetailsService;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Bean("lifeUserDetailsService")
-    @DependsOn
-    public LifeUserDetailsService getLifeUserDetailsService(){
-        return new LifeUserDetailsService();
-    }
+    @Autowired(required = true)
+    @Qualifier("lifeUserDetailsService")
+    private LifeUserDetailsService lifeUserDetailsService;
 
     // @Autowired
     // public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
@@ -38,7 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @SuppressWarnings("javadoc")
     @Autowired
     public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(getLifeUserDetailsService());
+        auth.userDetailsService(lifeUserDetailsService);
         auth.authenticationProvider(authenticationProvider());
     }
 
@@ -48,7 +45,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity.formLogin().loginPage("/login").usernameParameter("email")
                 .passwordParameter("password");
 
-        httpSecurity.formLogin().defaultSuccessUrl("/posts/list").failureUrl("/login?error");
+        //httpSecurity.formLogin().defaultSuccessUrl("/posts/list").failureUrl("/login?error");
+        httpSecurity.formLogin().failureUrl("/login?error");
+        httpSecurity.formLogin().successHandler(getSuccessHandler("/posts/list"));
 
         httpSecurity.logout().logoutSuccessUrl("/login?logout");
 
@@ -72,10 +71,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     /**
      * @return a {@link DaoAuthenticationProvider}
      */
-    //@Bean
-    public DaoAuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-        authenticationProvider.setUserDetailsService(getLifeUserDetailsService());
+    @Bean
+    public LifeAuthenticationProvider authenticationProvider() {
+        LifeAuthenticationProvider authenticationProvider = new LifeAuthenticationProvider();
+        authenticationProvider.setUserDetailsService(lifeUserDetailsService);
         return authenticationProvider;
+    }
+    
+    @Bean
+    public AuthenticationSuccessHandler getSuccessHandler(String defaultTargetUrl) {
+        LifeWebsiteAuthenticationSuccessHandler lifeWebsiteAuthenticationSuccessHandler = new LifeWebsiteAuthenticationSuccessHandler();
+        lifeWebsiteAuthenticationSuccessHandler.setDefaultTargetUrl(defaultTargetUrl);
+        lifeWebsiteAuthenticationSuccessHandler.setAlwaysUseDefaultTargetUrl(false);
+        return lifeWebsiteAuthenticationSuccessHandler;
     }
 }

@@ -1,4 +1,4 @@
-package sjph.life.security.authentication;
+package sjph.life.website.security;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -17,7 +17,8 @@ import org.springframework.stereotype.Service;
 
 import sjph.life.model.user.UserRole;
 import sjph.life.model.user.UserState;
-import sjph.life.security.service.UserService;
+import sjph.life.security.authentication.AuthenticatedUser;
+import sjph.life.website.service.UserService;
 
 /**
  * @author shaohuiguo

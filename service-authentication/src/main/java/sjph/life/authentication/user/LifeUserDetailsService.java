@@ -15,7 +15,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import sjph.life.security.client.PersonRestTemplateClient;
+import sjph.life.authentication.client.PersonRestTemplateClient;
 import sjph.life.model.user.User;
 import sjph.life.model.user.UserRole;
 import sjph.life.model.user.UserState;
@@ -25,12 +25,12 @@ import sjph.life.model.user.UserState;
  * @author shaohuiguo
  *
  */
-//@Service("lifeUserDetailsService")
+@Service("lifeUserDetailsService")
 public class LifeUserDetailsService implements UserDetailsService {
 
     private static final Logger logger = LoggerFactory.getLogger(LifeUserDetailsService.class);
 
-    //@Autowired(required = true)
+    @Autowired(required = true)
     private PersonRestTemplateClient         personRestTemplateClient;                                                                                                                                                                                                                                                                                                                                                         
 
     @Override

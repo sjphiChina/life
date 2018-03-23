@@ -9,9 +9,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
+import sjph.life.model.user.User;
+import sjph.life.model.user.UserDto;
 import sjph.life.website.exception.UserNotFoundException;
-import sjph.life.website.model.User;
-import sjph.life.website.model.UserDto;
 
 /**
  * @author Shaohui Guo
@@ -48,6 +48,20 @@ public class PersonRestTemplateClient {
      * @throws UserNotFoundException
      */
     public User findUserByEmail(String email) throws UserNotFoundException {
+        LOGGER.info("<<<< The requested user email is: " + email);
+        try {
+            ResponseEntity<User> restExchange = networkRestTemplate.exchange(
+                    "http://lifeuser/v1/user/authentication/{email}/", HttpMethod.GET, null,
+                    User.class, email);
+
+            return restExchange.getBody();
+        }
+        catch (RestClientException e) {
+            LOGGER.error("Cannot finish the request: ", e);
+        }
+        catch (IllegalStateException e) {
+            LOGGER.error("Cannot finish the request: ", e);
+        }
         return null;
     }
 

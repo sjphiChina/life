@@ -1,4 +1,4 @@
-package sjph.life.security.client;
+package sjph.life.authentication.client;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

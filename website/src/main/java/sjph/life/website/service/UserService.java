@@ -15,9 +15,9 @@
  */
 package sjph.life.website.service;
 
+import sjph.life.model.user.User;
+import sjph.life.model.user.UserDto;
 import sjph.life.website.exception.UserNotFoundException;
-import sjph.life.website.model.User;
-import sjph.life.website.model.UserDto;
 
 /**
  * Provides services for {@link UserDto}.

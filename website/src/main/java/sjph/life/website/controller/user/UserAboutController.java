@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import sjph.life.model.user.UserDto;
 import sjph.life.website.exception.UserNotFoundException;
-import sjph.life.website.model.UserDto;
 import sjph.life.website.service.UserService;
 
 /**

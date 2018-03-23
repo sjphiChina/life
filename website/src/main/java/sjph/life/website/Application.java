@@ -3,6 +3,7 @@ package sjph.life.website;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
@@ -26,6 +27,7 @@ public class Application extends SpringBootServletInitializer {
     public RestTemplate getRestTemplate() {
         RestTemplate template = new RestTemplate();
         return template;
+        //return new RestTemplateBuilder().basicAuthorization("life-app", "thisissecret").build();
     }
     
     @Bean

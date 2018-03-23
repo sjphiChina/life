@@ -38,3 +38,4 @@ zuul:
     lifefriendship: /friendship/**
     lifeuser: /user/**
     lifepost: /post/**
+    lifeauthentication: /authentication/**

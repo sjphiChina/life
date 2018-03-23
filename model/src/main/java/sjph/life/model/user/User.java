@@ -18,6 +18,10 @@ package sjph.life.model.user;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * Model for user object.
  * 
@@ -38,6 +42,9 @@ public class User implements Serializable {
     private String        lastName;
     private String        portray;
     private int           level;
+
+    @JsonIgnore
+    private MultipartFile profileImage;
 
     public Long getId() {
         return id;
@@ -125,6 +132,14 @@ public class User implements Serializable {
 
     public void setLevel(int level) {
         this.level = level;
+    }
+
+    public MultipartFile getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(MultipartFile profileImage) {
+        this.profileImage = profileImage;
     }
 
     @Override

@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import sjph.life.model.user.User;
+import sjph.life.model.user.UserDto;
+import sjph.life.model.user.UserState;
 import sjph.life.website.exception.UserNotFoundException;
-import sjph.life.website.model.User;
-import sjph.life.website.model.UserDto;
-import sjph.life.website.model.UserState;
 import sjph.life.website.service.RelationshipService;
 import sjph.life.website.service.UserService;
 
