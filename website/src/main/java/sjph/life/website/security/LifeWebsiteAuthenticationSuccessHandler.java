@@ -24,6 +24,6 @@ public class LifeWebsiteAuthenticationSuccessHandler
             throws ServletException, IOException {
         this.logger.debug("Passed authentication in website, will get token from Authentication service, then forward the page ");
         AuthenticatedTokenUserDeligate authenticatedTokenUser = authenticationRestTemplateClient.getAuthenticatedToken(authentication);
-        super.onAuthenticationSuccess(request, response, authentication);
+        super.onAuthenticationSuccess(request, response, authenticatedTokenUser);
     }
 }

@@ -88,7 +88,7 @@
           <!-- Post Create Box
             ================================================= -->
           <div class="create-post">
-            <form:form method="POST" action="/life/posts/add" modelAttribute="post"
+            <form:form method="POST" action="/posts/add" modelAttribute="post"
               enctype="multipart/form-data">
               <fieldset>
                 <div class="row">

@@ -94,8 +94,8 @@ public class PostRestController {
      * @param id the user id of user
      * @return a list of {@link PostDto}
      */
-    @RequestMapping(value = "/list/{userId}", method = RequestMethod.GET)
-    public Collection<PostDto> showUserPosts(@PathVariable("userId") String id) {
+    @RequestMapping(value = "/timeline/{userId}", method = RequestMethod.GET)
+    public Collection<PostDto> showUserTimeline(@PathVariable("userId") String id) {
         Collection<PostDto> list = postService.listUserTimeline(id, new Range());
         LOGGER.info("The size of all posts is " + list.size());
         return list;

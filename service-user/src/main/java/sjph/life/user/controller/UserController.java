@@ -30,7 +30,7 @@ import sjph.life.user.utils.UserContextHolder;
  */
 @SuppressWarnings("javadoc")
 @RestController
-@RequestMapping(value="v1/user/{userId}")
+@RequestMapping(value="v1/user")
 public class UserController {
 
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
@@ -38,14 +38,15 @@ public class UserController {
     @Autowired(required = true)
     private UserService         userService;
 
-    @RequestMapping(value="/",method = RequestMethod.GET)
-    public String showUser(@PathVariable("userId") String userId) {
+    @RequestMapping(value="/id/{userId}/",method = RequestMethod.GET)
+    public UserDto showUser(@PathVariable("userId") String userId) {
         UserDto user = userService.findUser(userId);
-        return user.toString();
+        logger.debug("Get user info, user {}", user.toString());
+        return user;
     }
     
-    @RequestMapping(value="/info",method = RequestMethod.GET)
-    public String showUserInfo(@PathVariable("userId") String userId) {
+    @RequestMapping(value="/id/{userId}/info",method = RequestMethod.GET)
+    public String showUserInfoByUserId(@PathVariable("userId") String userId) {
         logger.debug("user access, correlationId: {}", UserContextHolder.getContext().getCorrelationId());
         
         UserDto user = userService.findUser(userId);
@@ -53,6 +54,15 @@ public class UserController {
         return user.toString() + " " + network;
     }
 
+    @RequestMapping(value="/username/{username}/info",method = RequestMethod.GET)
+    public UserDto showUserInfoByUsername(@PathVariable("username") String username) {
+        logger.debug("user access, correlationId: {}", UserContextHolder.getContext().getCorrelationId());
+        
+        UserDto user = userService.findUserByUserName(username);
+        logger.debug("Get user info, user {}", user.toString());
+        return user;
+    }
+    
 //    @RequestMapping(value = "/follow", method = RequestMethod.GET)
 //    public String followUser(@RequestParam("userId") String userId, Model model) {
 //        // command is a reserved request attribute name, now use <form> tag to show object data

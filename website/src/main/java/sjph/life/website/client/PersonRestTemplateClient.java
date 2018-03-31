@@ -39,6 +39,20 @@ public class PersonRestTemplateClient {
      * @throws UserNotFoundException
      */
     public UserDto findUser(String userId) throws UserNotFoundException {
+        LOGGER.info("<<<< The requested user email is: " + userId);
+        try {
+            ResponseEntity<UserDto> restExchange = networkRestTemplate.exchange(
+                    "http://lifeuser/v1/user/id/{userId}/", HttpMethod.GET, null,
+                    UserDto.class, userId);
+
+            return restExchange.getBody();
+        }
+        catch (RestClientException e) {
+            LOGGER.error("Cannot finish the request: ", e);
+        }
+        catch (IllegalStateException e) {
+            LOGGER.error("Cannot finish the request: ", e);
+        }
         return null;
     }
 
@@ -71,6 +85,20 @@ public class PersonRestTemplateClient {
      * @throws UserNotFoundException
      */
     public UserDto findUserByUserName(String userName) {
+        LOGGER.info("<<<< The requested user userName is: " + userName);
+        try {
+            ResponseEntity<UserDto> restExchange = networkRestTemplate.exchange(
+                    "http://lifeuser/v1/user/username/{userName}/info", HttpMethod.GET, null,
+                    UserDto.class, userName);
+
+            return restExchange.getBody();
+        }
+        catch (RestClientException e) {
+            LOGGER.error("Cannot finish the request: ", e);
+        }
+        catch (IllegalStateException e) {
+            LOGGER.error("Cannot finish the request: ", e);
+        }
         return null;
     }
 

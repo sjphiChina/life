@@ -15,7 +15,9 @@
  */
 package sjph.life.website.controller;
 
+import java.io.File;
 import java.util.Collection;
+import java.util.Date;
 import java.util.LinkedList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 //import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,8 +34,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import sjph.life.model.user.User;
+import sjph.life.security.authentication.AuthenticatedUser;
 import sjph.life.website.exception.PostNotFoundException;
 import sjph.life.website.exception.RequestFailedException;
 import sjph.life.website.model.Post;
@@ -65,19 +71,19 @@ public class PostController {
     @RequestMapping("/list")
     public String showPosts(Model model) {
         Collection<PostDto> list = null;
-        //Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        if (principal instanceof AuthenticatedUser) {
-//            User user = ((AuthenticatedUser) principal).getUserOfLife();
-//            model.addAttribute("loginedUser", user);
-//            list = postService.listUserPosts(String.valueOf(user.getId()), new Range());
-//            // TODO need to refine this, add it to user object
-//            long numberOfFollower = relationshipService
-//                    .getNumberOfFollower(String.valueOf(user.getId()));
-//            model.addAttribute("numberOfFollower", numberOfFollower);
-//        }
-//        else {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof AuthenticatedUser) {
+            User user = ((AuthenticatedUser) principal).getUserOfLife();
+            model.addAttribute("loginedUser", user);
+            list = postService.listUserPosts(String.valueOf(user.getId()), new Range());
+            // TODO need to refine this, add it to user object
+            long numberOfFollower = relationshipService
+                    .getNumberOfFollower(String.valueOf(user.getId()));
+            model.addAttribute("numberOfFollower", numberOfFollower);
+        }
+        else {
             list = postService.listPosts(new Range());
-//        }
+        }
             if (list != null && list.size() != 0) {
 
                 LOGGER.info("The size of all posts is " + list.size());
@@ -124,38 +130,38 @@ public class PostController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String processAddPostForm(@ModelAttribute("post") Post post,
             HttpServletRequest request) {
-//        if (LOGGER.isDebugEnabled()) {
-//            LOGGER.info("HttpServletRequest content: ", request.getPathInfo());
-//        }
-//        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        User user = null;
-//        if (principal instanceof AuthenticatedUser) {
-//            user = ((AuthenticatedUser) principal).getUserOfLife();
-//        }
-//        else {
-//            throw new RequestFailedException("Cannot find user.");
-//        }
-//        // encodeText(post.getContent(), WebConfig.CHARACTER_ENCODING_SET);
-//        // Here I still use the original content, the code above is just for checking.
-//        post.setUserId(user.getId());
-//        post.setUserName(user.getUserName());
-//        post.setCreatedDate(new Date());
-//        post.setModifiedDate(new Date());
-//        long postId = postService.createPost(post);
-//        MultipartFile contentImage = post.getContentImage();
-//        // String rootDirectory = request.getSession().getServletContext().getRealPath("/");
-//
-//        if (contentImage != null && !contentImage.isEmpty()) {
-//            try {
-//                // contentImage.transferTo(
-//                // new File(rootDirectory + "resources/images/" + postId + ".png"));
-//                contentImage.transferTo(
-//                        new File("/data/local/life/data/images/posts/" + postId + ".png"));
-//            }
-//            catch (Exception e) {
-//                throw new RuntimeException("Product Image saving failed", e);
-//            }
-//        }
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.info("HttpServletRequest content: ", request.getPathInfo());
+        }
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = null;
+        if (principal instanceof AuthenticatedUser) {
+            user = ((AuthenticatedUser) principal).getUserOfLife();
+        }
+        else {
+            throw new RequestFailedException("Cannot find user.");
+        }
+        // encodeText(post.getContent(), WebConfig.CHARACTER_ENCODING_SET);
+        // Here I still use the original content, the code above is just for checking.
+        post.setUserId(user.getId());
+        post.setUserName(user.getUserName());
+        post.setCreatedDate(new Date());
+        post.setModifiedDate(new Date());
+        long postId = postService.createPost(post);
+        MultipartFile contentImage = post.getContentImage();
+        // String rootDirectory = request.getSession().getServletContext().getRealPath("/");
+
+        if (contentImage != null && !contentImage.isEmpty()) {
+            try {
+                // contentImage.transferTo(
+                // new File(rootDirectory + "resources/images/" + postId + ".png"));
+                contentImage.transferTo(
+                        new File("/data/local/life/data/images/posts/" + postId + ".png"));
+            }
+            catch (Exception e) {
+                throw new RuntimeException("Product Image saving failed", e);
+            }
+        }
 
         return "redirect:/posts/list";
     }

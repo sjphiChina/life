@@ -52,6 +52,8 @@
                 <module>model</module>
                 <module>security</module>
                 <module>website</module>
+<!--                <module>service-user</module>-->
+<!--                <module>service-post</module>-->
 <!--                <module>service-authentication</module>-->
 <!--<module>service-zuul</module>-->
             </modules>
