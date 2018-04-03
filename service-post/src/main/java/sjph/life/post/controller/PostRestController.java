@@ -58,7 +58,7 @@ public class PostRestController {
      * @return id of post created
      */
     @RequestMapping(method = RequestMethod.POST)
-    @ResponseStatus(value = HttpStatus.CREATED)
+    //@ResponseStatus(value = HttpStatus.CREATED)
     public Long createPost(@RequestBody Post post) {
         // TODO  will switch to PostDto later
         // disable this, I will move the encode/decode logic to client side, server side just use

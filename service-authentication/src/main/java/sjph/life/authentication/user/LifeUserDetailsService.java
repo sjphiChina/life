@@ -37,7 +37,7 @@ public class LifeUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = personRestTemplateClient.findUserByEmail(email);
         if (user != null) {
-            logger.info("Found User: " + user.toString());
+            logger.info(">>>>>>>>>>>Found User: " + user.toString());
             logger.info("USER role: " + UserRole.Role.USER.toString());
         }
         else {
@@ -46,7 +46,9 @@ public class LifeUserDetailsService implements UserDetailsService {
         }
 
         List<GrantedAuthority> result = buildUserAuthority(user.getId());
-        return buildUserForAuthentication(user, result);
+        AuthenticatedUser authenticatedUser = buildUserForAuthentication(user, result);
+        logger.info(">>>>>>>>>>>Build AuthenticatedUser: " + authenticatedUser.toString());
+        return authenticatedUser;
     }
 
     // private List<GrantedAuthority> buildUserAuthority(Long userId, Set<UserRole> userRoles) {
@@ -66,7 +68,7 @@ public class LifeUserDetailsService implements UserDetailsService {
         // End
 
         List<GrantedAuthority> authorities = new ArrayList<>(setAuths);
-        logger.info("authorities : {}", authorities);
+        logger.info(">>>>>>>>>>>authorities : {}", authorities);
         return authorities;
     }
 

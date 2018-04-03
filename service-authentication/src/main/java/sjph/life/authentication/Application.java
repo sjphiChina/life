@@ -3,6 +3,8 @@ package sjph.life.authentication;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
@@ -13,8 +15,10 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+
 
 /**
  * @author Shaohui Guo
@@ -27,6 +31,8 @@ import org.springframework.web.client.RestTemplate;
 @EnableAuthorizationServer
 public class Application {
 
+    private static final Logger logger = LoggerFactory.getLogger(Application.class);
+    
     @LoadBalanced
     @Bean
     public RestTemplate getRestTemplate() {
@@ -35,8 +41,9 @@ public class Application {
         return template;
     }
 
-    @RequestMapping(value = { "/user" }, produces = "application/json")
+    @RequestMapping(value = { "/user" }, produces = "application/json", method = RequestMethod.GET)
     public Map<String, Object> user(OAuth2Authentication user) {
+        logger.info(">>>>>>>>>>>>>>auth/user: " + user.toString());
         Map<String, Object> userInfo = new HashMap<>();
         userInfo.put("user", user.getUserAuthentication().getPrincipal());
         userInfo.put("authorities",

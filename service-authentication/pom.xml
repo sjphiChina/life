@@ -23,10 +23,10 @@
       <groupId>sjph.life.module</groupId>
       <artifactId>life-module-model</artifactId>
     </dependency>
-    <dependency>
+<!--     <dependency>
       <groupId>sjph.life.module</groupId>
       <artifactId>life-module-security</artifactId>
-    </dependency>
+    </dependency> -->
 
     <dependency>
       <groupId>org.springframework.boot</groupId>

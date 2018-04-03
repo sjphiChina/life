@@ -42,10 +42,10 @@ public class PostRestTemplateClient {
             headers.setContentType(MediaType.APPLICATION_JSON);
             headers.set("Authorization", authenticatedTokenUserDeligate.getToken_type()+" " + authenticatedTokenUserDeligate.getAccess_token());
             HttpEntity<Post> entity = new HttpEntity<>(post, headers);
-            LOGGER.debug("entity: " + entity.toString());
+            LOGGER.info("entity: " + entity.toString());
             ResponseEntity<Long> restExchange = postRestTemplate.exchange(
                     "http://lifepost/v1/post", HttpMethod.POST, entity, Long.class);
-
+            LOGGER.info("Returned body: "+restExchange.getBody());
             return restExchange.getBody();
         }
         catch (RestClientException e) {

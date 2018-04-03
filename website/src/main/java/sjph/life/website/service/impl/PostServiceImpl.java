@@ -48,6 +48,7 @@ public class PostServiceImpl implements PostService {
         LOGGER.info("Create Post: " + post.toString());
         // post.setContent(encodeText(post.getContent()));
         long id = postRestTemplateClient.createPost(post);
+        post.setId(id);
         LOGGER.info("Created Post: " + post.toString());
         return post.getId();
     }

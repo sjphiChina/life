@@ -130,9 +130,9 @@ public class PostController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String processAddPostForm(@ModelAttribute("post") Post post,
             HttpServletRequest request) {
-        if (LOGGER.isDebugEnabled()) {
+        //if (LOGGER.isDebugEnabled()) {
             LOGGER.info("HttpServletRequest content: ", request.getPathInfo());
-        }
+        //}
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = null;
         if (principal instanceof AuthenticatedUser) {
