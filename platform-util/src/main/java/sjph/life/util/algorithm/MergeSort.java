@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package sjph.life.utils.algorithm;
+package sjph.life.util.algorithm;
 
 import java.util.Collection;
 import java.util.Comparator;

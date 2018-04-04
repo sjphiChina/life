@@ -1,4 +1,4 @@
-package sjph.life.utils.text;
+package sjph.life.util.text;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
