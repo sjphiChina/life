@@ -20,8 +20,8 @@
 
   <dependencies>
     <dependency>
-      <groupId>sjph.life.module</groupId>
-      <artifactId>life-module-model</artifactId>
+      <groupId>sjph.life.platform</groupId>
+      <artifactId>life-platform-model</artifactId>
     </dependency>
 <!--     <dependency>
       <groupId>sjph.life.module</groupId>
