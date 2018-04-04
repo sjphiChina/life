@@ -113,50 +113,63 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Collection<PostDto> listUserPosts(String userId, Range range) {
-        // TODO need more robust logic: lots of null pointer checking
-        Collection<PostDto> postDtoList = postCacheHandler.getUserTimeline(userId, range);
-        if (postDtoList == null || postDtoList.isEmpty()) {
-            Collection<Post> list = postDao.listPosts(Long.valueOf(userId), true);
-            postDtoList = convertPostToPostDto(list);
-            postCacheHandler.loadPosts(postDtoList);
-        }
-        Collection<String> followeeList = socialNetworkService.getFollowing(userId);
-        if (followeeList != null && !followeeList.isEmpty()) {
-            // There are two ways to this merge:
-            // 1. PriorityQueue, merge the head of each list and traverse
-            // 2. Merge all sorted list
-            // Now use the 2.
-            // TODO all just for temp change
-            @SuppressWarnings("unchecked")
-            // avoid it for -1.
-            //Collection<PostDto>[] postDtoArray = new ArrayList[followeeList.size() + 1];
-            Collection<PostDto>[] postDtoArray = new ArrayList[followeeList.size()];
-            int index = 0;
-            if (postDtoList != null && !postDtoList.isEmpty()) {
-                postDtoArray[index++] = postDtoList;
-            } else {
-                postDtoArray[index++] = new LinkedList<>(); 
-            }
-            for (String followingId : followeeList) {
-                Collection<PostDto> tempList = listUserTimeline(followingId, range);
-                if (tempList != null && !tempList.isEmpty()) {
-                    postDtoArray[index++] = tempList;
-                }
-            }
-            MergeSort<PostDto> mergeSortPostDto = new MergeSort<>(new Comparator<PostDto>() {
-                @Override
-                public int compare(PostDto a, PostDto b) {
-                    long diff = Long.valueOf(b.getCreatedDate()) - Long.valueOf(a.getCreatedDate());
-                    if (diff >= 0) {
-                        return 1;
-                    }
-                    return -1;
-                }
-            });
-            Collection<PostDto> result = mergeSortPostDto.mergeKLists(postDtoArray);
-            return result;
-        }
-        return postDtoList;
+        return listUserTimeline(userId, range);
+        // temporarily comment following due to #10
+//        // TODO need more robust logic: lots of null pointer checking
+//        Collection<PostDto> postDtoList = postCacheHandler.getUserTimeline(userId, range);
+//        if (postDtoList == null || postDtoList.isEmpty()) {
+//            Collection<Post> list = postDao.listPosts(Long.valueOf(userId), true);
+//            postDtoList = convertPostToPostDto(list);
+//            postCacheHandler.loadPosts(postDtoList);
+//        }
+//        Collection<String> followeeList = socialNetworkService.getFollowing(userId);
+//        if (followeeList != null && !followeeList.isEmpty()) {
+//            // There are two ways to this merge:
+//            // 1. PriorityQueue, merge the head of each list and traverse
+//            // 2. Merge all sorted list
+//            // Now use the 2.
+//            // TODO all just for temp change
+//            @SuppressWarnings("unchecked")
+//            // avoid it for -1.
+//            //Collection<PostDto>[] postDtoArray = new ArrayList[followeeList.size() + 1];
+//            Collection<PostDto>[] postDtoArray = new ArrayList[followeeList.size()];
+//            int index = 0;
+//            if (postDtoList != null && !postDtoList.isEmpty()) {
+//                postDtoArray[index++] = postDtoList;
+//            } else {
+//                postDtoArray[index++] = new LinkedList<>(); 
+//            }
+//            for (String followingId : followeeList) {
+//                // temp fix for java.lang.NumberFormatException: For input string: "["-1""
+//                // this is the design issue, will fix it later
+//                if (followingId.contains("[") || followingId.contains("]")) {
+//                    LOGGER.error(">>>>>>>>>>Bad followingId: " + followingId);
+//                    continue;
+//                }
+//                Collection<PostDto> tempList = listUserTimeline(followingId, range);
+//                if (tempList != null && !tempList.isEmpty()) {
+//                    postDtoArray[index++] = tempList;
+//                }
+//            }
+//            MergeSort<PostDto> mergeSortPostDto = new MergeSort<>(new Comparator<PostDto>() {
+//                @Override
+//                public int compare(PostDto a, PostDto b) {
+//                    long diff = Long.valueOf(b.getCreatedDate()) - Long.valueOf(a.getCreatedDate());
+//                    if (diff >= 0) {
+//                        return 1;
+//                    }
+//                    return -1;
+//                }
+//            });
+//            Collection<PostDto> result = null;
+//            if (postDtoArray.length > 1) {
+//              result = mergeSortPostDto.mergeKLists(postDtoArray);
+//            } else {
+//              result = postDtoArray[0];
+//            }
+//            return result;
+//        }
+//        return postDtoList;
     }
 
     @Override

@@ -95,7 +95,20 @@ public class PostRestTemplateClient {
     }
 
     public Collection<PostDto> listUserPosts(String userId, Range range) {
-        return null;
+        Collection<PostDto> postDtoList = null;
+        try {
+            ResponseEntity<Collection<PostDto>> restExchange = postRestTemplate.exchange(
+                    "http://lifepost/v1/post/{userId}/list", HttpMethod.GET, null,new ParameterizedTypeReference<Collection<PostDto>>(){}, userId);
+
+            return restExchange.getBody();
+        }
+        catch (RestClientException e) {
+            LOGGER.error("Cannot finish the request: ", e);
+        }
+        catch (IllegalStateException e) {
+            LOGGER.error("Cannot finish the request: ", e);
+        }
+        return postDtoList;
     }
 
     public boolean updatePost(Post post) {

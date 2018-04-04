@@ -91,6 +91,21 @@ public class PostRestController {
     }
 
     /**
+     * @param userId the user id of user
+     * @return a list of {@link PostDto}
+     */
+    @RequestMapping(value = "/{userId}/list", method = RequestMethod.GET)
+    public Collection<PostDto> showUserPostList(@PathVariable("userId") String userId) {
+        Collection<PostDto> list = postService.listUserPosts(userId, new Range());
+        if (list != null) {
+            LOGGER.info("The size of all posts of userId= " + userId + " is " + list.size());
+        } else {
+            LOGGER.info(">>>>>>>>>>There are no any posts for userId=" + userId);
+        }
+        return list;
+    }
+
+    /**
      * @param id the user id of user
      * @return a list of {@link PostDto}
      */
