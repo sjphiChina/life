@@ -11,29 +11,36 @@ import java.util.Date;
  */
 public class DateUtil {
 
-    private ThreadLocal<DateFormat> df = new ThreadLocal<DateFormat>() {
+    private ThreadLocal<DateFormat> df;
 
-        @Override
-        public DateFormat get() {
-            return super.get();
-        }
+    /**
+     * @param lifeDateFormat 
+     * 
+     */
+    public DateUtil(LifeDateFormat lifeDateFormat) {
+        df = new ThreadLocal<DateFormat>() {
 
-        @Override
-        protected DateFormat initialValue() {
-            return new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        }
+            @Override
+            public DateFormat get() {
+                return super.get();
+            }
 
-        @Override
-        public void remove() {
-            super.remove();
-        }
+            @Override
+            protected DateFormat initialValue() {
+                return new SimpleDateFormat(lifeDateFormat.getFormat());
+            }
 
-        @Override
-        public void set(DateFormat value) {
-            super.set(value);
-        }
+            @Override
+            public void remove() {
+                super.remove();
+            }
 
-    };
+            @Override
+            public void set(DateFormat value) {
+                super.set(value);
+            }
+        };
+    }
 
     /**
      * @param dateString
@@ -47,9 +54,8 @@ public class DateUtil {
     /**
      * @param date
      * @return
-     * @throws ParseException
      */
-    public String convertDateToString(Date date) throws ParseException {
+    public String convertDateToString(Date date) {
         return df.get().format(date);
     }
 }

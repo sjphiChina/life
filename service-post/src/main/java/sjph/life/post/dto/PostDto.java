@@ -18,6 +18,7 @@ package sjph.life.post.dto;
 import java.io.Serializable;
 
 import sjph.life.post.model.Post;
+import sjph.life.util.time.DateUtil;
 
 /**
  * DTO for {@link Post}. It is also used by cache.
@@ -53,6 +54,14 @@ public class PostDto implements Serializable {
         this.content = post.getContent();
         this.userId = String.valueOf(post.getUserId());
         this.createdDate = String.valueOf(post.getCreatedDate().getTime());
+        this.userNameDisplaying = post.getUserName();
+    }
+
+    public PostDto(Post post, DateUtil dateUtil) {
+        this.id = String.valueOf(post.getId());
+        this.content = post.getContent();
+        this.userId = String.valueOf(post.getUserId());
+        this.createdDate = dateUtil.convertDateToString(post.getCreatedDate());
         this.userNameDisplaying = post.getUserName();
     }
 
