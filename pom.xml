@@ -52,7 +52,7 @@
                 <module>platform-model</module>
                 <module>platform-security</module>
                 <module>platform-utils</module>
-                <module>website</module>
+                <module>app-website</module>
 <!--                <module>service-user</module>-->
 <!--                <module>service-post</module>-->
 <!--                <module>service-authentication</module>-->
