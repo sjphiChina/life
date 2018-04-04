@@ -50,11 +50,11 @@
             <id>full</id>
             <modules>
                 <module>platform-model</module>
-                <module>security</module>
+                <module>platform-security</module>
                 <module>website</module>
 <!--                <module>service-user</module>-->
 <!--                <module>service-post</module>-->
-                <module>service-authentication</module>
+<!--                <module>service-authentication</module>-->
 <!--<module>service-zuul</module>-->
             </modules>
             <activation>
@@ -71,8 +71,8 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>sjph.life.module</groupId>
-            <artifactId>life-module-security</artifactId>
+            <groupId>sjph.life.platform</groupId>
+            <artifactId>life-platform-security</artifactId>
             <version>${project.version}</version>
         </dependency>
         

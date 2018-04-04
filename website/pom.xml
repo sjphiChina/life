@@ -34,8 +34,8 @@
       <artifactId>life-platform-model</artifactId>
     </dependency>
     <dependency>
-      <groupId>sjph.life.module</groupId>
-      <artifactId>life-module-security</artifactId>
+      <groupId>sjph.life.platform</groupId>
+      <artifactId>life-platform-security</artifactId>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
