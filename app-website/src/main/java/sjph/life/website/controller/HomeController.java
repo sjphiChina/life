@@ -20,6 +20,7 @@ public class HomeController {
         model.addAttribute("greeting", "Welcome to Web Store!");
         model.addAttribute("tagline", "The one and only amazing web store");
 
-        return "welcome";
+        //return "welcome";
+        return "redirect:/posts/list";
     }
 }
