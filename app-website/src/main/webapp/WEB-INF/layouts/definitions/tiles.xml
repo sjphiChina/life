@@ -31,6 +31,11 @@
       <put-attribute name="content" value="/WEB-INF/views/login.jsp" />
    </definition>
    
+   <definition name="404" extends="baseLayout">
+      <put-attribute name="title" value="Not Found" />
+      <put-attribute name="content" value="/WEB-INF/views/errors/404.jsp" />
+   </definition>
+   
    <definition name="register" extends="baseLayout">
       <put-attribute name="title" value="Register" />
       <put-attribute name="heading" value="Welcome to Web Store!" />
