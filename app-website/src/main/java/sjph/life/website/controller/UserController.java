@@ -83,7 +83,7 @@ public class UserController {
         throw new UserNotFoundException("Cannot found user, userId=" + userId);
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    //@RequestMapping(value = "/register", method = RequestMethod.GET)
     public String getAddUserForm(Model model) {
         // command is a reserved request attribute name, now use <form> tag to show object data
         User user = new User();
@@ -91,7 +91,7 @@ public class UserController {
         return "register";
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    //@RequestMapping(value = "/register", method = RequestMethod.POST)
     public String processAddPostForm(@ModelAttribute("user") User user,
             HttpServletRequest request) {
         if (LOGGER.isDebugEnabled()) {

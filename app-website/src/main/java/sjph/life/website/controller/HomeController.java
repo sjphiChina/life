@@ -19,8 +19,8 @@ public class HomeController {
     public String welcome(Model model) {
         model.addAttribute("greeting", "Welcome to Web Store!");
         model.addAttribute("tagline", "The one and only amazing web store");
-
-        //return "welcome";
-        return "redirect:/posts/list";
+        model.addAttribute("name", "郭韶慧");
+        return "welcome";
+        //return "redirect:/posts/list";
     }
 }

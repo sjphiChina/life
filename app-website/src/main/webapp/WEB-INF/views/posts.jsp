@@ -108,10 +108,10 @@
                             class="ion-compose"></i></a></li>
                         <!-- <li><a href="#"><i class="ion-compose"></i></a></li> -->
                         <!-- <li><a href="#"><i class="ion-images"></i></a></li> -->
-                        <li><form:input id="contentImage" path="contentImage" type="file"
+<%--                         <li><form:input id="contentImage" path="contentImage" type="file"
                             class="ion-images" /></li>
                         <li><a href="#"><i class="ion-ios-videocam"></i></a></li>
-                        <li><a href="#"><i class="ion-map"></i></a></li>
+                        <li><a href="#"><i class="ion-map"></i></a></li> --%>
                       </ul>
                       <button type="submit" id="btnAdd" class="btn btn-primary pull-right">Publish</button>
                     </div>
@@ -122,6 +122,7 @@
           </div>
           <!-- Post Create Box End-->
           <!--Popup for image-->
+          
           <div class="modal fade img_posting" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-lg">
               <div class="modal-content">
@@ -148,8 +149,8 @@
           <!-- Post Content
             ================================================= -->
           <div class="post-content">
-            <img src="<c:url value="/img/${post.id}.png"></c:url>" alt="post-image"
-              class="img-responsive post-image" />
+            <!-- <img src="<c:url value="/img/${post.id}.png"></c:url>" alt="post-image"
+              class="img-responsive post-image" />-->
             <div class="post-container">
               <img src="http://placehold.it/300x300" alt="user" class="profile-photo-md pull-left" />
               <div class="post-detail">

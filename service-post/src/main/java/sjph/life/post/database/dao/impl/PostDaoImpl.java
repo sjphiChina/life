@@ -153,7 +153,7 @@ public class PostDaoImpl implements PostDao {
     public List<Post> listPosts(boolean isDescOrder) {
         if (isDescOrder) {
             return jdbcTemplate.query(SELECT_FULL_TABLE_COLUMNS_SQL + " " + ORDER_BY + " "
-                    + PostSchema.CREATED_DT + " " + DESC, postRowMapper);
+                    + PostSchema.CREATED_DT + " " + DESC + " LIMIT 20", postRowMapper);
         }
         return jdbcTemplate.query(SELECT_FULL_TABLE_COLUMNS_SQL, postRowMapper);
     }
