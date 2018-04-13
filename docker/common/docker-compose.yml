@@ -1,13 +1,13 @@
 version: '3'
 services:
   lifeeurekaserver:
-    image: sjphichina/life-service-eureka:0.7
+    image: sjphichina/life-util-eureka:0.7
     ports:
       - "8761:8761"
     networks:
       - app
   lifeconfsvr:
-    image: sjphichina/confsvr:life
+    image: sjphichina/life-util-confsvr:0.7
     ports:
       - "9888:9888"
     depends_on:
@@ -46,7 +46,7 @@ services:
     networks:
        - message_kafka
   lifezuul:
-    image: sjphichina/life-service-zuul:0.7
+    image: sjphichina/life-util-zuul:0.7
     ports:
       - "5555:5555"
     depends_on:
@@ -93,7 +93,7 @@ services:
 #    networks:
 #      - app
   lifefriendship:
-    image: sjphichina/friendship:life
+    image: sjphichina/life-service-friendship:0.7
     ports:
       - "9080:9080"
     depends_on:

@@ -32,18 +32,18 @@
 <!--    </dependency>-->
 <!--</dependencies>-->
 
-<!--    <modules>-->
+    <modules>
 <!--       <module>service-authentication</module>-->
-<!--       <module>platform-eureka</module>-->
-<!--       <module>service-confsvr</module>-->
-<!--       <module>service-friendship</module>-->
-<!--       <module>service-user</module>-->
+       <module>platform-eureka</module>
+       <module>service-confsvr</module>
+       <module>service-friendship</module>
+       <module>service-user</module>
 <!--       <module>service-post</module>-->
 <!--              <module>website</module>-->
-<!--              <module>service-zuul</module>-->
-<!--       <module>util-zipkin</module>-->
+              <module>service-zuul</module>
+       <module>util-zipkin</module>
 <!--<module>model</module>-->
-<!--    </modules>-->
+    </modules>
 
     <profiles>
         <profile>
@@ -54,8 +54,8 @@
                 <module>platform-util</module>
                 <module>app-website</module>
 <!--                <module>service-user</module>-->
-<!--                <module>service-post</module>-->
-<!--                <module>service-authentication</module>-->
+                <module>service-post</module>
+                <module>service-authentication</module>
 <!--<module>service-zuul</module>-->
             </modules>
             <activation>

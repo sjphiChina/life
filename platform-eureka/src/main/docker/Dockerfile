@@ -1,7 +1,7 @@
 FROM openjdk:8-jdk-alpine
 RUN  apk update && apk upgrade && apk add netcat-openbsd
-RUN mkdir -p /usr/local/life/platform-eureka
-ADD @project.build.finalName@.jar /usr/local/life/platform-eureka
+RUN mkdir -p /usr/local/life/util-eureka
+ADD @project.build.finalName@.jar /usr/local/life/util-eureka
 ADD run.sh run.sh
 RUN chmod +x run.sh
 CMD ./run.sh

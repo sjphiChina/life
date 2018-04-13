@@ -4,8 +4,8 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>sjph.life.platform</groupId>
   <artifactId>life-platform-model</artifactId>
-  <name>Platform Model Pom</name>
-  <description>Life General Model</description>
+  <name>Life Platform Model</name>
+  <description>Life Model Platform</description>
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 

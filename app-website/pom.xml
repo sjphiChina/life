@@ -4,8 +4,8 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>sjph.life.app</groupId>
   <artifactId>life-app-website</artifactId>
-  <name>Life Website Pom</name>
-  <description>Life App Website</description>
+  <name>Life App Website</name>
+  <description>Life Website App</description>
   <version>1.0-SNAPSHOT</version>
   <packaging>war</packaging>
 

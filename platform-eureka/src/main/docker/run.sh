@@ -2,4 +2,4 @@
 echo "********************************************************"
 echo "Starting the Eureka Server"
 echo "********************************************************"
-java -Djava.security.egd=file:/dev/./urandom -jar /usr/local/life/platform-eureka/@project.build.finalName@.jar
+java -Djava.security.egd=file:/dev/./urandom -jar /usr/local/life/util-eureka/@project.build.finalName@.jar

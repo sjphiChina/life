@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>sjph.life.service</groupId>
     <artifactId>life-service-user</artifactId>
-    <name>service user group pom</name>
+    <name>Life Service User</name>
     <description>Life User Service</description>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>

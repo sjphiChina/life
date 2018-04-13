@@ -2,13 +2,13 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>sjph.life</groupId>
-  <artifactId>life-service-eureka</artifactId>
+  <groupId>sjph.life.util</groupId>
+  <artifactId>life-util-eureka</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>Eureka Service</name>
-  <description>Life Eureka Service</description>
+  <name>Life Util Eureka</name>
+  <description>Life Eureka Server</description>
 
   <parent>
     <groupId>org.springframework.boot</groupId>
@@ -39,7 +39,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <start-class>sjph.life.eureka.EurekaServerApplication</start-class>
     <java.version>1.8</java.version>
-    <docker.image.name>sjphichina/life-service-eureka</docker.image.name>
+    <docker.image.name>sjphichina/life-util-eureka</docker.image.name>
     <docker.image.tag>0.7</docker.image.tag>
   </properties>
 

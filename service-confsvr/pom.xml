@@ -2,10 +2,10 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>sjph.life</groupId>
-  <artifactId>service-confsvr</artifactId>
-  <name>service conf server group pom</name>
-  <description>Life Server Configuration Service</description>
+  <groupId>sjph.life.util</groupId>
+  <artifactId>life-util-confsvr</artifactId>
+  <name>Life Util Confsvr</name>
+  <description>Life Configuration Server</description>
   <version>1.0.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
@@ -48,8 +48,8 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <start-class>sjph.life.service.confsvr.ConfigServerApplication</start-class>
     <java.version>1.8</java.version>
-    <docker.image.name>sjphichina/confsvr</docker.image.name>
-    <docker.image.tag>life</docker.image.tag>
+    <docker.image.name>sjphichina/life-util-confsvr</docker.image.name>
+    <docker.image.tag>0.7</docker.image.tag>
   </properties>
 
   <build>
