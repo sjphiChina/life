@@ -10,21 +10,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class ServiceConfig {
 
-    @Value("${example.property}")
-    private String exampleProperty;
-
-    @Value("${database.ip}")
-    private String databaseIp;
-
-    @Value("${database.port}")
-    private String databasePort;
-
-    @Value("${database.keyspace}")
-    private String databaseKeyspace;
-
-    @Value("${spring.jpa.show-sql}")
-    private String jpaShowSql;
-
     @Value("${spring.database.driverClassName}")
     private String databaseDriverClassName;
 
@@ -45,26 +30,6 @@ public class ServiceConfig {
 
     @Value("${redis.port}")
     private String redisPort;
-
-    public String getExampleProperty() {
-        return exampleProperty;
-    }
-
-    public String getDatabaseIp() {
-        return databaseIp;
-    }
-
-    public String getDatabasePort() {
-        return databasePort;
-    }
-
-    public String getDatabaseKeyspace() {
-        return databaseKeyspace;
-    }
-
-    public String getJpaShowSql() {
-        return jpaShowSql;
-    }
 
     public String getDatabaseDriverClassName() {
         return databaseDriverClassName;

@@ -61,8 +61,9 @@ public class PostController {
 
     @Autowired(required = true)
     private PostService         postService;
-    @Autowired(required = true)
-    private RelationshipService relationshipService;
+    // comment below for coming release temporarily
+    //@Autowired(required = true)
+    //private RelationshipService relationshipService;
 
     /**
      * @param model model
@@ -77,8 +78,9 @@ public class PostController {
             model.addAttribute("loginedUser", user);
             list = postService.listUserPosts(String.valueOf(user.getId()), new Range());
             // TODO need to refine this, add it to user object
-            long numberOfFollower = relationshipService
-                    .getNumberOfFollower(String.valueOf(user.getId()));
+//            long numberOfFollower = relationshipService
+//                    .getNumberOfFollower(String.valueOf(user.getId()));
+            long numberOfFollower = 2;
             model.addAttribute("numberOfFollower", numberOfFollower);
         }
         else {

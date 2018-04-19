@@ -44,13 +44,9 @@ public class MySQLDatabaseUtils {
     public DataSource dataSource() {
         DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
         driverManagerDataSource.setDriverClassName(config.getDatabaseDriverClassName());
-        //driverManagerDataSource.setUrl(config.getDatasourceUrl());
-//        driverManagerDataSource.setUrl("jdbc:mysql://172.18.0.2:3306/life_common");
-//        driverManagerDataSource.setUsername(config.getDatasourceUsername());
-//        driverManagerDataSource.setPassword(config.getDatasourcePassword());
-        driverManagerDataSource.setUrl("jdbc:mysql://sjph-life-common.ctgb0cuyefjz.us-east-2.rds.amazonaws.com/life_common");
-        driverManagerDataSource.setUsername("sjph");
-        driverManagerDataSource.setPassword("S1h5b2c5m83!");
+        driverManagerDataSource.setUrl(config.getDatasourceUrl());
+        driverManagerDataSource.setUsername(config.getDatasourceUsername());
+        driverManagerDataSource.setPassword(config.getDatasourcePassword());
         return driverManagerDataSource;
     }
 

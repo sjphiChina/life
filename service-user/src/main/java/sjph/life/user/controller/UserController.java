@@ -50,8 +50,10 @@ public class UserController {
         logger.debug("user access, correlationId: {}", UserContextHolder.getContext().getCorrelationId());
         
         UserDto user = userService.findUser(userId);
-        String network = userService.findPersonNetwork(userId);
-        return user.toString() + " " + network;
+        // comment below for coming release temporarily
+        //String network = userService.findPersonNetwork(userId);
+        //return user.toString() + " " + network;
+        return user.toString();
     }
 
     @RequestMapping(value="/username/{username}/info",method = RequestMethod.GET)
