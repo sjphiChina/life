@@ -42,10 +42,10 @@ public class PostRestTemplateClient {
             headers.setContentType(MediaType.APPLICATION_JSON);
             headers.set("Authorization", authenticatedTokenUserDeligate.getToken_type()+" " + authenticatedTokenUserDeligate.getAccess_token());
             HttpEntity<Post> entity = new HttpEntity<>(post, headers);
-            LOGGER.info("entity: " + entity.toString());
+            LOGGER.info(">>>>>>>>>>>>>>entity: " + entity.toString());
             ResponseEntity<Long> restExchange = postRestTemplate.exchange(
                     "http://lifepost/v1/post", HttpMethod.POST, entity, Long.class);
-            LOGGER.info("Returned body: "+restExchange.getBody());
+            LOGGER.info(">>>>>>>>>>>>>>Returned body: "+restExchange.getBody());
             return restExchange.getBody();
         }
         catch (RestClientException e) {
@@ -63,9 +63,17 @@ public class PostRestTemplateClient {
 
     public Collection<PostDto> listPosts(Range range) {
         try {
+            AuthenticatedTokenUserDeligate authenticatedTokenUserDeligate = (AuthenticatedTokenUserDeligate)SecurityContextHolder.getContext().getAuthentication();
+            
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            headers.set("Authorization", authenticatedTokenUserDeligate.getToken_type()+" " + authenticatedTokenUserDeligate.getAccess_token());
+            HttpEntity<Object> entity = new HttpEntity<>(headers);
+            LOGGER.info(">>>>>>>>>>>>>>entity: " + entity.toString());
+            
             ResponseEntity<Collection<PostDto>> restExchange = postRestTemplate.exchange(
-                    "http://lifepost/v1/post/list", HttpMethod.GET, null,new ParameterizedTypeReference<Collection<PostDto>>(){});
-
+                    "http://lifepost/v1/post/list", HttpMethod.GET, entity,new ParameterizedTypeReference<Collection<PostDto>>(){});
+            LOGGER.info(">>>>>>>>>>>>>>Returned body: "+restExchange.getBody());
             return restExchange.getBody();
         }
         catch (RestClientException e) {
@@ -80,9 +88,15 @@ public class PostRestTemplateClient {
     public Collection<PostDto> listUserTimeline(String userId, Range range) {
         Collection<PostDto> postDtoList = null;
         try {
+            AuthenticatedTokenUserDeligate authenticatedTokenUserDeligate = (AuthenticatedTokenUserDeligate)SecurityContextHolder.getContext().getAuthentication();
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            headers.set("Authorization", authenticatedTokenUserDeligate.getToken_type()+" " + authenticatedTokenUserDeligate.getAccess_token());
+            HttpEntity<Object> entity = new HttpEntity<>(headers);
+            LOGGER.info(">>>>>>>>>>>>>>entity: " + entity.toString());
             ResponseEntity<Collection<PostDto>> restExchange = postRestTemplate.exchange(
-                    "http://lifepost/v1/post/timeline/{userId}", HttpMethod.GET, null,new ParameterizedTypeReference<Collection<PostDto>>(){}, userId);
-
+                    "http://lifepost/v1/post/timeline/{userId}", HttpMethod.GET, entity,new ParameterizedTypeReference<Collection<PostDto>>(){}, userId);
+            LOGGER.info(">>>>>>>>>>>>>>Returned body: "+restExchange.getBody());
             return restExchange.getBody();
         }
         catch (RestClientException e) {
@@ -97,9 +111,15 @@ public class PostRestTemplateClient {
     public Collection<PostDto> listUserPosts(String userId, Range range) {
         Collection<PostDto> postDtoList = null;
         try {
+            AuthenticatedTokenUserDeligate authenticatedTokenUserDeligate = (AuthenticatedTokenUserDeligate)SecurityContextHolder.getContext().getAuthentication();
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            headers.set("Authorization", authenticatedTokenUserDeligate.getToken_type()+" " + authenticatedTokenUserDeligate.getAccess_token());
+            HttpEntity<Object> entity = new HttpEntity<>(headers);
+            LOGGER.info(">>>>>>>>>>>>>>entity: " + entity.toString());
             ResponseEntity<Collection<PostDto>> restExchange = postRestTemplate.exchange(
-                    "http://lifepost/v1/post/{userId}/list", HttpMethod.GET, null,new ParameterizedTypeReference<Collection<PostDto>>(){}, userId);
-
+                    "http://lifepost/v1/post/{userId}/list", HttpMethod.GET, entity,new ParameterizedTypeReference<Collection<PostDto>>(){}, userId);
+            LOGGER.info(">>>>>>>>>>>>>>Returned body: "+restExchange.getBody());
             return restExchange.getBody();
         }
         catch (RestClientException e) {

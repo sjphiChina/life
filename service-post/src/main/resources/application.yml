@@ -1,7 +1,7 @@
 security:
   oauth2:
     resource:
-       userInfoUri: http://172.20.0.9:8901/auth/user
+       userInfoUri: http://localhost:8901/auth/user
 
 spring:
 #  sleuth:
@@ -12,7 +12,7 @@ spring:
 eureka:
   instance:
     preferIpAddress: true
-    ipAddress: 172.20.0.6
+    #ipAddress: 172.20.0.6
   client:
     registerWithEureka: true
     fetchRegistry: true
@@ -24,5 +24,5 @@ eureka:
 logging:
   level:
     com.netflix: WARN
-    org.springframework: WARN
+    org.springframework: DEBUG
     sjph.life.post: DEBUG
