@@ -57,7 +57,7 @@
                 </ul> -->
               </li>
               <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Newsfeed <span><img src="/resources/images/down-arrow.png" alt="" /></span></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Newsfeed <span><img src="/life/resources/images/down-arrow.png" alt="" /></span></a>
                 <ul class="dropdown-menu newsfeed-home">
                   <li><a href="<spring:url value="/posts/list"/>">Posts</a></li>
                   <li><a href="resources/html/newsfeed-people-nearby.html">Poeple Nearly</a></li>
@@ -68,7 +68,7 @@
                 </ul>
               </li>
               <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Timeline <span><img src="/resources/images/down-arrow.png" alt="" /></span></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Timeline <span><img src="/life/resources/images/down-arrow.png" alt="" /></span></a>
                 <ul class="dropdown-menu login">
                   <li><a href="timeline.html">Timeline</a></li>
                   <li><a href="timeline-about.html">Timeline About</a></li>
@@ -82,7 +82,7 @@
                 </ul>
               </li>
               <li class="dropdown">
-                <a href="#" class="dropdown-toggle pages" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">All Pages <span><img src="/resources/images/down-arrow.png" alt="" /></span></a>
+                <a href="#" class="dropdown-toggle pages" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">All Pages <span><img src="/life/resources/images/down-arrow.png" alt="" /></span></a>
                 <ul class="dropdown-menu page-list">
                   <li><a href="index.html">Landing Page 1</a></li>
                   <li><a href="index-register.html">Landing Page 2</a></li>
