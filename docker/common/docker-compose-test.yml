@@ -1,7 +1,104 @@
 version: '3'
 services:
+  lifemysql:
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+  lifeeurekaserver:
+    image: sjphichina/life-util-eureka:0.7
+    ports:
+      - "8761:8761"
+    depends_on:
+      - "lifemysql"
+  lifeconfsvr:
+    image: sjphichina/life-util-confsvr:0.7
+    ports:
+      - "9888:9888"
+    environment:
+      EUREKASERVER_URI: "http://lifeeurekaserver:8761/eureka/"
+      EUREKASERVER_PORT: "8761"
+      ENCRYPT_KEY:       "IMSYMMETRIC"
+  lifezipkin:
+    image: sjphichina/life-util-zipkin:0.7
+    ports:
+      - "9411:9411"
+    environment:
+      ZIPKIN_URI: "http://lifezipkin:9411"
+      SERVER_PORT: "9411"
+  liferedis:
+    image: redis:alpine
+    ports:
+      - 6379:6379
+  lifekafka:
+    image: spotify/kafka
+    ports:
+      - 2181:2181
+      - 9092:9092
+  lifezuul:
+    image: sjphichina/life-util-zuul:0.7
+    ports:
+      - "5555:5555"
+    environment:
+      PROFILE: "default"
+      SERVER_PORT: "5555"
+      CONFIGSERVER_URI: "http://lifeconfsvr:9888"
+      EUREKASERVER_URI: "http://lifeeurekaserver:8761/eureka/"
+      EUREKASERVER_PORT:        "8761"
+      CONFIGSERVER_PORT:   "9888"
+      ZIPKIN_URI: "http://lifezipkin:9411"
+      ZIPKIN_PORT:         "9411"
+  lifeauthentication:
+    image: sjphichina/life-service-authentication:0.7
+    ports:
+      - "8901:8901"
+    environment:
+      PROFILE: "default"
+      SERVER_PORT: "8901"
+      DATABASE_PORT:     3306
+      CONFIGSERVER_PORT: 9888
+      EUREKASERVER_PORT: 8761
+      CONFIGSERVER_URI: "http://lifeconfsvr:9888"
+      EUREKASERVER_URI: "http://lifeeurekaserver:8761/eureka/"
+      ENCRYPT_KEY:       "IMSYMMETRIC"
+  lifeuser:
+    image: sjphichina/life-service-user:0.7
+    ports:
+      - "9090:9090"
+    environment:
+      PROFILE: "aws"
+      SERVER_PORT: "9090"
+      EUREKASERVER_URI: "http://lifeeurekaserver:8761/eureka/"
+      EUREKASERVER_PORT:   "8761"
+      CONFIGSERVER_URI: "http://lifeconfsvr:9888"
+      CONFIGSERVER_PORT:   "9888"
+      DB_MYSQL_PORT: "3306"
+      REDIS_PORT:          "6379"
+      KAFKASERVER_URI: "lifekafka"
+      ZKSERVER_URI: "lifekafka"
+      KAFKASERVER_PORT:    "2181"
+      ZIPKIN_URI: "http://lifezipkin:9411"
+      ZIPKIN_PORT:         "9411"
+      ENCRYPT_KEY:       "IMSYMMETRIC"
+  lifepost:
+    image: sjphichina/life-service-post:0.7
+    ports:
+      - "9070:9070"
+    environment:
+      PROFILE: "aws"
+      SERVER_PORT: "9070"
+      EUREKASERVER_URI: "http://lifeeurekaserver:8761/eureka/"
+      EUREKASERVER_PORT:   "8761"
+      CONFIGSERVER_URI: "http://lifeconfsvr:9888"
+      CONFIGSERVER_PORT:   "9888"
+      ZIPKIN_URI: "http://lifezipkin:9411"
+      ZIPKIN_PORT:         "9411"
+      DB_MYSQL_PORT: "3306"
+      REDIS_PORT:          "6379"
+      ENCRYPT_KEY:       "IMSYMMETRIC"
   lifewebstie:
-    image: sjphichina/life-portal-website:0.7
+    image: sjphichina/life-app-website:0.7
     ports:
       - "8080:8080"
     environment:

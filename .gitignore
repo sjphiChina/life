@@ -13,6 +13,3 @@
 
 *.class
 
-service-post/src/main/java/sjph/life/post/security/ResourceServerConfiguration.java
-
-service-post/src/main/java/sjph/life/post/security/SecurityConfig.java
