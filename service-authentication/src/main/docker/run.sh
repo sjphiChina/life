@@ -18,4 +18,5 @@ echo "********************************************************"
 java -Djava.security.egd=file:/dev/./urandom -Dserver.port=$SERVER_PORT   \
      -Deureka.client.serviceUrl.defaultZone=$EUREKASERVER_URI   \
      -Dspring.profiles.active=$PROFILE                                   \
+     -Dspring.zipkin.baseUrl=$ZIPKIN_URI                                  \
      -jar /usr/local/life/service-authentication/@project.build.finalName@.jar

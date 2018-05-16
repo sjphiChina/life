@@ -2,7 +2,11 @@
 logging:
   level:
     org.springframework: WARN
-    sjph.life: WARN
+    sjph.life.authentication: INFO
+
+spring:
+  zipkin:
+    baseUrl: localhost:9411
 
 eureka:
   instance:

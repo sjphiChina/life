@@ -1,4 +1,4 @@
-package sjph.life.authentication;
+package sjph.life.website;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,8 +22,9 @@ public class InspectHeaderFilter implements Filter {
             FilterChain filterChain) throws IOException, ServletException {
 
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
-        logger.info(">>>>>>>>>>The Auth Server:" + httpServletRequest.getRequestURL()
-                + " remoteHost: " + httpServletRequest.getRemoteHost());
+        logger.info(
+                ">>>>>>>>>>The Website Server:" + httpServletRequest.getRequestURL()
+                        + " remoteHost: " + httpServletRequest.getRemoteHost());
         filterChain.doFilter(httpServletRequest, servletResponse);
     }
 

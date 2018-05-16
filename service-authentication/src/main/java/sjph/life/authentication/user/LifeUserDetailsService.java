@@ -38,7 +38,6 @@ public class LifeUserDetailsService implements UserDetailsService {
         User user = personRestTemplateClient.findUserByEmail(email);
         if (user != null) {
             logger.info(">>>>>>>>>>>Found User: " + user.toString());
-            logger.info("USER role: " + UserRole.Role.USER.toString());
         }
         else {
             logger.error("User not found");
@@ -47,7 +46,7 @@ public class LifeUserDetailsService implements UserDetailsService {
 
         List<GrantedAuthority> result = buildUserAuthority(user.getId());
         AuthenticatedUser authenticatedUser = buildUserForAuthentication(user, result);
-        logger.info(">>>>>>>>>>>Build AuthenticatedUser: " + authenticatedUser.toString());
+        logger.debug(">>>>>>>>>>>Build AuthenticatedUser: " + authenticatedUser.toString());
         return authenticatedUser;
     }
 

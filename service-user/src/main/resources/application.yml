@@ -35,5 +35,5 @@ eureka:
 logging:
   level:
     com.netflix: WARN
-    org.springframework.web: WARN
-    sjph.life.user: WARN
+    org.springframework: WARN
+    sjph.life.user: INFO

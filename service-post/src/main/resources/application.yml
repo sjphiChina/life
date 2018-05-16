@@ -24,4 +24,4 @@ eureka:
 logging:
   level:
     org.springframework: WARN
-    sjph.life.authentication: WARN
+    sjph.life.post: INFO

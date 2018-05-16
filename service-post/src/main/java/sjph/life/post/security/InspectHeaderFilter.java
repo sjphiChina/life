@@ -44,10 +44,8 @@ public class InspectHeaderFilter implements Filter {
             FilterChain filterChain) throws IOException, ServletException {
 
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
-        logger.info(">>>>>>>>>>>>>>I AM HITTING THE header filter of Post: "
-                + httpServletRequest.getRequestURL() + " remoteAddr: "
-                + httpServletRequest.getRemoteAddr() + " remoteHost: "
-                + httpServletRequest.getRemoteHost());
+        logger.info(">>>>>>>>>>The Post Server: " + httpServletRequest.getRequestURL()
+                + " remoteHost: " + httpServletRequest.getRemoteHost());
         if (!httpServletRequest.getMethod().equals(HttpMethod.GET.toString())) {
             String token = extractHeaderToken(httpServletRequest);
             if (token != null) {

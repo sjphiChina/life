@@ -8,8 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -34,7 +34,7 @@ import sjph.life.user.model.UserState;
 @Repository
 public class UserDaoImpl implements UserDao {
 
-    private static final Logger LOGGER                        = LogManager
+    private static final Logger LOGGER                        = LoggerFactory
             .getLogger(UserDaoImpl.class);
 
     //@formatter:off

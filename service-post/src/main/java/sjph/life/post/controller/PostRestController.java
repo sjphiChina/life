@@ -86,7 +86,7 @@ public class PostRestController {
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public Collection<PostDto> showPosts() {
         Collection<PostDto> list = postService.listPosts(new Range());
-        LOGGER.info("The size of all posts is " + list.size());
+        LOGGER.info(">>>>>>>>>>>>>>The size of all posts is " + list.size());
         return list;
     }
 
@@ -98,9 +98,9 @@ public class PostRestController {
     public Collection<PostDto> showUserPostList(@PathVariable("userId") String userId) {
         Collection<PostDto> list = postService.listUserPosts(userId, new Range());
         if (list != null) {
-            LOGGER.info("The size of all posts of userId= " + userId + " is " + list.size());
+            LOGGER.info(">>>>>>>>>>>>>>The size of all posts of userId= " + userId + " is " + list.size());
         } else {
-            LOGGER.info(">>>>>>>>>>There are no any posts for userId=" + userId);
+            LOGGER.info(">>>>>>>>>>>>>>There are no any posts for userId=" + userId);
         }
         return list;
     }

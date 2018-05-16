@@ -15,5 +15,5 @@ eureka:
 #Setting logging levels
 logging:
   level:
-    org.springframework.web: WARN
-    sjph.life.website: WARN
+    org.springframework: WARN
+    sjph.life.website: INFO

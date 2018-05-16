@@ -1,24 +1,13 @@
 package sjph.life.user.controller;
 
-import java.io.File;
-import java.util.Date;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
-import sjph.life.user.client.PersonRestTemplateClient;
 import sjph.life.user.dto.UserDto;
 import sjph.life.user.model.User;
 import sjph.life.user.service.UserService;
@@ -42,7 +31,7 @@ public class UserAuthenticationController {
     @RequestMapping(value="/",method = RequestMethod.GET)
     public User findUser(@PathVariable("email") String email) {
         User user = userService.findUserByEmail(email);
-        logger.info("<<<<Find user: " + user.toString());
+        logger.info(">>>>>>>>>>>>>>Find user: " + user.toString());
         return user;
     }
 
