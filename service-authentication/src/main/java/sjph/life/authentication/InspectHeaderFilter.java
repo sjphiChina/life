@@ -23,9 +23,8 @@ public class InspectHeaderFilter implements Filter {
 
 
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
-        System.out.println("I AM HITTING THE AUTH SERVER: " + httpServletRequest.getHeader("Authorization"));
-        logger.info(">>>>>>>>>>>>>>I AM HITTING THE AUTH SERVER Authorization:" + httpServletRequest.getHeader("Authorization"));
-        logger.info(">>>>>>>>>>>>>>I AM HITTING THE AUTH SERVER ParameterMap:" + httpServletRequest.getParameterMap().values());
+        logger.debug(">>>>>>>>>>>>>>I AM HITTING THE AUTH SERVER Authorization:" + httpServletRequest.getHeader("Authorization"));
+        logger.debug(">>>>>>>>>>>>>>I AM HITTING THE AUTH SERVER ParameterMap:" + httpServletRequest.getParameterMap().values());
         filterChain.doFilter(httpServletRequest, servletResponse);
     }
 

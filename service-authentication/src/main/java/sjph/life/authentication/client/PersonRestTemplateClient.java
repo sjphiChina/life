@@ -28,7 +28,7 @@ public class PersonRestTemplateClient {
     // @HystrixProperty(name="execution.isolation.thread.timeoutInMillisecondes", value="15000")}
     // )
     public User findUserByEmail(String email) {
-        LOGGER.info("<<<< The requested user email is: " + email);
+        LOGGER.info(">>>>>>>> The requested user email is: " + email);
         try {
             ResponseEntity<User> restExchange = networkRestTemplate.exchange(
                     "http://lifeuser/v1/user/authentication/{email}/", HttpMethod.GET, null,

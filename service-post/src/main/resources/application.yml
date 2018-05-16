@@ -23,6 +23,5 @@ eureka:
 #Setting logging levels
 logging:
   level:
-    com.netflix: WARN
-    org.springframework: DEBUG
-    sjph.life.post: DEBUG
+    org.springframework: WARN
+    sjph.life.authentication: WARN

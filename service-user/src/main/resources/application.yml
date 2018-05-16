@@ -36,4 +36,4 @@ logging:
   level:
     com.netflix: WARN
     org.springframework.web: WARN
-    sjph.life.user: DEBUG
+    sjph.life.user: WARN

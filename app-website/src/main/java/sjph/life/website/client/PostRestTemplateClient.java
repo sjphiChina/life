@@ -49,10 +49,10 @@ public class PostRestTemplateClient {
             headers.set("Authorization", authenticatedTokenUserDeligate.getToken_type() + " "
                     + authenticatedTokenUserDeligate.getAccess_token());
             HttpEntity<Post> entity = new HttpEntity<>(post, headers);
-            LOGGER.info(">>>>>>>>>>>>>>entity: " + entity.toString());
+            LOGGER.debug(">>>>>>>>>>>>>>entity: " + entity.toString());
             ResponseEntity<Long> restExchange = postRestTemplate.exchange("http://lifepost/v1/post",
                     HttpMethod.POST, entity, Long.class);
-            LOGGER.info(">>>>>>>>>>>>>>Returned body: " + restExchange.getBody());
+            LOGGER.debug(">>>>>>>>>>>>>>Returned body: " + restExchange.getBody());
             return restExchange.getBody();
         }
         catch (RestClientException e) {
@@ -78,7 +78,7 @@ public class PostRestTemplateClient {
                     "http://lifepost/v1/post/list", HttpMethod.GET, entity,
                     new ParameterizedTypeReference<Collection<PostDto>>() {
                     });
-            LOGGER.info(">>>>>>>>>>>>>>Returned body: " + restExchange.getBody());
+            LOGGER.debug(">>>>>>>>>>>>>>Returned body: " + restExchange.getBody());
             return restExchange.getBody();
         }
         catch (RestClientException e) {
@@ -101,7 +101,7 @@ public class PostRestTemplateClient {
                     "http://lifepost/v1/post/timeline/{userId}", HttpMethod.GET, entity,
                     new ParameterizedTypeReference<Collection<PostDto>>() {
                     }, userId);
-            LOGGER.info(">>>>>>>>>>>>>>Returned body: " + restExchange.getBody());
+            LOGGER.debug(">>>>>>>>>>>>>>Returned body: " + restExchange.getBody());
             return restExchange.getBody();
         }
         catch (RestClientException e) {
@@ -124,7 +124,7 @@ public class PostRestTemplateClient {
                     "http://lifepost/v1/post/{userId}/list", HttpMethod.GET, entity,
                     new ParameterizedTypeReference<Collection<PostDto>>() {
                     }, userId);
-            LOGGER.info(">>>>>>>>>>>>>>Returned body: " + restExchange.getBody());
+            LOGGER.debug(">>>>>>>>>>>>>>Returned body: " + restExchange.getBody());
             return restExchange.getBody();
         }
         catch (RestClientException e) {

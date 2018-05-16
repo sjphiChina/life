@@ -16,4 +16,4 @@ eureka:
 logging:
   level:
     org.springframework.web: WARN
-    sjph.life.website: DEBUG
+    sjph.life.website: WARN
