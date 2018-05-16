@@ -5,8 +5,8 @@ server:
 logging:
     level:
       com.netflix: WARN
-      org.springframework.web: WARN
-      sjph.life: DEBUG
+      org.springframework: WARN
+      sjph.life: WARN
 
 eureka:
   instance:

@@ -6,6 +6,6 @@ server:
 #Setting logging levels
 logging:
   level:
-    com.netflix: DEBUG
-    org.springframework.web: DEBUG
-    sjph.life: DEBUG
+    com.netflix: WARN
+    org.springframework: WARN
+    sjph.life: WARN
