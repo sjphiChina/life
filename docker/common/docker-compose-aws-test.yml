@@ -94,10 +94,10 @@ services:
   lifewebstie:
     image: sjphichina/life-app-website:0.7
     ports:
-      - "8080:8080"
+      - "80:80"
     environment:
       PROFILE: "default"
-      SERVER_PORT: "8080"
+      SERVER_PORT: "80"
       CONFIGSERVER_PORT: 9888
       CONFIGSERVER_URI: "http://lifeconfsvr:9888"
       EUREKASERVER_PORT: 8761
