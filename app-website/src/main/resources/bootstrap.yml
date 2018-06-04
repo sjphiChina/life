@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: lifewebsite
+  profiles:
+    active:
+      default
+  cloud:
+    config:
+      enabled: true

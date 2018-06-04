@@ -1,0 +1,41 @@
+server:
+  port: 5555
+
+  #Setting logging levels
+logging:
+    level:
+      com.netflix: WARN
+      org.springframework: WARN
+      sjph.life: WARN
+
+eureka:
+  instance:
+    preferIpAddress: true
+    #ipAddress: 172.20.0.4
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+        defaultZone: http://localhost:8761/eureka
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 2500
+
+#
+zuul:
+  sensitiveHeaders: Cookie, Set-Cookie
+  ignored-services: '*'
+  debug:
+    request: true
+  prefix:  /api
+  routes:
+    lifeconfsvr: /confsvr/**
+    lifefriendship: /friendship/**
+    lifeuser: /user/**
+    lifepost: /post/**
+    lifeauthentication: /authentication/**

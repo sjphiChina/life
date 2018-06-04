@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: lifeauthentication
+  profiles:
+    active:
+      default
+  cloud:
+    config:
+      enabled: true

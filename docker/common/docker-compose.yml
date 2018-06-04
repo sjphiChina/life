@@ -1,0 +1,264 @@
+version: '3'
+services:
+  lifeeurekaserver:
+    image: sjphichina/life-util-eureka:0.7
+    ports:
+      - "8761:8761"
+    networks:
+      - app
+  lifeconfsvr:
+    image: sjphichina/life-util-confsvr:0.7
+    ports:
+      - "9888:9888"
+    depends_on:
+      - "lifeeurekaserver"
+    environment:
+      EUREKASERVER_URI: "http://lifeeurekaserver:8761/eureka/"
+      EUREKASERVER_PORT: "8761"
+      ENCRYPT_KEY:       "IMSYMMETRIC"
+    networks:
+      - app
+  lifemysql:
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+    networks:
+      - db_mysql
+  lifecassandra:
+    image: cassandra:latest
+    ports:
+      - "9042:9042"
+    networks:
+      - db_cassandra
+  liferedis:
+    image: redis:alpine
+    ports:
+      - 6379:6379
+    networks:
+      - cache_redis
+  lifekafka:
+    image: spotify/kafka
+    ports:
+      - 2181:2181
+      - 9092:9092
+    networks:
+       - message_kafka
+  lifezuul:
+    image: sjphichina/life-util-zuul:0.7
+    ports:
+      - "5555:5555"
+    depends_on:
+      - "lifeeurekaserver"
+      - "lifeconfsvr"
+    environment:
+      PROFILE: "default"
+      SERVER_PORT: "5555"
+      CONFIGSERVER_URI: "http://lifeconfsvr:9888"
+      EUREKASERVER_URI: "http://lifeeurekaserver:8761/eureka/"
+      EUREKASERVER_PORT:        "8761"
+      CONFIGSERVER_PORT:   "9888"
+      ZIPKIN_URI: "http://lifezipkin:9411"
+      ZIPKIN_PORT:         "9411"
+    networks:
+      - app
+  lifeauthentication:
+    image: sjphichina/life-service-authentication:0.7
+    ports:
+      - "8901:8901"
+    environment:
+      PROFILE: "default"
+      SERVER_PORT: "8901"
+      DATABASE_PORT:     3306
+      CONFIGSERVER_PORT: 9888
+      EUREKASERVER_PORT: 8761
+      CONFIGSERVER_URI: "http://lifeconfsvr:9888"
+      EUREKASERVER_URI: "http://lifeeurekaserver:8761/eureka/"
+      ENCRYPT_KEY:       "IMSYMMETRIC"
+    networks:
+      - app
+    depends_on:
+      - "lifezipkin"
+#  lifeconfsvr2:
+#    image: sjphichina/confsvr:life
+#    ports:
+#      - "9889:9889"
+#    depends_on:
+#      - "lifeeurekaserver"
+#    environment:
+#      EUREKASERVER_URI: "http://lifeeurekaserver:8761/eureka/"
+#      EUREKASERVER_PORT: "8761"
+#      ENCRYPT_KEY:       "IMSYMMETRIC"
+#    networks:
+#      - app
+  lifefriendship:
+    image: sjphichina/life-service-friendship:0.7
+    ports:
+      - "9080:9080"
+    depends_on:
+      - "lifeeurekaserver"
+      - "lifeconfsvr"
+      - "lifecassandra"
+      - "liferedis"
+      - "lifepost"
+    environment:
+      PROFILE: "default"
+      SERVER_PORT: "9080"
+      EUREKASERVER_URI: "http://lifeeurekaserver:8761/eureka/"
+      EUREKASERVER_PORT:   "8761"
+      CONFIGSERVER_URI: "http://lifeconfsvr:9888"
+      CONFIGSERVER_PORT:   "9888"
+      DB_CASSANDRA_PORT: "9042"
+      KAFKASERVER_URI: "lifekafka"
+      ZKSERVER_URI: "lifekafka"
+      KAFKASERVER_PORT:    "2181"
+      ZIPKIN_URI: "http://lifezipkin:9411"
+      ZIPKIN_PORT:         "9411"
+      ENCRYPT_KEY:       "IMSYMMETRIC"
+    networks:
+      - app
+      - db_cassandra
+      - cache_redis
+      - message_kafka
+#      AUTHSERVER_URI:   "http://lifeauthentication:8901/auth/user"
+#     AUTHSERVER_PORT:   8091
+#  lifefriendship2:
+#    image: sjphichina/friendship:life
+#    ports:
+#      - "9081:9081"
+#    depends_on:
+#      - "lifeeurekaserver"
+#      - "lifeconfsvr"
+#      - "lifecassandra"
+#      - "liferedis"
+#    environment:
+#      PROFILE: "default"
+#      SERVER_PORT: "9081"
+#      EUREKASERVER_URI: "http://lifeeurekaserver:8761/eureka/"
+#      EUREKASERVER_PORT:   "8761"
+#      CONFIGSERVER_URI: "http://lifeconfsvr:9888"
+#      CONFIGSERVER_PORT:   "9888"
+#      DB_CASSANDRA_PORT: "9042"
+#      ENCRYPT_KEY:       "IMSYMMETRIC"
+#    networks:
+#      - app
+#      - db_cassandra
+#      - cache_redis
+#  lifefriendship3:
+#    image: sjphichina/friendship:life
+#    ports:
+#      - "9082:9082"
+#    depends_on:
+#      - "lifeeurekaserver"
+#      - "lifeconfsvr"
+#      - "lifecassandra"
+#      - "liferedis"
+#    environment:
+#      PROFILE: "default"
+#      SERVER_PORT: "9082"
+#      EUREKASERVER_URI: "http://lifeeurekaserver:8761/eureka/"
+#      EUREKASERVER_PORT:   "8761"
+#      CONFIGSERVER_URI: "http://lifeconfsvr:9888"
+#      CONFIGSERVER_PORT:   "9888"
+#      DB_CASSANDRA_PORT: "9042"
+#      ENCRYPT_KEY:       "IMSYMMETRIC"
+#    networks:
+#      - app
+#      - db_cassandra
+#      - cache_redis
+  lifeuser:
+    image: sjphichina/life-service-user:0.7
+    ports:
+      - "9090:9090"
+    depends_on:
+      - "lifeeurekaserver"
+      - "lifeconfsvr"
+      - "lifemysql"
+      - "liferedis"
+      - "lifezuul"
+    environment:
+      PROFILE: "default"
+      SERVER_PORT: "9090"
+      EUREKASERVER_URI: "http://lifeeurekaserver:8761/eureka/"
+      EUREKASERVER_PORT:   "8761"
+      CONFIGSERVER_URI: "http://lifeconfsvr:9888"
+      CONFIGSERVER_PORT:   "9888"
+      DB_MYSQL_PORT: "3306"
+      KAFKASERVER_URI: "lifekafka"
+      ZKSERVER_URI: "lifekafka"
+      KAFKASERVER_PORT:    "2181"
+      ZIPKIN_URI: "http://lifezipkin:9411"
+      ZIPKIN_PORT:         "9411"
+      ENCRYPT_KEY:       "IMSYMMETRIC"
+    networks:
+      - app
+      - db_mysql
+      - cache_redis
+      - message_kafka
+  lifepost:
+    image: sjphichina/life-service-post:0.7
+    ports:
+      - "9070:9070"
+    depends_on:
+      - "lifeeurekaserver"
+      - "lifeconfsvr"
+      - "lifemysql"
+      - "liferedis"
+      - "lifeuser"
+    environment:
+      PROFILE: "default"
+      SERVER_PORT: "9070"
+      EUREKASERVER_URI: "http://lifeeurekaserver:8761/eureka/"
+      EUREKASERVER_PORT:   "8761"
+      CONFIGSERVER_URI: "http://lifeconfsvr:9888"
+      CONFIGSERVER_PORT:   "9888"
+      ZIPKIN_URI: "http://lifezipkin:9411"
+      DB_MYSQL_PORT: "3306"
+      ENCRYPT_KEY:       "IMSYMMETRIC"
+    networks:
+      - app
+      - db_mysql
+      - cache_redis
+  lifezipkin:
+    image: sjphichina/life-util-zipkin:0.7
+    ports:
+      - "9411:9411"
+    depends_on:
+      - "lifefriendship"
+    environment:
+      ZIPKIN_URI: "http://lifezipkin:9411"
+      SERVER_PORT: "9411"
+    networks:
+      - app
+#  logspout:
+#    image: gliderlabs/logspout
+#    command: syslog://logs2.papertrailapp.com:14280
+#    volumes:
+#      - /var/run/docker.sock:/var/run/docker.sock
+  lifewebstie:
+    image: sjphichina/life-app-website:0.7
+    ports:
+      - "8080:8080"
+    depends_on:
+      - "lifeauthentication"
+    environment:
+      PROFILE: "default"
+      SERVER_PORT: "8080"
+      CONFIGSERVER_PORT: 9888
+      CONFIGSERVER_URI: "http://lifeconfsvr:9888"
+      EUREKASERVER_PORT: 8761
+      EUREKASERVER_URI: "http://lifeeurekaserver:8761/eureka/"
+      ZIPKIN_URI: "http://lifezipkin:9411"
+      ZIPKIN_PORT:         "9411"
+      ENCRYPT_KEY:       "IMSYMMETRIC"
+    networks:
+      - app
+
+networks:
+  db_mysql:
+  db_cassandra:
+  cache_redis:
+  message_kafka:
+  app:
+

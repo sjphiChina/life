@@ -1,0 +1,154 @@
+lifeeurekaserver:
+  image: 976954661146.dkr.ecr.us-east-2.amazonaws.com/sjphichina:eureka
+  mem_limit: 1073741824
+  ports:
+    - "8761:8761"
+
+lifeconfsvr:
+  image: 976954661146.dkr.ecr.us-east-2.amazonaws.com/sjphichina:confsvr
+  mem_limit: 1073741824
+  ports:
+    - "9888:9888"
+  links:
+    - "lifeeurekaserver:lifeeurekaserver"
+  environment:
+    EUREKASERVER_URI: "http://lifeeurekaserver:8761/eureka/"
+    EUREKASERVER_PORT: "8761"
+    ENCRYPT_KEY:       "IMSYMMETRIC"
+
+lifezipkin:
+  image: 976954661146.dkr.ecr.us-east-2.amazonaws.com/sjphichina:zipkin
+  mem_limit: 1073741824
+  ports:
+    - "9411:9411"
+  environment:
+    ZIPKIN_URI: "http://lifezipkin:9411"
+    SERVER_PORT: "9411"
+
+liferedis:
+  image: 976954661146.dkr.ecr.us-east-2.amazonaws.com/sjphichina:redis
+  mem_limit: 1073741824
+  ports:
+    - 6379:6379
+
+lifekafka:
+  image: 976954661146.dkr.ecr.us-east-2.amazonaws.com/sjphichina:kafka
+  mem_limit: 1073741824
+  ports:
+    - 2181:2181
+    - 9092:9092
+
+lifezuul:
+  image: 976954661146.dkr.ecr.us-east-2.amazonaws.com/sjphichina:zuul
+  mem_limit: 1073741824
+  ports:
+    - "5555:5555"
+  links:
+    - "lifeeurekaserver:lifeeurekaserver"
+    - "lifeconfsvr:lifeconfsvr"
+  environment:
+    PROFILE: "default"
+    SERVER_PORT: "5555"
+    CONFIGSERVER_URI: "http://lifeconfsvr:9888"
+    EUREKASERVER_URI: "http://lifeeurekaserver:8761/eureka/"
+    EUREKASERVER_PORT:        "8761"
+    CONFIGSERVER_PORT:   "9888"
+    ZIPKIN_URI: "http://lifezipkin:9411"
+    ZIPKIN_PORT:         "9411"
+
+lifeauthentication:
+  image: 976954661146.dkr.ecr.us-east-2.amazonaws.com/sjphichina:authentication
+  mem_limit: 1073741824
+  ports:
+    - "8901:8901"
+  links:
+    - "lifeeurekaserver:lifeeurekaserver"
+    - "lifeconfsvr:lifeconfsvr"
+    - "lifezipkin:lifezipkin"
+    - "lifeuser:lifeuser"
+  environment:
+    PROFILE: "default"
+    SERVER_PORT: "8901"
+    DATABASE_PORT:     3306
+    CONFIGSERVER_PORT: 9888
+    EUREKASERVER_PORT: 8761
+    CONFIGSERVER_URI: "http://lifeconfsvr:9888"
+    EUREKASERVER_URI: "http://lifeeurekaserver:8761/eureka/"
+    ZIPKIN_URI: "http://lifezipkin:9411"
+    ZIPKIN_PORT:         "9411"
+    ENCRYPT_KEY:       "IMSYMMETRIC"
+
+lifeuser:
+  image: 976954661146.dkr.ecr.us-east-2.amazonaws.com/sjphichina:user
+  mem_limit: 1073741824
+  ports:
+    - "9090:9090"
+  links:
+    - "lifeeurekaserver:lifeeurekaserver"
+    - "lifeconfsvr:lifeconfsvr"
+    - "lifezipkin:lifezipkin"
+    - "liferedis:liferedis"
+    - "lifekafka:lifekafka"
+  environment:
+    PROFILE: "aws"
+    SERVER_PORT: "9090"
+    EUREKASERVER_URI: "http://lifeeurekaserver:8761/eureka/"
+    EUREKASERVER_PORT:   "8761"
+    CONFIGSERVER_URI: "http://lifeconfsvr:9888"
+    CONFIGSERVER_PORT:   "9888"
+    DB_MYSQL_PORT: "3306"
+    REDIS_PORT:          "6379"
+    KAFKASERVER_URI: "lifekafka"
+    ZKSERVER_URI: "lifekafka"
+    KAFKASERVER_PORT:    "2181"
+    ZIPKIN_URI: "http://lifezipkin:9411"
+    ZIPKIN_PORT:         "9411"
+    ENCRYPT_KEY:       "IMSYMMETRIC"
+
+lifepost:
+  image: 976954661146.dkr.ecr.us-east-2.amazonaws.com/sjphichina:post
+  mem_limit: 1073741824
+  ports:
+    - "9070:9070"
+  links:
+    - "lifeeurekaserver:lifeeurekaserver"
+    - "lifeconfsvr:lifeconfsvr"
+    - "lifezipkin:lifezipkin"
+    - "lifeauthentication:lifeauthentication"
+    - "liferedis:liferedis"
+    - "lifezuul:lifezuul"
+  environment:
+    PROFILE: "aws"
+    SERVER_PORT: "9070"
+    EUREKASERVER_URI: "http://lifeeurekaserver:8761/eureka/"
+    EUREKASERVER_PORT:   "8761"
+    CONFIGSERVER_URI: "http://lifeconfsvr:9888"
+    CONFIGSERVER_PORT:   "9888"
+    ZIPKIN_URI: "http://lifezipkin:9411"
+    ZIPKIN_PORT:         "9411"
+    DB_MYSQL_PORT: "3306"
+    REDIS_PORT:          "6379"
+    ENCRYPT_KEY:       "IMSYMMETRIC"
+
+lifewebstie:
+  image: 976954661146.dkr.ecr.us-east-2.amazonaws.com/sjphichina:website
+  mem_limit: 1073741824
+  ports:
+    - "80:80"
+  links:
+    - "lifeeurekaserver:lifeeurekaserver"
+    - "lifeconfsvr:lifeconfsvr"
+    - "lifezipkin:lifezipkin"
+    - "lifeauthentication:lifeauthentication"
+    - "lifepost:lifepost"
+    - "lifeuser:lifeuser"
+  environment:
+    PROFILE: "default"
+    SERVER_PORT: "80"
+    CONFIGSERVER_PORT: 9888
+    CONFIGSERVER_URI: "http://lifeconfsvr:9888"
+    EUREKASERVER_PORT: 8761
+    EUREKASERVER_URI: "http://lifeeurekaserver:8761/eureka/"
+    ZIPKIN_URI: "http://lifezipkin:9411"
+    ZIPKIN_PORT:         "9411"
+    ENCRYPT_KEY:       "IMSYMMETRIC"

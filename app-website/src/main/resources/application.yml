@@ -1,0 +1,19 @@
+spring:
+  zipkin:
+    baseUrl: localhost:9411
+
+eureka:
+  instance:
+    preferIpAddress: true
+    #ipAddress: 172.20.0.10
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+#Setting logging levels
+logging:
+  level:
+    org.springframework: WARN
+    sjph.life.website: INFO

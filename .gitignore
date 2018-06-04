@@ -9,3 +9,7 @@
 **/.dist
 **/.idea
 **/.iml
+**/classes/
+
+*.class
+

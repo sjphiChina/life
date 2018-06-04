@@ -1,3 +1,12 @@
+20180604_release/0.7:
+1. introduce the concept of micro services by Spring Boot and Cloud to refactor the whole project
+2. introduce Spring Boot, Config, Eureka, Zuul, Hystrix, OAuth2, Zipkin and Kafka
+3. friendship service is disabled temporarily due to release deadline and project scope
+4. the implementation of micro service architecture is just a draft: Zuul, Hystrix, Zipkin and Kafka are just in POC state
+5. refine project's naming, framework and fix some bugs
+6. current version is launched in AWS
+7. think about why we used so much time for this release... 
+
 20170806_release/0.6:
 1. introduce redis cache for post, user, friendship
 2. introduce basic cassandra db for friendship
