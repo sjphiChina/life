@@ -44,7 +44,7 @@ public class ShorturlService {
         shorturl.setId(id);
         shorturl.setShorturl(shorturlString);
         shorturlDao.updateShorturlRecord(shorturl);
-        return shorturl.getShorturl();
+        return config.getShorturlDomain() + "/" + shorturl.getShorturl();
     }
 
     public String getLongurl(String shorturl) {
@@ -61,7 +61,7 @@ public class ShorturlService {
             num = num / 62;
         }
         String reversedString = sb.reverse().toString();
-        return config.getShorturlDomain() + "/" + reversedString;
+        return reversedString;
     }
 
 }
