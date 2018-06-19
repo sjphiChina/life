@@ -3,8 +3,8 @@
  */
 package sjph.life.user.event;
 
-import org.springframework.cloud.stream.annotation.Input;
-import org.springframework.messaging.SubscribableChannel;
+//import org.springframework.cloud.stream.annotation.Input;
+//import org.springframework.messaging.SubscribableChannel;
 
 /**
  * @author Shaohui Guo
@@ -12,6 +12,6 @@ import org.springframework.messaging.SubscribableChannel;
  */
 public interface CustomChannels {
 
-    @Input("inboundNetworkChanges")
-    SubscribableChannel networkChanges();
+//    @Input("inboundNetworkChanges")
+//    SubscribableChannel networkChanges();
 }

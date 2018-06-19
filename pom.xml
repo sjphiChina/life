@@ -36,11 +36,11 @@
         <module>platform-model</module>
         <module>platform-security</module>
         <module>platform-util</module>
-<!--        <module>app-website</module>-->
-        <module>service-shorturl</module>
-<!--        <module>service-post</module>-->
+        <module>app-website</module>
+<!--        <module>service-shorturl</module>-->
+        <module>service-post</module>
 <!--        <module>service-authentication</module>-->
-<!--        <module>service-user</module>-->
+        <module>service-user</module>
       </modules>
       <activation>
         <activeByDefault>true</activeByDefault>

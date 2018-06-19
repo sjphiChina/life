@@ -28,13 +28,13 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 //import org.springframework.cloud.sleuth.Sampler;
 //import org.springframework.cloud.sleuth.sampler.AlwaysSampler;
-import org.springframework.cloud.stream.annotation.EnableBinding;
-import org.springframework.cloud.stream.annotation.StreamListener;
-import org.springframework.cloud.stream.messaging.Sink;
+//import org.springframework.cloud.stream.annotation.EnableBinding;
+//import org.springframework.cloud.stream.annotation.StreamListener;
+//import org.springframework.cloud.stream.messaging.Sink;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
-import sjph.life.user.event.model.NetworkChangeModel;
+//import sjph.life.user.event.model.NetworkChangeModel;
 import sjph.life.user.utils.UserContextInterceptor;
 
 /**
@@ -45,8 +45,8 @@ import sjph.life.user.utils.UserContextInterceptor;
 @SpringBootApplication
 @RefreshScope
 @EnableEurekaClient
-@EnableCircuitBreaker
-@EnableBinding(Sink.class)
+//@EnableCircuitBreaker
+//@EnableBinding(Sink.class)
 public class Application {
 
     private static final Logger logger = LoggerFactory.getLogger(Application.class);
@@ -71,10 +71,10 @@ public class Application {
 //        return new AlwaysSampler();
 //    }
 
-  @StreamListener(Sink.INPUT)
-  public void loggerSink(NetworkChangeModel networkChange) {
-      logger.debug("Received an event for network {}", networkChange.toString());
-  }
+//  @StreamListener(Sink.INPUT)
+//  public void loggerSink(NetworkChangeModel networkChange) {
+//      logger.debug("Received an event for network {}", networkChange.toString());
+//  }
     
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);

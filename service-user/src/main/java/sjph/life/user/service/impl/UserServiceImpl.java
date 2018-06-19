@@ -23,8 +23,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
+//import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+//import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 
 import sjph.life.user.cache.UserCacheHandler;
 import sjph.life.user.client.PersonRestTemplateClient;
@@ -142,11 +142,11 @@ public class UserServiceImpl implements UserService {
     //the userContext cannot be passed into children thread somehow, will dig it when debug is 
     //enabled later.
     @Override
-    @HystrixCommand(fallbackMethod = "buildFallbackPersonNetwork",
-            commandProperties={
-                    @HystrixProperty(name="execution.isolation.strategy", value="SEMAPHORE"),
-                     @HystrixProperty(name="execution.isolation.thread.timeoutInMilliseconds", value="15000")}
-    )
+//    @HystrixCommand(fallbackMethod = "buildFallbackPersonNetwork",
+//            commandProperties={
+//                    @HystrixProperty(name="execution.isolation.strategy", value="SEMAPHORE"),
+//                     @HystrixProperty(name="execution.isolation.thread.timeoutInMilliseconds", value="15000")}
+//    )
     public String findPersonNetwork(String userId) throws UserNotFoundException {
         LOGGER.debug("findPersonNetwork, correlationId: {}, threadId: {}", UserContextHolder.getContext().getCorrelationId(), Thread.currentThread().getId());
         //randomlyRunLong();
