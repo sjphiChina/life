@@ -255,6 +255,23 @@ services:
     networks:
       - app
 
+  lifeshorturl:
+    image: sjphichina/life-service-shorturl:0.7
+    ports:
+      - "9060:9060"
+    environment:
+      PROFILE: "aws"
+      SERVER_PORT: "9060"
+      EUREKASERVER_URI: "http://lifeeurekaserver:8761/eureka/"
+      EUREKASERVER_PORT:   "8761"
+      CONFIGSERVER_URI: "http://lifeconfsvr:9888"
+      CONFIGSERVER_PORT:   "9888"
+      ZIPKIN_URI: "http://lifezipkin:9411"
+      ZIPKIN_PORT:         "9411"
+      DB_MYSQL_PORT: "3306"
+      REDIS_PORT:          "6379"
+      ENCRYPT_KEY:       "IMSYMMETRIC"
+
 networks:
   db_mysql:
   db_cassandra:

@@ -22,7 +22,7 @@
   </properties>
 
   <modules>
-    <!-- <module>service-friendship</module> -->
+    <module>service-friendship</module>
     <module>util-eureka</module>
     <module>util-confsvr</module>
     <module>util-zuul</module>
@@ -37,6 +37,7 @@
         <module>platform-security</module>
         <module>platform-util</module>
         <module>app-website</module>
+        <module>service-shorturl</module>
         <module>service-post</module>
         <module>service-authentication</module>
         <module>service-user</module>
