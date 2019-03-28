@@ -36,11 +36,12 @@
         <module>platform-model</module>
         <module>platform-security</module>
         <module>platform-util</module>
-        <module>app-website</module>
-        <module>service-shorturl</module>
+        <module>platform-elasticsearch</module>
+<!--        <module>app-website</module>-->
+<!--        <module>service-shorturl</module>-->
         <module>service-post</module>
-        <module>service-authentication</module>
-        <module>service-user</module>
+<!--        <module>service-authentication</module>-->
+<!--        <module>service-user</module>-->
       </modules>
       <activation>
         <activeByDefault>true</activeByDefault>
@@ -70,6 +71,11 @@
       <dependency>
         <groupId>sjph.life.platform</groupId>
         <artifactId>life-platform-util</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>sjph.life.platform</groupId>
+        <artifactId>life-platform-elasticsearch</artifactId>
         <version>${project.version}</version>
       </dependency>
     </dependencies>

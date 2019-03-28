@@ -49,6 +49,8 @@ public class PostServiceImpl implements PostService {
     private SocialNetworkService socialNetworkService;
     @Autowired(required = true)
     private PostCacheHandler     postCacheHandler;
+    @Autowired(required = true)
+    private ElasticsearchServices     elasticsearchServices;
 
     @Override
     public Long createPost(Post post) {
@@ -59,6 +61,9 @@ public class PostServiceImpl implements PostService {
         DateUtil dateUtil = new DateUtil(LifeDateFormat.YMDHMSAZ);
         postCacheHandler.addPost(convertPostToPostDto(post, dateUtil));
         LOGGER.info("Created Post: " + post.toString());
+        if(!elasticsearchServices.createObject(post)){
+            LOGGER.error("Fail to save Post [" + post.toString() + "] to Elasticsearch.");
+        }
         return post.getId();
     }
 
