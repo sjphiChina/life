@@ -1,3 +1,8 @@
+20180619_release/0.7.1_aws:
+1. special release for aws's spot t2-large instance to save 50% budget: only run eureka, config, authentication, post, user, website, and redis containers, remove zuul, kafka, zipkin, hystrix, disable shorturl service
+20180618_release/0.7.1:
+1. introduce shorturl service, but don't integrate it with post and other services. Just did postman test
+
 20180604_release/0.7:
 1. introduce the concept of micro services by Spring Boot and Cloud to refactor the whole project
 2. introduce Spring Boot, Config, Eureka, Zuul, Hystrix, OAuth2, Zipkin and Kafka
