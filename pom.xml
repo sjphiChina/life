@@ -36,10 +36,14 @@
         <module>platform-model</module>
         <module>platform-security</module>
         <module>platform-util</module>
+        <module>util-eureka</module>
+        <module>util-confsvr</module>
+        <module>util-zuul</module>
+        <module>util-zipkin</module>
         <module>app-website</module>
-<!--        <module>service-shorturl</module>-->
+        <module>service-shorturl</module>
         <module>service-post</module>
-<!--        <module>service-authentication</module>-->
+        <module>service-authentication</module>
         <module>service-user</module>
       </modules>
       <activation>

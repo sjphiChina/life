@@ -3,7 +3,8 @@ spring:
     name: lifeshorturl
   profiles:
     active:
-      default
+      local
   cloud:
     config:
       enabled: true
+      uri: http://localhost:9888

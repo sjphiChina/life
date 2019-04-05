@@ -28,6 +28,9 @@ public class ServiceConfig {
     @Value("${redis.server}")
     private String redisServer;
 
+    @Value("${redis.ip}")
+    private String redisIp;
+
     @Value("${redis.port}")
     private String redisPort;
 
@@ -53,6 +56,10 @@ public class ServiceConfig {
 
     public String getRedisServer() {
         return redisServer;
+    }
+
+    public String getRedisIp() {
+        return redisIp;
     }
 
     public String getRedisPort() {

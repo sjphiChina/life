@@ -25,6 +25,9 @@ public class ServiceConfig {
     @Value("${spring.jpa.properties.hibernate.dialect}")
     private String jpaPropertiesHibernateDialect;
 
+    @Value("${redis.server}")
+    private String redisServer;
+
     @Value("${redis.ip}")
     private String redisIp;
 
@@ -49,6 +52,10 @@ public class ServiceConfig {
 
     public String getJpaPropertiesHibernateDialect() {
         return jpaPropertiesHibernateDialect;
+    }
+
+    public String getRedisServer() {
+        return redisServer;
     }
 
     public String getRedisIp() {

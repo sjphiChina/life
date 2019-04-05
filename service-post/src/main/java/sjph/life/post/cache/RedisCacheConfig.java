@@ -69,8 +69,8 @@ public class RedisCacheConfig {
     public JedisConnectionFactory getJedisConnectionFactory() {
         JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory();
         jedisConnectionFactory.setUsePool(true);
-        jedisConnectionFactory.setHostName("liferedis");
-        //jedisConnectionFactory.setHostName(config.getRedisServer());
+        //jedisConnectionFactory.setHostName("liferedis");
+        jedisConnectionFactory.setHostName(config.getRedisServer());
         jedisConnectionFactory.setPort(Integer.parseInt(config.getRedisPort()));
         // TODO just use temp name right now, will use config later
         //jedisConnectionFactory.setClientName(CACHE_CLIENT_NAME + "test-01");
