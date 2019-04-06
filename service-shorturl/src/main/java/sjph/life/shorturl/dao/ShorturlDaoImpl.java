@@ -45,6 +45,9 @@ public class ShorturlDaoImpl implements ShorturlDao {
                     ShorturlSchema.TABLE_NAME + " " +
             "WHERE ";
 
+    private static final String FIND_BY_ID =
+            SELECT_FULL_TABLE + ShorturlSchema.ID + " = ?";
+
     private static final String FIND_BY_SHORTURL =
             SELECT_FULL_TABLE + ShorturlSchema.SHORTURL + " = ?";
 
@@ -83,6 +86,12 @@ public class ShorturlDaoImpl implements ShorturlDao {
             }
         }, keyHolder);
         return keyHolder.getKey().longValue();
+    }
+
+    @Override
+    public Shorturl findById(long id) {
+        final Object[] sqlParameters = new Object[] { id };
+        return jdbcTemplate.queryForObject(FIND_BY_ID, sqlParameters, shorturlRowMapper);
     }
 
     @Override

@@ -48,20 +48,34 @@ public class ShorturlService {
     }
 
     public String getLongurl(String shorturl) {
-        Shorturl shorturlObject = shorturlDao.findByShorturl(shorturl);
+        long id = converShortUrlToId(shorturl);
+        Shorturl shorturlObject = shorturlDao.findById(id);
         return shorturlObject.getLongurl();
     }
 
-    private String convertLongToShort(long id) {
+    public String convertLongToShort(long id) {
         StringBuilder sb = new StringBuilder();
         long num = id;
         while (num > 0) {
             int index = (int) num % 62;
             sb.append(charsSet.charAt(index));
+            System.out.println(sb);
             num = num / 62;
         }
-        String reversedString = sb.reverse().toString();
-        return reversedString;
+        //String reversedString = sb.reverse().toString();
+        String result = sb.toString();
+        return result;
     }
 
+    public long converShortUrlToId(String shorturl) {
+        long id = 0l;
+        for (int i = 0; i < shorturl.length(); i++) {
+            char c = shorturl.charAt(i);
+            int index = charsSet.lastIndexOf(c);
+            long base = (long)Math.pow(62, i);
+            long num = index * base;
+            id = id + num;
+        }
+        return id;
+    }
 }

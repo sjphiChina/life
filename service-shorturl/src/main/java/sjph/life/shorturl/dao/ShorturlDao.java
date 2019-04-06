@@ -27,6 +27,8 @@ public interface ShorturlDao {
     // rather than longurl -> id 
     long createShorturlRecord(Shorturl shorturlObject);
 
+    Shorturl findById(long id);
+
     Shorturl findByShorturl(String shorturlString);
 
     Shorturl findByLongurl(String longurlString);
