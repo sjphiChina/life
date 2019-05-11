@@ -1,2 +1,2 @@
 # life
-enterprise, explore, experiment, expand, exploit, experience, evolve, eternity
+enterprise, explore, experiment, exploit, expand, experience, evolve, eternity
